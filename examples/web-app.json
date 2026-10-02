@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/L-K-M/apps-site/main/schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "apps": [
+    {
+      "id": "web-tool",
+      "name": "Web Tool",
+      "summary": "Describe what the web app does.",
+      "category": "Utilities",
+      "maturity": "polished",
+      "platforms": ["web"],
+      "links": { "website": "https://tool.example.org" }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/L-K-M/apps-site/main/schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "repository": "https://github.com/your-account/your-app",
+  "apps": [
+    {
+      "id": "your-app",
+      "name": "Your App",
+      "summary": "Describe the task the app helps with.",
+      "description": "Explain how it works and any requirements.\n\nSeparate paragraphs with a blank line.",
+      "category": "Utilities",
+      "maturity": "usable",
+      "maturityNote": "Core features work; the settings UI is still being refined.",
+      "platforms": ["macos", "linux"],
+      "tags": ["notes"],
+      "screenshots": [{ "src": "docs/screenshot.png", "alt": "Describe what the screenshot shows" }],
+      "links": { "download": "https://github.com/your-account/your-app/releases/latest" }
+    }
+  ]
+}

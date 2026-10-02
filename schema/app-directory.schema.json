@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/L-K-M/apps-site/main/schema/app-directory.schema.json",
+  "title": "App directory manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "apps"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "const": 1 },
+    "repository": { "type": "string", "format": "web-url" },
+    "apps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/app" }
+    }
+  },
+  "definitions": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "media": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["src", "alt"],
+      "properties": {
+        "src": { "$ref": "#/definitions/text" },
+        "alt": { "$ref": "#/definitions/text" },
+        "caption": { "$ref": "#/definitions/text" }
+      }
+    },
+    "app": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "summary", "category"],
+      "properties": {
+        "id": { "type": "string", "maxLength": 80, "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "name": { "$ref": "#/definitions/text" },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 240, "pattern": "\\S" },
+        "description": { "$ref": "#/definitions/text" },
+        "category": { "$ref": "#/definitions/text" },
+        "path": { "type": "string", "minLength": 1 },
+        "maturity": { "enum": ["experimental", "usable", "polished"] },
+        "maturityNote": { "$ref": "#/definitions/text" },
+        "platforms": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "enum": ["macos", "windows", "linux", "android", "ios", "web"] }
+        },
+        "tags": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/definitions/text" } },
+        "features": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/definitions/text" } },
+        "icon": { "$ref": "#/definitions/media" },
+        "screenshots": { "type": "array", "items": { "$ref": "#/definitions/media" } },
+        "links": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "website": { "type": "string", "format": "web-url" },
+            "download": { "type": "string", "format": "web-url" },
+            "source": { "type": "string", "format": "web-url" },
+            "docs": { "type": "string", "format": "web-url" }
+          }
+        }
+      },
+      "dependencies": { "maturityNote": ["maturity"] }
+    }
+  }
+}

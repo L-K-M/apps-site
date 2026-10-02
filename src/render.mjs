@@ -1,0 +1,170 @@
+const PLATFORMS = { macos: 'macOS', windows: 'Windows', linux: 'Linux', android: 'Android', ios: 'iOS', web: 'Web' };
+const MATURITY = {
+  experimental: { label: 'Experimental', description: 'An early version. Expect rough edges and changing behaviour.' },
+  usable: { label: 'Usable', description: 'Works for its intended purpose. Some rough edges remain.' },
+  polished: { label: 'Polished', description: 'Refined for regular use, with attention to the details.' },
+};
+const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'Source code', docs: 'Documentation' };
+
+export function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+}
+
+function maturity(app) {
+  return MATURITY[app.maturity]?.label ?? 'Not assessed';
+}
+
+function platformText(app) {
+  return app.platforms.map((platform) => PLATFORMS[platform]).join(', ') || 'Platform not specified';
+}
+
+function mediaUrl(src, prefix) {
+  return src.startsWith('assets/') ? `${prefix}${src}` : src;
+}
+
+function appIcon(app, prefix) {
+  if (!app.icon) return '';
+  return `<img class="app-icon" src="${escapeHtml(mediaUrl(app.icon.src, prefix))}" alt="${escapeHtml(app.icon.alt)}" width="56" height="56" loading="lazy">`;
+}
+
+function canonical(config, path) {
+  if (!config.url) return '';
+  return new URL(path, `${config.url.replace(/\/$/, '')}/`).href;
+}
+
+function document(config, { title, description, content, prefix = '', path = '', scripts = '' }) {
+  const url = canonical(config, path);
+  const author = config.authorUrl
+    ? `<a href="${escapeHtml(config.authorUrl)}">${escapeHtml(config.author ?? 'Author')}</a>`
+    : escapeHtml(config.author ?? config.title);
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(description)}">
+  <meta name="color-scheme" content="light">
+  <meta property="og:title" content="${escapeHtml(title)}">
+  <meta property="og:description" content="${escapeHtml(description)}">
+  <meta property="og:type" content="website">
+  ${url ? `<link rel="canonical" href="${escapeHtml(url)}"><meta property="og:url" content="${escapeHtml(url)}">` : ''}
+  <link rel="icon" href="${prefix}assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="${prefix}assets/style.css">
+  ${scripts}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page">
+    <header class="site-header">
+      <a class="site-name" href="${prefix}index.html">${escapeHtml(config.title)}</a>
+      <nav aria-label="Site"><a href="${prefix}index.html">Directory</a></nav>
+    </header>
+    ${content}
+    <footer class="site-footer"><span>${author}</span><a href="${prefix}apps.json">Catalogue JSON</a></footer>
+  </div>
+</body>
+</html>
+`;
+}
+
+function renderRow(app, index) {
+  const preview = app.screenshots[0];
+  const href = `apps/${app.id}/index.html`;
+  const search = [app.name, app.summary, app.description ?? '', app.category, ...app.tags, ...app.features].join(' ');
+
+  return `<li class="app-row" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? 'unrated'}">
+    <span class="row-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
+    <div class="row-copy">
+      <div class="row-title">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2></div>
+      <p class="app-summary">${escapeHtml(app.summary)}</p>
+      <p class="app-meta"><span>${escapeHtml(platformText(app))}</span><span>${escapeHtml(maturity(app))}</span></p>
+    </div>
+    ${preview ? `<a class="row-preview" href="${href}" aria-label="View ${escapeHtml(app.name)}"><img src="${escapeHtml(mediaUrl(preview.thumbnail ?? preview.src, ''))}" alt="${escapeHtml(preview.alt)}" loading="lazy" width="260" height="160"></a>` : `<span class="row-category">${escapeHtml(app.category)}</span>`}
+  </li>`;
+}
+
+function options(values, label) {
+  return `<option value="">${label}</option>${values.map(([value, text]) => `<option value="${escapeHtml(value)}">${escapeHtml(text)}</option>`).join('')}`;
+}
+
+function renderHome(config, apps) {
+  const categories = [...new Set(apps.map((app) => app.category))].sort((a, b) => a.localeCompare(b, 'en'));
+  const platforms = Object.entries(PLATFORMS).filter(([id]) => apps.some((app) => app.platforms.includes(id)));
+  const categoryLinks = categories.map((category) => {
+    const count = apps.filter((app) => app.category === category).length;
+    return `<a href="?category=${encodeURIComponent(category)}#directory" data-category-link="${escapeHtml(category)}">${escapeHtml(category)}<span>${count}</span></a>`;
+  }).join('');
+  const content = `<main id="main">
+    <div class="masthead"><h1>Apps<span class="title-stop">.</span></h1><p>${apps.length} ${apps.length === 1 ? 'project' : 'projects'}</p></div>
+    <div class="directory-layout" id="directory">
+      <aside class="directory-aside">
+        <nav class="categories" aria-label="Categories" data-enhanced hidden>
+          <h2>Browse</h2><a href="?#directory" data-category-link="" aria-current="true">All apps<span>${apps.length}</span></a>${categoryLinks}
+        </nav>
+        <details class="maturity-key"><summary>Maturity guide</summary><dl>${Object.values(MATURITY).map((state) => `<dt>${state.label}</dt><dd>${state.description}</dd>`).join('')}<dt>Not assessed</dt><dd>No readiness assessment has been supplied.</dd></dl></details>
+      </aside>
+      <section class="directory-main" aria-label="App directory">
+        <form class="filters" role="search" data-enhanced hidden>
+          <label class="search-field">Search apps<input type="search" name="q" placeholder="Name, purpose, or keyword" autocomplete="off"></label>
+          <div class="filter-selects">
+            <label>Platform<select name="platform">${options(platforms, 'All platforms')}</select></label>
+            <label>Maturity<select name="maturity">${options([...Object.entries(MATURITY).map(([id, state]) => [id, state.label]), ['unrated', 'Not assessed']], 'All stages')}</select></label>
+            <label class="mobile-category">Category<select name="category">${options(categories.map((category) => [category, category]), 'All categories')}</select></label>
+            <button type="reset" class="reset-button">Clear</button>
+          </div>
+        </form>
+        <div class="result-line"><p data-result-count role="status" aria-live="polite">${apps.length} ${apps.length === 1 ? 'app' : 'apps'}</p><span>A–Z</span></div>
+        <ol class="app-list">${apps.map(renderRow).join('')}</ol>
+        <div class="empty-state" data-empty hidden><h2>No matching apps</h2><p>Try a different search or clear the filters.</p><button type="button" data-clear>Clear filters</button></div>
+        ${apps.length ? '' : '<p class="catalogue-empty">The directory has no entries yet.</p>'}
+      </section>
+    </div>
+  </main>`;
+
+  return document(config, { title: config.title, description: config.description ?? config.title, content, scripts: '<script src="assets/directory.js" defer></script>' });
+}
+
+function renderDetail(config, app) {
+  const prefix = '../../';
+  const description = app.description ? app.description.split(/\n\s*\n/).map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join('') : '';
+  const links = Object.entries(LINK_LABELS).filter(([key]) => app.links[key]).map(([key, label]) => `<a class="app-link" href="${escapeHtml(app.links[key])}">${label}<span aria-hidden="true">↗</span></a>`).join('');
+  const gallery = app.screenshots.map((image) => {
+    const url = escapeHtml(mediaUrl(image.src, prefix));
+    return `<figure><a href="${url}" aria-label="View full-size screenshot: ${escapeHtml(image.alt)}"><img src="${url}" alt="${escapeHtml(image.alt)}" loading="lazy"></a>${image.caption ? `<figcaption>${escapeHtml(image.caption)}</figcaption>` : ''}</figure>`;
+  }).join('');
+
+  const content = `<main id="main" class="app-detail">
+    <a class="back-link" href="${prefix}index.html">← All apps</a>
+    <header class="detail-heading"><p class="category-label">${escapeHtml(app.category)}</p><div class="detail-title">${appIcon(app, prefix)}<h1>${escapeHtml(app.name)}</h1></div><p class="detail-summary">${escapeHtml(app.summary)}</p></header>
+    <div class="detail-layout">
+      <aside class="detail-facts"><dl><dt>Platforms</dt><dd>${escapeHtml(platformText(app))}${app.platformsInferred ? '<small>Inferred from build files.</small>' : ''}</dd><dt>Maturity</dt><dd>${escapeHtml(maturity(app))}${app.maturityNote ? `<small>${escapeHtml(app.maturityNote)}</small>` : ''}</dd>${app.tags.length ? `<dt>Topics</dt><dd>${app.tags.map(escapeHtml).join(', ')}</dd>` : ''}</dl><nav class="app-links" aria-label="${escapeHtml(app.name)} links">${links}</nav></aside>
+      <div class="detail-body"><section class="description" aria-label="About ${escapeHtml(app.name)}">${description}</section>${app.features.length ? `<section class="features"><h2>What it does</h2><ul>${app.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul></section>` : ''}${gallery ? `<section class="gallery" aria-label="Screenshots">${gallery}</section>` : ''}</div>
+    </div>
+  </main>`;
+
+  return document(config, { title: `${app.name} · ${config.title}`, description: app.summary, content, prefix, path: `apps/${app.id}/` });
+}
+
+export function publicCatalogue(apps) {
+  return apps.map((app) => {
+    const entry = { ...app };
+    delete entry.source;
+    delete entry.path;
+    return entry;
+  });
+}
+
+export function renderSite(config, apps) {
+  const files = new Map([['index.html', renderHome(config, apps)]]);
+  for (const app of apps) files.set(`apps/${app.id}/index.html`, renderDetail(config, app));
+  files.set('apps.json', `${JSON.stringify({ schemaVersion: 1, apps: publicCatalogue(apps) }, null, 2)}\n`);
+
+  if (config.url) {
+    const paths = ['', ...apps.map((app) => `apps/${app.id}/`)];
+    files.set('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${paths.map((path) => `<url><loc>${escapeHtml(canonical(config, path))}</loc></url>`).join('')}</urlset>\n`);
+  }
+
+  return files;
+}

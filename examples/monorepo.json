@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/L-K-M/apps-site/main/schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "repository": "https://github.com/your-account/your-suite",
+  "apps": [
+    {
+      "id": "suite-reader",
+      "name": "Suite Reader",
+      "summary": "Read the documents stored in your library.",
+      "category": "Reading",
+      "maturity": "experimental",
+      "path": "apps/reader",
+      "screenshots": [{ "src": "docs/screenshot.png", "alt": "Reader showing the document library" }]
+    },
+    {
+      "id": "suite-web",
+      "name": "Suite Web",
+      "summary": "Browse your library from a web browser.",
+      "category": "Reading",
+      "maturity": "usable",
+      "path": "apps/web",
+      "platforms": ["web"],
+      "links": { "website": "https://library.example.org" }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "../schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "apps": [
+    {
+      "id": "dwindle",
+      "name": "Dwindle",
+      "summary": "A daily word puzzle on a honeycomb grid that disappears as you solve it.",
+      "description": "Trace hidden words through a hexagonal board. Letters drift away when they are no longer needed, until the board is empty. Daily puzzles are available in English, German, Spanish and Italian.",
+      "category": "Games",
+      "platforms": ["web"],
+      "tags": ["word puzzle", "daily game"],
+      "screenshots": [
+        { "src": "assets/dwindle-light.png", "alt": "Dwindle word puzzle in its light theme", "caption": "A daily board in the light theme." },
+        { "src": "assets/dwindle-dark.png", "alt": "Dwindle word puzzle in its dark theme", "caption": "The same puzzle in the dark theme." }
+      ],
+      "links": { "website": "https://dwindle.ch", "source": "https://github.com/L-K-M/Dwindle" }
+    },
+    {
+      "id": "leaflit",
+      "name": "Leaflit",
+      "summary": "An Android ebook reader with OPDS browsing, comics, and text-to-speech.",
+      "description": "Browse OPDS catalogues, download books, and read EPUB, PDF, CBZ and CBR files. Readium handles EPUBs, including fixed-layout comics. Requires Android 7 or later.",
+      "category": "Reading",
+      "platforms": ["android"],
+      "tags": ["ebooks", "OPDS", "comics"],
+      "links": { "source": "https://github.com/L-K-M/Leaflit" }
+    },
+    {
+      "id": "meltorama",
+      "name": "Meltorama 2000",
+      "summary": "A photo-warping app for macOS and Android.",
+      "description": "Warp photos in an app inspired by the original Meltorama.",
+      "category": "Creative tools",
+      "platforms": ["macos", "android"],
+      "tags": ["photos", "image editing"],
+      "links": { "source": "https://github.com/L-K-M/Meltorama2000", "download": "https://github.com/L-K-M/Meltorama2000/releases/latest" }
+    },
+    {
+      "id": "mirio",
+      "name": "Mirio",
+      "summary": "A browser platformer with a round world, a trip to the moon, and a kart race.",
+      "description": "Explore a small world with its own gravity, take a rocket to the moon, fight Finster-Mirio, and finish with a kart race. The characters and scenery come from Miro's drawings.",
+      "category": "Games",
+      "maturity": "experimental",
+      "maturityNote": "A free, non-commercial experiment.",
+      "platforms": ["web"],
+      "tags": ["platformer", "kart racing"],
+      "links": { "website": "https://goodvantage.ch/mirio/", "source": "https://github.com/Benema3000/mirio" }
+    },
+    {
+      "id": "qrat",
+      "name": "QRat",
+      "summary": "Design QR codes in your browser.",
+      "description": "A browser-based QR code designer.",
+      "category": "Creative tools",
+      "platforms": ["web"],
+      "tags": ["QR codes"],
+      "links": { "website": "https://qrat.love", "source": "https://github.com/L-K-M/qrat.love" }
+    },
+    {
+      "id": "wordwarp",
+      "name": "WordWarp",
+      "summary": "Create warped, metallic, and dimensional text in a browser or native editor.",
+      "description": "A text-art studio with alpha-correct image export. The browser studio and native editors share the drawing engine.",
+      "category": "Creative tools",
+      "platforms": ["web", "macos", "linux", "android"],
+      "tags": ["typography", "image export"],
+      "screenshots": [{ "src": "assets/wordwarp.png", "alt": "WordWarp text-art editor with a dimensional text composition" }],
+      "links": { "website": "https://wordwarp.ch", "source": "https://github.com/L-K-M/WordWarp" }
+    }
+  ]
+}
