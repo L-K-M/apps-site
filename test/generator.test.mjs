@@ -150,6 +150,13 @@ test('an expired build lease is reclaimed but an active lease is respected', asy
   assert.equal(await exists(lock), false);
 });
 
+test('published roots can be read and traversed by a separate static-server user', async (t) => {
+  const OTHER_READ_AND_EXECUTE = 0o005;
+  const { config, output } = await fixture(t, { 'catalogue/app.json': manifest([APP]) });
+  await buildSite(config);
+  assert.equal((await fs.stat(output)).mode & OTHER_READ_AND_EXECUTE, OTHER_READ_AND_EXECUTE);
+});
+
 test('a failed publish and failed rollback preserve the backup for recovery', async (t) => {
   const { config, output, root } = await fixture(t, { 'catalogue/app.json': manifest([APP]) });
   await buildSite(config);

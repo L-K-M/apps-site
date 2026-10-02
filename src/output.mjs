@@ -1,10 +1,11 @@
-import { lstat, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
+import { chmod, lstat, mkdir, mkdtemp, readFile, readdir, rename, rm, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 import lockfile from 'proper-lockfile';
 import { canonicalPath, exists, isWithin } from './paths.mjs';
 
 const OUTPUT_MARKER = '.apps-site';
 const OUTPUT_SIGNATURE = 'apps-site output v1\n';
+const PUBLIC_DIRECTORY_MODE = 0o755;
 const LOCK_STALE_SECONDS = 30;
 const LOCK_STALE_MS = LOCK_STALE_SECONDS * 1000;
 const LOCK_HEARTBEAT_MS = 10000;
@@ -50,6 +51,8 @@ export async function publishSite(output, files, protectedPaths, catalogues = []
   try {
     await validateOutput(output, protectedPaths, catalogues);
     staging = await mkdtemp(join(parent, `.${basename(output)}.apps-site-`));
+    // mkdtemp starts private; a separately owned web server must traverse the root.
+    await chmod(staging, PUBLIC_DIRECTORY_MODE);
     for (const [path, content] of files) {
       const target = join(staging, path);
       await mkdir(dirname(target), { recursive: true });
