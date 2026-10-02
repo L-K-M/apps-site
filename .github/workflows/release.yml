@@ -1,0 +1,35 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      # Prove the tagged code rather than relying on a branch's earlier CI.
+      - run: make check
+      - name: Package the static site
+        run: |
+          mkdir -p build
+          tar -czf "build/apps-site-${GITHUB_REF_NAME#v}.tar.gz" -C dist .
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: build/*.tar.gz
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          make_latest: ${{ !contains(github.ref_name, '-') }}

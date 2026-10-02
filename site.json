@@ -1,0 +1,10 @@
+{
+  "$schema": "./schema/site.schema.json",
+  "title": "Apps by L-K-M",
+  "description": "Desktop utilities, creative tools, and browser games by L-K-M.",
+  "author": "L-K-M",
+  "authorUrl": "https://github.com/L-K-M",
+  "repositoryRoots": [".."],
+  "catalogues": ["catalogue"],
+  "output": "dist"
+}

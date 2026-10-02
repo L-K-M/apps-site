@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "App directory site configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title", "catalogues", "repositoryRoots", "output"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "title": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "description": { "type": "string", "minLength": 1 },
+    "author": { "type": "string", "minLength": 1 },
+    "authorUrl": { "type": "string", "format": "web-url" },
+    "url": { "type": "string", "format": "web-url" },
+    "repositoryRoots": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "catalogues": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "output": { "type": "string", "minLength": 1 }
+  }
+}
