@@ -1,8 +1,8 @@
 const PLATFORMS = { macos: 'macOS', windows: 'Windows', linux: 'Linux', android: 'Android', ios: 'iOS', web: 'Web' };
 const MATURITY = {
-  experimental: { label: 'Experimental', description: 'An early version. Expect rough edges and changing behaviour.' },
-  usable: { label: 'Usable', description: 'Works for its intended purpose. Some rough edges remain.' },
-  polished: { label: 'Polished', description: 'Refined for regular use, with attention to the details.' },
+  experimental: 'Experimental',
+  usable: 'Usable',
+  polished: 'Polished',
 };
 const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'Source code', docs: 'Documentation' };
 
@@ -11,7 +11,7 @@ export function escapeHtml(value) {
 }
 
 function maturity(app) {
-  return MATURITY[app.maturity]?.label ?? 'Not assessed';
+  return MATURITY[app.maturity] ?? 'Not assessed';
 }
 
 function platformText(app) {
@@ -34,9 +34,6 @@ function canonical(config, path) {
 
 function document(config, { title, description, content, prefix = '', path = '', scripts = '' }) {
   const url = canonical(config, path);
-  const author = config.authorUrl
-    ? `<a href="${escapeHtml(config.authorUrl)}">${escapeHtml(config.author ?? 'Author')}</a>`
-    : escapeHtml(config.author ?? config.title);
 
   return `<!doctype html>
 <html lang="en">
@@ -57,31 +54,23 @@ function document(config, { title, description, content, prefix = '', path = '',
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <div class="page">
-    <header class="site-header">
-      <a class="site-name" href="${prefix}index.html">${escapeHtml(config.title)}</a>
-      <nav aria-label="Site"><a href="${prefix}index.html">Directory</a></nav>
-    </header>
     ${content}
-    <footer class="site-footer"><span>${author}</span><a href="${prefix}apps.json">Catalogue JSON</a></footer>
   </div>
 </body>
 </html>
 `;
 }
 
-function renderRow(app, index) {
+function renderApp(app) {
   const preview = app.screenshots[0];
   const href = `apps/${app.id}/index.html`;
   const search = [app.name, app.summary, app.description ?? '', app.category, ...app.tags, ...app.features].join(' ');
 
-  return `<li class="app-row" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? 'unrated'}">
-    <span class="row-number" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
-    <div class="row-copy">
-      <div class="row-title">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2></div>
-      <p class="app-summary">${escapeHtml(app.summary)}</p>
-      <p class="app-meta"><span>${escapeHtml(platformText(app))}</span><span>${escapeHtml(maturity(app))}</span></p>
-    </div>
-    ${preview ? `<a class="row-preview" href="${href}" aria-label="View ${escapeHtml(app.name)}"><img src="${escapeHtml(mediaUrl(preview.thumbnail ?? preview.src, ''))}" alt="${escapeHtml(preview.alt)}" loading="lazy" width="260" height="160"></a>` : `<span class="row-category">${escapeHtml(app.category)}</span>`}
+  return `<li class="app-card" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? 'unrated'}">
+    <div class="card-heading">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2></div>
+    <p class="app-summary">${escapeHtml(app.summary)}</p>
+    <p class="app-meta"><span>${escapeHtml(platformText(app))}</span>${app.maturity ? `<span>${escapeHtml(maturity(app))}</span>` : ''}</p>
+    ${preview ? `<a class="app-preview" href="${href}" aria-label="View ${escapeHtml(app.name)}"><img src="${escapeHtml(mediaUrl(preview.thumbnail ?? preview.src, ''))}" alt="${escapeHtml(preview.alt)}" loading="lazy" width="260" height="160"></a>` : ''}
   </li>`;
 }
 
@@ -92,35 +81,19 @@ function options(values, label) {
 function renderHome(config, apps) {
   const categories = [...new Set(apps.map((app) => app.category))].sort((a, b) => a.localeCompare(b, 'en'));
   const platforms = Object.entries(PLATFORMS).filter(([id]) => apps.some((app) => app.platforms.includes(id)));
-  const categoryLinks = categories.map((category) => {
-    const count = apps.filter((app) => app.category === category).length;
-    return `<a href="?category=${encodeURIComponent(category)}#directory" data-category-link="${escapeHtml(category)}">${escapeHtml(category)}<span>${count}</span></a>`;
-  }).join('');
-  const content = `<main id="main">
-    <div class="masthead"><h1>Apps<span class="title-stop">.</span></h1><p>${apps.length} ${apps.length === 1 ? 'project' : 'projects'}</p></div>
-    <div class="directory-layout" id="directory">
-      <aside class="directory-aside">
-        <nav class="categories" aria-label="Categories" data-enhanced hidden>
-          <h2>Browse</h2><a href="?#directory" data-category-link="" aria-current="true">All apps<span>${apps.length}</span></a>${categoryLinks}
-        </nav>
-        <details class="maturity-key"><summary>Maturity guide</summary><dl>${Object.values(MATURITY).map((state) => `<dt>${state.label}</dt><dd>${state.description}</dd>`).join('')}<dt>Not assessed</dt><dd>No readiness assessment has been supplied.</dd></dl></details>
-      </aside>
-      <section class="directory-main" aria-label="App directory">
-        <form class="filters" role="search" data-enhanced hidden>
-          <label class="search-field">Search apps<input type="search" name="q" placeholder="Name, purpose, or keyword" autocomplete="off"></label>
-          <div class="filter-selects">
-            <label>Platform<select name="platform">${options(platforms, 'All platforms')}</select></label>
-            <label>Maturity<select name="maturity">${options([...Object.entries(MATURITY).map(([id, state]) => [id, state.label]), ['unrated', 'Not assessed']], 'All stages')}</select></label>
-            <label class="mobile-category">Category<select name="category">${options(categories.map((category) => [category, category]), 'All categories')}</select></label>
-            <button type="reset" class="reset-button">Clear</button>
-          </div>
-        </form>
-        <div class="result-line"><p data-result-count role="status" aria-live="polite">${apps.length} ${apps.length === 1 ? 'app' : 'apps'}</p><span>A–Z</span></div>
-        <ol class="app-list">${apps.map(renderRow).join('')}</ol>
-        <div class="empty-state" data-empty hidden><h2>No matching apps</h2><p>Try a different search or clear the filters.</p><button type="button" data-clear>Clear filters</button></div>
-        ${apps.length ? '' : '<p class="catalogue-empty">The directory has no entries yet.</p>'}
-      </section>
-    </div>
+  const content = `<main id="main" class="directory-main">
+    <h1 class="directory-title">${escapeHtml(config.title)}</h1>
+    <form class="filters" role="search" data-enhanced hidden>
+      <input type="search" name="q" aria-label="Search apps" placeholder="Search apps" autocomplete="off">
+      <select name="category" aria-label="Category">${options(categories.map((category) => [category, category]), 'All categories')}</select>
+      <select name="platform" aria-label="Platform">${options(platforms, 'All platforms')}</select>
+      <select name="maturity" aria-label="Maturity">${options([...Object.entries(MATURITY), ['unrated', 'Not assessed']], 'All stages')}</select>
+      <button type="reset">Clear</button>
+    </form>
+    <p class="result-count" data-result-count role="status" aria-live="polite">${apps.length} ${apps.length === 1 ? 'app' : 'apps'}</p>
+    <ul class="app-grid">${apps.map(renderApp).join('')}</ul>
+    <div class="empty-state" data-empty hidden><h2>No matching apps</h2><p>Try a different search or clear the filters.</p><button type="button" data-clear>Clear filters</button></div>
+    ${apps.length ? '' : '<p class="catalogue-empty">The directory has no entries yet.</p>'}
   </main>`;
 
   return document(config, { title: config.title, description: config.description ?? config.title, content, scripts: '<script src="assets/directory.js" defer></script>' });

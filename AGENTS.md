@@ -24,7 +24,7 @@
 
 ## Visual constraints
 
-Editorial typography, off-white paper, ruled rows, one accent. Screenshots show the apps.
+Plain typography, off-white paper, compact app grid, one accent. Screenshots show the apps.
 No gradients, arbitrary rainbow colours, pulse badges, decorative card tabs, emoji,
 glassmorphism, generic hype, remote font dependencies, or redundant descriptions.
 Check desktop and phone screenshots after layout changes.
