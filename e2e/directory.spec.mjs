@@ -3,13 +3,14 @@ import { expect, test } from '@playwright/test';
 const FONTS = { HEADINGS: 'Syne', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
 const HTTP_OK = 200;
+const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
 
 async function expectBundledFonts(page) {
   const typography = await page.evaluate(async () => {
     await document.fonts.ready;
     return {
       loaded: [...document.fonts].filter((font) => font.status === 'loaded').map((font) => font.family.replace(/['"]/g, '')),
-      heading: getComputedStyle(document.querySelector('h1')).fontFamily,
+      heading: getComputedStyle(document.querySelector('h1, h2')).fontFamily,
       text: getComputedStyle(document.body).fontFamily,
     };
   });
@@ -39,7 +40,15 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
     expect(response.status).toBe(HTTP_OK);
     expect(response.type).toBe(FONT_CONTENT_TYPE);
   }
-  await expect(page.getByRole('heading', { name: 'Apps by L-K-M', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Apps by L-K-M', exact: true })).toHaveCount(0);
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe(WHITE_BACKGROUND);
+  const mirio = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: 'Mirio', exact: true }) });
+  const name = mirio.getByRole('heading');
+  const status = mirio.locator('.card-heading .app-status');
+  await expect(status).toHaveText('Experimental');
+  const nameBox = await name.boundingBox();
+  const statusBox = await status.boundingBox();
+  expect(statusBox.x).toBeGreaterThanOrEqual(nameBox.x + nameBox.width);
   await expect(page.locator('[data-app]:visible')).toHaveCount(17);
   await expect(page.locator('[data-result-count]')).toHaveText('17 apps');
   if (testInfo.project.name === 'desktop') {
@@ -82,6 +91,7 @@ test('detail pages and screenshots work under a subpath', async ({ page }) => {
   await page.goto('./?q=Dwindle');
   await page.getByRole('heading', { name: 'Dwindle', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Dwindle', exact: true })).toBeVisible();
+  await expect(page.locator('.detail-title .app-status')).toHaveText('Not assessed');
   await expectBundledFonts(page);
   await expect(page.getByRole('link', { name: 'Open website' })).toHaveAttribute('href', 'https://dwindle.ch');
   await expect(page.getByRole('link', { name: 'Downloads' })).toHaveCount(0);
