@@ -1,4 +1,7 @@
-const PLATFORMS = { macos: 'macOS', windows: 'Windows', linux: 'Linux', android: 'Android', ios: 'iOS', web: 'Web' };
+const PLATFORMS = {
+  macos: 'macOS', windows: 'Windows', linux: 'Linux', android: 'Android', ios: 'iOS', web: 'Web',
+  firefox: 'Firefox', chrome: 'Chrome', pebble: 'Pebble', 'rg-nano': 'RG Nano',
+};
 const MATURITY = {
   experimental: 'Experimental',
   usable: 'Usable',
