@@ -4,6 +4,7 @@
   "apps": [
     {
       "id": "danvers", "name": "Danvers",
+      "status": "visible",
       "summary": "Save rendered web pages to Karakeep from Firefox, including mobile browsers.",
       "description": "Captures the page as your browser rendered it and uploads an archive to Karakeep. Supports a secondary server and configurable handling of existing bookmarks.",
       "category": "Reading", "platforms": ["firefox"], "tags": ["Karakeep", "bookmarks", "browser extension"],
@@ -12,6 +13,7 @@
     },
     {
       "id": "game-and-pebble", "name": "Game & Pebble",
+      "status": "visible",
       "summary": "Play ten arcade games on Pebble watches, with persistent high scores.",
       "description": "A single Pebble app with maze chase, snake, asteroids, falling blocks, breakout and other arcade games. Targets Pebble Time 2 and other modern colour and monochrome Pebbles.",
       "category": "Games", "platforms": ["pebble"], "tags": ["arcade", "watch"],
@@ -20,6 +22,7 @@
     },
     {
       "id": "hoarder", "name": "Hoarder (mirror)",
+      "status": "visible",
       "summary": "Self-hosted bookmarks, notes, images and full-text search.",
       "description": "L-K-M's mirror of the upstream Hoarder project, now called Karakeep. Saves links and media, archives pages, and supports optional language-model tagging and mobile clients.",
       "category": "Reading", "platforms": ["web", "android", "ios"], "tags": ["Karakeep", "bookmarks", "self-hosted", "fork", "mirror"],
@@ -27,6 +30,7 @@
     },
     {
       "id": "ia-get", "name": "ia-get",
+      "status": "visible",
       "summary": "Download Internet Archive items from the command line, including authenticated items.",
       "description": "A fork of wimpysworld/ia-get with archive.org account authentication for restricted items. Includes a standard-input password option and build targets for macOS, Windows and Linux.",
       "category": "Utilities", "platforms": ["macos", "windows", "linux"], "tags": ["archive.org", "downloads", "CLI", "fork"],
@@ -34,6 +38,7 @@
     },
     {
       "id": "ia-get-docker", "name": "ia-get Docker Wrapper",
+      "status": "visible",
       "summary": "Queue and monitor Internet Archive downloads through a self-hosted web interface.",
       "description": "Wraps ia-get in a Docker Compose service with a persistent download queue and optional web UI. Designed for local and NAS-style deployments.",
       "category": "Utilities", "platforms": ["web"], "tags": ["archive.org", "self-hosted", "Docker"],
@@ -42,6 +47,7 @@
     },
     {
       "id": "image-content-detector", "name": "ImageContentDetector",
+      "status": "visible",
       "summary": "Write image descriptions and keywords into JPEG metadata using Azure Computer Vision.",
       "description": "A Windows command-line tool that processes a directory of JPEGs and stores Azure's returned descriptions and keywords in EXIF fields. Can skip already-described files and preserve existing descriptions.",
       "category": "Creative tools", "platforms": ["windows"], "tags": ["EXIF", "images", "CLI", "Azure"],
@@ -49,6 +55,7 @@
     },
     {
       "id": "kagi-x-karakeep", "name": "Kagi × Karakeep",
+      "status": "visible",
       "summary": "Show matching Karakeep bookmarks alongside Kagi search results in Firefox.",
       "description": "Reads the current Kagi query, searches your configured Karakeep server and places saved links in a results card. Configure the server, token and result count in the extension.",
       "category": "Reading", "platforms": ["firefox"], "tags": ["Kagi", "Karakeep", "search", "browser extension"],
@@ -57,6 +64,7 @@
     },
     {
       "id": "karakeep-pipette", "name": "Hoarder's Pipette (mirror)",
+      "status": "visible",
       "summary": "Include saved Karakeep bookmarks in browser search results.",
       "description": "L-K-M's mirror of DanSnow/hoarder-pipette. Queries Karakeep while you search and displays matching bookmarks across supported search engines.",
       "category": "Reading", "platforms": ["firefox", "chrome"], "tags": ["Karakeep", "bookmarks", "browser extension", "fork", "mirror"],
@@ -64,6 +72,7 @@
     },
     {
       "id": "lern-deutsch-pebble", "name": "Lern Deutsch (Pebble)",
+      "status": "visible",
       "summary": "Learn German vocabulary with Chinese-language flashcards on Pebble Time 2.",
       "description": "Flip and self-score cards across four difficulty levels, with missed cards repeated until the round is complete. Includes German-to-Chinese and Chinese-to-German directions, streaks and progress statistics.",
       "category": "Education", "platforms": ["pebble"], "tags": ["flashcards", "German", "Chinese", "watch"],
@@ -72,6 +81,7 @@
     },
     {
       "id": "manors-and-menaces", "name": "Manors & Menaces",
+      "status": "visible",
       "summary": "A turn-based fantasy board game for two to four players, with local, AI and online modes.",
       "description": "Build roads and manors, manage harvests and disrupt rival plans with units and Royal Writs. Play in a browser, desktop app or Android client; online matches use an optional self-hosted server.",
       "category": "Games", "platforms": ["web", "macos", "windows", "linux", "android"], "tags": ["board game", "strategy", "multiplayer", "self-hosted"],
@@ -79,6 +89,7 @@
     },
     {
       "id": "opencode-mystatus", "name": "opencode-mystatus",
+      "status": "visible",
       "summary": "Check AI subscription quotas from the terminal, once or in a live watch mode.",
       "description": "A fork of vbgate/opencode-mystatus adding a standalone terminal dashboard, a configurable refresh interval and a countdown to the next update. Runs through Node or Bun.",
       "category": "Developer tools", "platforms": [], "tags": ["AI", "quotas", "CLI", "OpenCode", "fork"],
@@ -87,6 +98,7 @@
     },
     {
       "id": "pararena2", "name": "Pararena 2",
+      "status": "visible",
       "summary": "Play John Calhoun's classic Macintosh game on modern desktops and Android.",
       "description": "L-K-M's SDL3 port of the original Pararena 2 sources, forked from softdorothy/Pararena2. Preserves the original game code and supports gamepads, fullscreen, multiplayer modes and AI opponents.",
       "category": "Games", "platforms": ["macos", "windows", "linux", "android"], "tags": ["retro", "arcade", "gamepads", "fork"],
@@ -94,6 +106,7 @@
     },
     {
       "id": "expand-url", "name": "Expand URL",
+      "status": "visible",
       "summary": "Inspect shortened URLs one redirect hop at a time from Raycast.",
       "description": "Shows each redirect's status, host, path and query parameters. Copy any hop, strip identified tracking parameters or inspect the chain step by step. Requires the Raycast app on macOS.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["Raycast", "URLs", "redirects"],
@@ -101,6 +114,7 @@
     },
     {
       "id": "relaybar-scion", "name": "RelayBar Scion",
+      "status": "visible",
       "summary": "Manage SSH port forwards and remote file access from a Mac menu bar.",
       "description": "A fork of lx2026/RelayBar with an app-owned status item that restores its visibility on launch. Manages structured forwarding profiles and can browse remote files over SSH and SFTP. Requires macOS 13 or later.",
       "category": "Networking", "platforms": ["macos"], "tags": ["SSH", "SFTP", "port forwarding", "fork"],
@@ -108,6 +122,7 @@
     },
     {
       "id": "rssspy", "name": "RSS Spy",
+      "status": "visible",
       "summary": "Discover and validate RSS, Atom and JSON feeds for the current Firefox page.",
       "description": "Finds feed candidates in page metadata, links and common feed paths, then validates them in the background. The popup lists discovered feeds and copies their URLs.",
       "category": "Reading", "platforms": ["firefox"], "tags": ["RSS", "Atom", "feeds", "browser extension"],
@@ -116,6 +131,7 @@
     },
     {
       "id": "scratch", "name": "Scratch",
+      "status": "visible",
       "summary": "Edit local Markdown notes with a visual editor, source mode and optional Git sync.",
       "description": "A fork of erictli/scratch with changes to the editor, settings and note service. Notes stay as Markdown files; the app also supports wikilinks, diagrams, maths, a command palette and an optional folder tree.",
       "category": "Productivity", "platforms": ["macos", "windows", "linux"], "tags": ["Markdown", "notes", "offline", "fork"],
@@ -125,6 +141,7 @@
     },
     {
       "id": "shiori-web-ext", "name": "Shiori Web Extension (mirror)",
+      "status": "visible",
       "summary": "Save and remove Shiori bookmarks from your browser.",
       "description": "L-K-M's mirror of go-shiori/shiori-web-ext. Connect the extension to your Shiori server to manage bookmarks without leaving the current page. Its documentation identifies Firefox as the tested browser.",
       "category": "Reading", "platforms": ["firefox"], "tags": ["Shiori", "bookmarks", "browser extension", "fork", "mirror"],
@@ -133,6 +150,7 @@
     },
     {
       "id": "skip-that-noise", "name": "Skip that Noise",
+      "status": "visible",
       "summary": "Automatically skip selected artists on YouTube Music in Firefox.",
       "description": "Keep an artist blacklist and skip matching tracks as they play. Published releases provide a signed Firefox extension.",
       "category": "Music", "platforms": ["firefox"], "tags": ["YouTube Music", "browser extension"],
@@ -141,6 +159,7 @@
     },
     {
       "id": "starling", "name": "Starling",
+      "status": "visible",
       "summary": "A FunKey OS fork for the Anbernic RG Nano with a cross-system favourites launcher.",
       "description": "Adds a favourites list to the handheld's game launcher while retaining the stock FunKey OS emulator setup. Firmware and complete SD-card images target the RG Nano specifically.",
       "category": "System tools", "maturity": "experimental", "maturityNote": "Latest builds compile in CI but have not been tested on hardware.",
@@ -149,6 +168,7 @@
     },
     {
       "id": "tiltburst", "name": "Tiltburst",
+      "status": "visible",
       "summary": "A digital pinball project for desktop computers and converted pinball cabinets.",
       "description": "An in-progress pinball project with text-authored tables and planned local multiplayer. The current source tree is an early scaffold rather than a playable game.",
       "category": "Games", "maturity": "experimental", "maturityNote": "Early scaffold; nothing playable yet.",
@@ -157,6 +177,7 @@
     },
     {
       "id": "whatsapp-backup", "name": "WhatsApp Backup",
+      "status": "visible",
       "summary": "Back up and browse WhatsApp messages and media through a local web interface.",
       "description": "A Dockerized service around wacli, with QR login, synchronization status, message search and plain-text exports. Includes reconnection handling and an optional connection-loss email notification.",
       "category": "Utilities", "platforms": ["web"], "tags": ["WhatsApp", "backup", "self-hosted", "Docker"],

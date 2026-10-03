@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
-import { collectApps, loadConfig } from './catalogue.mjs';
+import { AppVisibility, collectApps, loadConfig } from './catalogue.mjs';
 import { prepareMedia } from './media.mjs';
 import { publishSite, validateOutput } from './output.mjs';
 import { renderSite } from './render.mjs';
@@ -15,8 +15,10 @@ const PUBLIC_ASSETS = [
 export async function buildSite(configPath, overrides = {}, mode = BuildMode.WRITE) {
   const config = await loadConfig(configPath, overrides);
   const collected = await collectApps(config);
-  const { apps, assets } = await prepareMedia(collected);
-  const protectedPaths = [dirname(config.configFile), ...config.catalogues, ...config.repositoryRoots, ...apps.map((app) => app.source.root)];
+  // Resolve source precedence before hiding entries, so hidden repo metadata suppresses a central fallback.
+  const visible = collected.filter((app) => app.status === AppVisibility.VISIBLE);
+  const { apps, assets } = await prepareMedia(visible);
+  const protectedPaths = [dirname(config.configFile), ...config.catalogues, ...config.repositoryRoots, ...collected.flatMap((app) => [dirname(app.source.file), app.source.root])];
   await validateOutput(config.output, protectedPaths, config.catalogues);
   if (mode === BuildMode.CHECK) return { config, apps };
 

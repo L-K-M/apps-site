@@ -5,6 +5,7 @@
   "apps": [
     {
       "id": "your-app",
+      "status": "visible",
       "name": "Your App",
       "summary": "Describe the task the app helps with.",
       "description": "Explain how it works and any requirements.\n\nSeparate paragraphs with a blank line.",

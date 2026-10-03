@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add per-app `status: visible/hidden` publication control; hide pages, media and exports on rebuild.
+
 - Generate a static app directory from repo-local and central JSON manifests.
 - Support monorepos, web-only apps, explicit maturity, and platform inference.
 - Bundle local media; render detail pages, search, and category/platform filters.

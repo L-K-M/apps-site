@@ -17,6 +17,8 @@
 - Media owns path containment and copying. Rendering is pure; publication owns output lifecycle.
 - Generated pages use relative paths, escaped plain text, bundled CSS/JS and no runtime API.
 - Repo-local `app-directory.json` takes precedence over central catalogues by app id.
+- App `status` controls publication: visible by default, hidden after source overrides resolve.
+- Hidden apps retain validated metadata but are excluded before media processing and rendering.
 - Maturity is authored, not inferred. Explicit platforms override inference.
 - Keep `site.json` and `docker/site.json` identity defaults aligned; Docker paths differ.
 - Central `.json` directories contain manifests only; examples and schemas live elsewhere.

@@ -4,6 +4,7 @@
   "apps": [
     {
       "id": "amberfader",
+      "status": "visible",
       "name": "Amberfader",
       "summary": "A compact desktop remote for YouTube Music playing in Firefox.",
       "description": "Firefox handles playback. Amberfader provides a separate desktop control panel, connected through Native Messaging. It supports Firefox installed as a system package or Flatpak.",
@@ -14,6 +15,7 @@
     },
     {
       "id": "copywraith",
+      "status": "visible",
       "name": "Copywraith",
       "summary": "Searchable clipboard history, with an optional server to sync between devices.",
       "description": "A local-first clipboard manager with clients for macOS, Windows, Linux and Android. An optional self-hosted server keeps clipboard history available across devices.",
@@ -24,6 +26,7 @@
     },
     {
       "id": "finsical",
+      "status": "visible",
       "name": "Finsical",
       "summary": "A retro virtual aquarium for macOS, Linux and Android.",
       "description": "A virtual aquarium with a classic Macintosh presentation, available as desktop and Android apps. A browser build is also available from source.",
@@ -35,6 +38,7 @@
     },
     {
       "id": "gitenough",
+      "status": "visible",
       "name": "GitEnough",
       "summary": "A native Mac Git client with a branch graph and optional AI-written commit messages.",
       "description": "Clone repositories, stage changes, commit, pull, push, branch and merge. GitEnough includes an IntelliJ-style branch and merge graph. Requires macOS 14 or later.",
@@ -45,6 +49,7 @@
     },
     {
       "id": "jetty",
+      "status": "visible",
       "name": "Jetty",
       "summary": "A Mac Dock with flexible placement, information tiles, and a command bar.",
       "description": "Place Jetty on a screen edge and choose its alignment. Information tiles, a trash tile, a command bar and multi-monitor support extend the usual Dock functions. Requires macOS 13 or later.",
@@ -56,6 +61,7 @@
     },
     {
       "id": "lantenna",
+      "status": "visible",
       "name": "Lantenna",
       "summary": "Scan your local network for hosts, names, and open ports.",
       "description": "A desktop LAN scanner styled after a classic Mac OS utility. It presents discovered devices, host names and open ports in a browsable list.",
@@ -67,6 +73,7 @@
     },
     {
       "id": "obtainintosh",
+      "status": "visible",
       "name": "Obtainintosh",
       "summary": "Track installed apps against GitHub and Forgejo releases, and find suitable updates.",
       "description": "Add an app's release repository, compare its published version with your installed copy, and download a suitable release asset for your platform.",
@@ -78,6 +85,7 @@
     },
     {
       "id": "topdrawer",
+      "status": "visible",
       "name": "TopDrawer",
       "summary": "An edge-tab launcher with a notes editor for macOS.",
       "description": "Keep an app launcher and notes in tabs along a screen edge. The Linux port is in progress; this entry lists the macOS app.",
@@ -89,6 +97,7 @@
     },
     {
       "id": "vervellum",
+      "status": "visible",
       "name": "Vervellum",
       "summary": "A research panel that opens with a hotkey and shows its sources.",
       "description": "Summon a research panel from the keyboard, look things up, and inspect the sources behind the response.",
@@ -100,6 +109,7 @@
     },
     {
       "id": "wrapybara",
+      "status": "visible",
       "name": "Wrapybara",
       "summary": "Turn a website address into a signed Mac app in your Applications folder.",
       "description": "Enter a website address. Wrapybara writes a signed .app that opens the site, and places it in /Applications.",
@@ -111,6 +121,7 @@
     },
     {
       "id": "zap",
+      "status": "visible",
       "name": "Zap",
       "summary": "A configurable replacement for the Mac's Command-Tab app switcher.",
       "description": "Switch between apps or individual windows. Exclude apps from the switcher and choose an appearance theme.",
