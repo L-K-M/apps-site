@@ -23,8 +23,9 @@ of those publication choices.
   directory generator itself, and license-only placeholders.
 - Keep existing publicly accessible web apps even without a public source repo.
   Dwindle and QRat no longer expose non-public GitHub source links.
-- Leave maturity unassessed unless the source describes the project's readiness.
-  A version number or published release does not establish maturity.
+- Retain author-stated maturity; otherwise provide a best-effort estimate marked
+  `Estimated:` in `maturityNote`, using documented workflows and known limitations.
+  A version number or published release alone does not establish maturity.
 
 Descriptions, platforms and media come from public READMEs and build metadata.
 Download links are supplied only for repositories with a verified public release.
@@ -38,8 +39,9 @@ through the GitHub Releases API. Séance's iOS target is represented by an
 unsigned IPA, not an App Store release. Browser targets for Hoarder's Pipette
 are documented in its [Chrome and Firefox installation guide](https://dansnow.github.io/hoarder-pipette/guides/installation/).
 
-Eko remains unassessed: its source says it is implemented but not released,
-which establishes distribution status, not an experimental/usable/polished rating.
+Maturity estimates are editable judgements, not hands-on certification. Source-only
+software can be usable; published builds can remain experimental. Distribution
+status is considered alongside implemented workflows and documented limitations.
 
 ## Hauntware
 

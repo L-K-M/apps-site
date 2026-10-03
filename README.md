@@ -28,7 +28,7 @@ Open <http://127.0.0.1:4173>. The generated site is in `dist/`.
 
 The starter catalogue contains 64 apps, covering the public L-K-M app repositories
 and the existing web-only entries. [Repository audit](docs/catalogue-inventory.md).
-Maturity is left unassessed unless the source explicitly describes it. Edit
+Maturity includes author-stated ratings and documented best-effort estimates. Edit
 `catalogue/*.json` to assess them or change the selection. Screenshot snapshots are
 credited in [`catalogue/assets/README.md`](catalogue/assets/README.md).
 
@@ -120,11 +120,17 @@ pages keep the original images. Local paths must stay inside the app directory, 
 through symlinks. HTTP(S) image URLs remain external references; use local files for a
 self-contained site. Links are supplied by the author, not fabricated from repo names.
 
-Maturity is an author assessment:
+Maturity is an editable assessment:
 
 - **Experimental:** early version; expect rough edges and changing behaviour.
 - **Usable:** works for its intended purpose; some rough edges remain.
 - **Polished:** refined for regular use, with attention to details.
+
+The starter catalogue estimates missing ratings from documented core workflows,
+known limitations, install/build paths and maintenance history. Estimated ratings
+are marked `Estimated:` in `maturityNote`; they are not hands-on certification.
+Existing author-stated assessments are retained. A version number or a release
+alone does not establish maturity. Adjust the JSON ratings as you use the apps.
 
 Omit `platforms` to infer them from explicit npm `os` declarations, Swift/Xcode settings,
 Android application manifests, specific Tauri bundle targets, or Flutter platform entry

@@ -5,6 +5,8 @@
     {
       "id": "dwindle",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: the public game provides a complete daily puzzle loop; long-term reliability and maintenance cannot be established from the site alone.",
       "name": "Dwindle",
       "summary": "A daily word puzzle on a honeycomb grid that disappears as you solve it.",
       "description": "Trace hidden words through a hexagonal board. Letters drift away when they are no longer needed, until the board is empty. Daily puzzles are available in English, German, Spanish and Italian.",
@@ -20,6 +22,8 @@
     {
       "id": "meltorama",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: photo warping has maintained desktop/mobile builds, interaction documentation and recovery workflows.",
       "name": "Meltorama 2000",
       "summary": "A photo-warping app for macOS and Android.",
       "description": "Warp photos in an app inspired by the original Meltorama.",
@@ -44,6 +48,8 @@
     {
       "id": "qrat",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: QR design, local presets and export are available in the public UI; maintenance and wider browser reliability remain uncertain.",
       "name": "QRat",
       "summary": "Design QR codes in your browser.",
       "description": "A browser-based QR code designer.",
@@ -55,6 +61,8 @@
     {
       "id": "wordwarp",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: text effects, document editing and image export are implemented; platform packaging and editor consistency are still evolving.",
       "name": "WordWarp",
       "summary": "Create warped, metallic, and dimensional text in a browser or native editor.",
       "description": "A text-art studio with alpha-correct image export. The browser studio and native editors share the drawing engine.",

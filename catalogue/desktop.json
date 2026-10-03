@@ -5,6 +5,8 @@
     {
       "id": "amberfader",
       "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: the browser adapter's playback selectors are still marked unverified in the development notes.",
       "name": "Amberfader",
       "summary": "A compact desktop remote for YouTube Music playing in Firefox.",
       "description": "Firefox handles playback. Amberfader provides a separate desktop control panel, connected through Native Messaging. It supports Firefox installed as a system package or Flatpak.",
@@ -16,6 +18,8 @@
     {
       "id": "copywraith",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: clipboard history and multi-client sync are implemented; the server and desktop integrations still have operational rough edges.",
       "name": "Copywraith",
       "summary": "Searchable clipboard history, with an optional server to sync between devices.",
       "description": "A local-first clipboard manager with clients for macOS, Windows, Linux and Android. An optional self-hosted server keeps clipboard history available across devices.",
@@ -27,6 +31,8 @@
     {
       "id": "finsical",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: detailed aquarium controls, platform-specific onboarding, packaged builds and smoke-tested workflows show sustained refinement.",
       "name": "Finsical",
       "summary": "A retro virtual aquarium for macOS, Linux and Android.",
       "description": "A virtual aquarium with a classic Macintosh presentation, available as desktop and Android apps. A browser build is also available from source.",
@@ -39,6 +45,8 @@
     {
       "id": "gitenough",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: everyday Git workflows and the branch graph are implemented; setup is source-oriented and the Linux UI remains incomplete.",
       "name": "GitEnough",
       "summary": "A very simple native Mac Git client with a branch graph.",
       "description": "Clone repositories, stage changes, commit, pull, push, branch and merge. GitEnough includes an IntelliJ-style branch and merge graph. Requires macOS 14 or later.",
@@ -50,6 +58,8 @@
     {
       "id": "jetty",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: configurable placement, per-display layouts and integrated tiles have documented, maintained everyday workflows.",
       "name": "Jetty",
       "summary": "A Mac Dock with flexible placement, information tiles, and a command bar.",
       "description": "Place Jetty on a screen edge and choose its alignment. Information tiles, a trash tile, a command bar and multi-monitor support extend the usual Dock functions. Requires macOS 13 or later.",
@@ -62,6 +72,8 @@
     {
       "id": "lantenna",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: scanning, host inspection and native interaction details are documented with desktop packaging and troubleshooting guidance.",
       "name": "Lantenna",
       "summary": "Scan your local network for hosts, names, and open ports.",
       "description": "A desktop LAN scanner styled after a classic Mac OS utility. It presents discovered devices, host names and open ports in a browsable list.",
@@ -74,6 +86,8 @@
     {
       "id": "obtainintosh",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: version detection, platform asset selection, import/export and recovery guidance form a refined update-checking workflow.",
       "name": "Obtainintosh",
       "summary": "Track installed apps against GitHub and Forgejo releases, and find suitable updates.",
       "description": "Add an app's release repository, compare its published version with your installed copy, and download a suitable release asset for your platform.",
@@ -86,6 +100,8 @@
     {
       "id": "topdrawer",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: the listed Mac app has refined drawers, multi-monitor handling and persistent layouts; the separate Linux port is still experimental.",
       "name": "TopDrawer",
       "summary": "An edge-tab launcher with a notes editor for macOS.",
       "description": "Keep an app launcher and notes in tabs along a screen edge. The Linux port is in progress; this entry lists the macOS app.",
@@ -98,6 +114,8 @@
     {
       "id": "vervellum",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: search, citations and the hotkey panel are implemented; Linux window behaviour and provider setup still have limitations.",
       "name": "Vervellum",
       "summary": "An LLM search/research panel that opens with a hotkey and shows its sources.",
       "description": "Summon a research panel from the keyboard, look things up, and inspect the sources behind the response.",
@@ -110,6 +128,8 @@
     {
       "id": "wrapybara",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: app creation, native tabs and site customization are well developed; Android exports have a documented smaller feature set.",
       "name": "Wrapybara",
       "summary": "Turn a website address into a Mac app in your Applications folder or an Android APK.",
       "description": "Enter a website address. Wrapybara writes a signed .app or an Android .apk that opens the site.",
@@ -122,6 +142,8 @@
     {
       "id": "zap",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: window-level switching, exclusions, icon handling and appearance controls have maintained, detailed user workflows.",
       "name": "Zap",
       "summary": "A configurable replacement for the Mac's Command-Tab app switcher.",
       "description": "Switch between apps or individual windows. Exclude apps from the switcher and choose an appearance theme.",

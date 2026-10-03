@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Populate app maturity with reasoned estimates, preserving existing author assessments.
+
 - Add per-app `status: visible/hidden` publication control; hide pages, media and exports on rebuild.
 
 - Generate a static app directory from repo-local and central JSON manifests.

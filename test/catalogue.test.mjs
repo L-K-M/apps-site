@@ -11,6 +11,7 @@ const AUDITED_REPOSITORY_COUNT = 68;
 const CATALOGUE_APP_COUNT = 64;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
+const MATURITY_LEVELS = new Set(['experimental', 'usable', 'polished']);
 
 test('the public repository audit accounts for every catalogue entry and excluded repo', async () => {
   const inventory = JSON.parse(await readFile(join(ROOT, 'docs/public-repositories.json'), 'utf8'));
@@ -44,6 +45,15 @@ test('Hauntware is one manifest with three distinct searchable apps', async () =
   assert.equal(manifest.repository, HAUNTWARE_SOURCE);
   assert.deepEqual(manifest.apps.map((app) => app.id).sort(), HAUNTWARE_APP_IDS);
   for (const app of manifest.apps) assert.ok(app.tags.includes('Hauntware'));
+});
+
+test('curated apps have explained maturity ratings', async () => {
+  const config = await loadConfig(join(ROOT, 'site.json'));
+  const apps = await collectApps({ ...config, repositoryRoots: [] });
+  for (const app of apps) {
+    assert.ok(MATURITY_LEVELS.has(app.maturity), `${app.id}: missing maturity rating`);
+    assert.ok(app.maturityNote?.trim(), `${app.id}: missing rating explanation`);
+  }
 });
 
 test('the Hauntware repo-ready manifest resolves each app root and overrides central entries', async (t) => {

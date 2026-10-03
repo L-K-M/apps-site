@@ -5,6 +5,8 @@
     {
       "id": "alan", "name": "Alan",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: refined focus controls, multi-display handling and maintained Mac packaging.",
       "summary": "Highlight the active Mac window with a border, or dim everything around it.",
       "description": "A fork of tylerhall/Alan with border styles, per-app colours, a window-finding hotkey and spotlight dimming. Requires macOS 15.7 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["window focus", "fork"],
@@ -14,6 +16,8 @@
     {
       "id": "asterinked", "name": "Asterinked",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: annotation, drafts and vector PDF export are implemented; device coverage is still uncertain.",
       "summary": "Annotate PDFs with a pressure-sensitive stylus on Android.",
       "description": "Write, highlight and erase ink, then export an annotated PDF with vector strokes and selectable original text. Drafts stay on-device. Requires Android 10 or later.",
       "category": "Productivity", "platforms": ["android"], "tags": ["PDF", "annotation", "stylus"],
@@ -22,6 +26,8 @@
     {
       "id": "baegun", "name": "Baegun",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: desktop and CLI conversion workflows are packaged; OCR dependencies and limited usage evidence leave room for refinement.",
       "summary": "Convert PDF and CBZ books to EPUB from a desktop app or command line.",
       "description": "PDF conversion uses Mistral OCR to recover text, tables and images. CBZ conversion runs locally and creates fixed-layout EPUBs. The desktop and command-line tools share the conversion engine.",
       "category": "Reading", "platforms": ["macos", "windows", "linux"], "tags": ["EPUB", "PDF", "CBZ", "OCR", "CLI"],
@@ -30,6 +36,8 @@
     {
       "id": "bangnidraw", "name": "帮你Draw",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: layered painting and persistent undo are packaged; the author still lists real-device acceptance as unverified.",
       "summary": "Layered drawing and painting with pressure-sensitive pens and pigment colour mixing.",
       "description": "Sketch with pencils and brushes, mix colours, smudge, fill, and work with layers. Built for Android and the S Pen, with desktop shells for macOS and Linux.",
       "category": "Creative tools", "platforms": ["android", "macos", "linux"], "tags": ["BangniDraw", "drawing", "painting", "S Pen"],
@@ -39,6 +47,8 @@
     {
       "id": "blipbird", "name": "Blipbird",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: flight tracking and offline itineraries are implemented; provider setup and live-data reliability remain practical constraints.",
       "summary": "Track flights, gates, routes and itinerary changes on Android.",
       "description": "A departure board, live route map, daylight and weather ribbon, and flight-change notifications. Itineraries remain available offline; flight data uses free or bring-your-own-key providers.",
       "category": "Travel", "platforms": ["android"], "tags": ["flights", "itinerary", "offline"],
@@ -58,6 +68,8 @@
     {
       "id": "dockvac", "name": "DockVac",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: scanning and reviewable cleanup are documented with a working build path; installation remains source-oriented.",
       "summary": "Inspect Docker disk usage as a treemap and remove selected items.",
       "description": "Shows images, containers, volumes and build cache by size. Review a cleanup plan with the corresponding Docker commands before removing individual items. Requires macOS 13 or later and a local Docker daemon.",
       "category": "Developer tools", "platforms": ["macos"], "tags": ["Docker", "disk usage", "cleanup"],
@@ -68,6 +80,8 @@
     {
       "id": "eko", "name": "Eko",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: pairing and notification delivery are implemented under CI; setup and testing still require development builds.",
       "summary": "Forward Android notifications and verification codes to your Mac over local Wi-Fi.",
       "description": "A Mac menu-bar app and paired Android companion forward notifications over an authenticated local connection. Missed notifications are queued on the phone and replayed when the Mac reconnects.",
       "category": "Utilities", "platforms": ["macos", "android"], "tags": ["notifications", "OTP", "LAN"],
@@ -76,6 +90,8 @@
     {
       "id": "gans", "name": "Gans",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: Mac code access and sync are established; Linux distribution and desktop integration remain uneven.",
       "summary": "Access Ente Auth verification codes from a Mac menu bar or Linux tray.",
       "description": "Search accounts with a global hotkey and copy or type their current codes. Synchronizes with Ente Auth using its end-to-end encryption. A Linux port is available in the source tree.",
       "category": "Utilities", "platforms": ["macos", "linux"], "tags": ["2FA", "TOTP", "Ente"],
@@ -85,6 +101,8 @@
     {
       "id": "invoque", "name": "Invoque",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: launching, search and custom commands work; generated-command workflows are still evolving.",
       "summary": "Launch apps, find files and run custom commands from a keyboard-first Mac panel.",
       "description": "A launcher with calculation, file search and plain-file custom commands. Its built-in make command can generate and refine new commands with a configured language model. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["launcher", "keyboard", "commands"],
@@ -94,6 +112,8 @@
     {
       "id": "kararead", "name": "Kararead",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: article reading, lists and settings are implemented; this remains an early, server-dependent Android client.",
       "summary": "Read articles from your Karakeep library on Android.",
       "description": "An independent Karakeep client with a focused article reader, configurable reading settings and saved lists. Connect it to your existing Karakeep server with an API key.",
       "category": "Reading", "platforms": ["android"], "tags": ["Karakeep", "read it later", "self-hosted"],
@@ -103,6 +123,8 @@
     {
       "id": "kirsch", "name": "Kirsch",
       "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: capture and export exist, but restoration backends are capability-gated and real-world scan quality remains uncertain.",
       "summary": "Capture glare-reduced digital copies of printed photographs on Android.",
       "description": "Aligns and combines multiple captures on-device, corrects the print's geometry, and exports JPEG or TIFF scans. Restoration options produce separate derivatives rather than replacing the scan.",
       "category": "Creative tools", "platforms": ["android"], "tags": ["photo scanning", "glare reduction"],
@@ -111,6 +133,8 @@
     {
       "id": "llimit", "name": "LLimit",
       "status": "visible",
+      "maturity": "polished",
+      "maturityNote": "Estimated: provider/account management, widgets and Linux status-bar integrations have documented workflows and maintained packages.",
       "summary": "Monitor AI subscription quotas in a Mac menu bar, desktop widgets, or Linux status bars.",
       "description": "Tracks rolling, weekly and monthly limits across multiple providers and accounts. The Linux daemon and CLI provide modules for waybar, polybar and eww.",
       "category": "Developer tools", "platforms": ["macos", "linux"], "tags": ["AI", "quotas", "widgets", "CLI"],
@@ -130,6 +154,8 @@
     {
       "id": "opencode-quota-widget", "name": "OpenCodeQuota Widget",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: quota display and account detection are implemented; WidgetKit setup requires a source build.",
       "summary": "Show your OpenCode AI account quotas in a Mac desktop widget.",
       "description": "A WidgetKit widget and host app that discover configured OpenCode accounts and display their quota usage. Supports several providers and requires macOS 14 or later.",
       "category": "Developer tools", "platforms": ["macos"], "tags": ["OpenCode", "AI", "quotas", "widgets"],
@@ -139,6 +165,8 @@
     {
       "id": "pict", "name": "Pict",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: icon editing and the shared store are integrated with companion apps; broader usage evidence is limited.",
       "summary": "Choose custom app icons shared by Pict, Jetty, Zap and Top Drawer.",
       "description": "Pick icons from files, SVGs, themes or an embedded web browser. A shared local icon store lets the companion Mac utilities use the same artwork. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["icons", "customization"],
@@ -148,6 +176,8 @@
     {
       "id": "rememoru", "name": "Rememoru",
       "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: restore workflows depend on private macOS APIs and have documented OS-version fragility.",
       "summary": "Save and restore Mac window layouts across displays and Spaces.",
       "description": "Records window positions, desktops, fullscreen states and Split View pairs, then restores a layout on demand or at login. The menu-bar app also offers a command-line interface. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["windows", "Spaces", "CLI"],
@@ -156,6 +186,8 @@
     {
       "id": "shortking", "name": "Shortking",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: shortcut inventory and diagnosis are implemented; attribution is confidence-based and cannot cover every input layer.",
       "summary": "Find which Mac apps claim a keyboard shortcut and diagnose who intercepted it.",
       "description": "Inventories system and app shortcuts, then uses live capture and diagnostic tests to investigate unexpected hotkey behaviour. It diagnoses shortcuts rather than remapping them. Requires macOS 14 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["keyboard shortcuts", "diagnostics"],
@@ -165,6 +197,8 @@
     {
       "id": "shrinkpub", "name": "ShrinkPub",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: conservative EPUB compression and batch processing are implemented; the available installation path is a source build.",
       "summary": "Reduce EPUB file sizes by recompressing and resizing embedded images.",
       "description": "Drop books into the desktop app or process them with the batch CLI. It writes a smaller sibling file and preserves the original book, retaining each replacement image only when it saves space.",
       "category": "Reading", "platforms": ["macos", "windows", "linux"], "tags": ["EPUB", "compression", "CLI"],
@@ -174,6 +208,8 @@
     {
       "id": "sion", "name": "Sion",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: shapes, connectors and document saving are packaged; the editor is still an early Mac-focused product.",
       "summary": "Draw diagrams and illustrations with editable shapes and routed connectors on macOS.",
       "description": "Shapes have editable connection points; connectors preview their routed paths. Documents bundle the editable scene, original assets, SVG and Mermaid exports, and retained history. Requires macOS 13 or later.",
       "category": "Creative tools", "platforms": ["macos"], "tags": ["diagrams", "illustration", "vector"],
@@ -182,6 +218,8 @@
     {
       "id": "sortomat", "name": "Sortomat",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: matching rules and undoable file moves are implemented; source installation and model-assisted decisions require care.",
       "summary": "Organize incoming Mac files with folder rules and optional language-model classification.",
       "description": "Match files by names, dates, tags and contents, then move them into templated destinations. Optional language-model steps choose from an allowed folder set. Moves are journaled and undoable. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["files", "automation", "OCR"],
@@ -209,6 +247,8 @@
     {
       "id": "zen-backup-manager", "name": "Zen Backup Manager",
       "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: session inspection, safety copies and undoable restores are implemented; setup remains source-build based.",
       "summary": "Browse and restore saved Zen Browser sessions on macOS.",
       "description": "Inspect tabs and Spaces on a timeline of browser-session backups. Restoration saves a verified safety copy and supports undo. Everything stays local. Requires macOS 14 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["Zen Browser", "backup", "sessions"],
