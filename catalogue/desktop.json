@@ -36,7 +36,7 @@
     {
       "id": "gitenough",
       "name": "GitEnough",
-      "summary": "A native Mac Git client with a branch graph and optional AI-written commit messages.",
+      "summary": "A very simple native Mac Git client with a branch graph.",
       "description": "Clone repositories, stage changes, commit, pull, push, branch and merge. GitEnough includes an IntelliJ-style branch and merge graph. Requires macOS 14 or later.",
       "category": "Developer tools",
       "platforms": ["macos"],
@@ -90,7 +90,7 @@
     {
       "id": "vervellum",
       "name": "Vervellum",
-      "summary": "A research panel that opens with a hotkey and shows its sources.",
+      "summary": "An LLM search/research panel that opens with a hotkey and shows its sources.",
       "description": "Summon a research panel from the keyboard, look things up, and inspect the sources behind the response.",
       "category": "Utilities",
       "platforms": ["macos", "linux"],
@@ -101,8 +101,8 @@
     {
       "id": "wrapybara",
       "name": "Wrapybara",
-      "summary": "Turn a website address into a signed Mac app in your Applications folder.",
-      "description": "Enter a website address. Wrapybara writes a signed .app that opens the site, and places it in /Applications.",
+      "summary": "Turn a website address into a Mac app in your Applications folder or an Android APK.",
+      "description": "Enter a website address. Wrapybara writes a signed .app or an Android .apk that opens the site.",
       "category": "Utilities",
       "platforms": ["macos"],
       "tags": ["web apps"],
