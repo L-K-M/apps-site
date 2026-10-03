@@ -4,6 +4,7 @@ const FONTS = { HEADINGS: 'Syne', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
 const HTTP_OK = 200;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
+const STARTER_APP_COUNT = 16;
 
 async function expectBundledFonts(page) {
   const typography = await page.evaluate(async () => {
@@ -49,8 +50,9 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
   const nameBox = await name.boundingBox();
   const statusBox = await status.boundingBox();
   expect(statusBox.x).toBeGreaterThanOrEqual(nameBox.x + nameBox.width);
-  await expect(page.locator('[data-app]:visible')).toHaveCount(17);
-  await expect(page.locator('[data-result-count]')).toHaveText('17 apps');
+  await expect(page.locator('[data-app]:visible')).toHaveCount(STARTER_APP_COUNT);
+  await expect(page.getByRole('heading', { name: 'Leaflit', exact: true })).toHaveCount(0);
+  await expect(page.locator('[data-result-count]')).toHaveText(`${STARTER_APP_COUNT} apps`);
   if (testInfo.project.name === 'desktop') {
     const first = await page.locator('[data-app]').nth(0).boundingBox();
     const second = await page.locator('[data-app]').nth(1).boundingBox();
@@ -83,7 +85,7 @@ test('combines search, category, platform and maturity; clears zero results', as
   await page.getByRole('searchbox').fill('nothing-matches-this');
   await expect(page.getByRole('heading', { name: 'No matching apps' })).toBeVisible();
   await page.getByRole('button', { name: 'Clear filters', exact: true }).click();
-  await expect(page.locator('[data-app]:visible')).toHaveCount(17);
+  await expect(page.locator('[data-app]:visible')).toHaveCount(STARTER_APP_COUNT);
   await expect(page.getByRole('searchbox')).toBeFocused();
 });
 
@@ -99,14 +101,14 @@ test('detail pages and screenshots work under a subpath', async ({ page }) => {
   await expect.poll(() => page.locator('.gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.getByRole('link', { name: 'All apps' }).click();
-  await expect(page.locator('[data-app]:visible')).toHaveCount(17);
+  await expect(page.locator('[data-app]:visible')).toHaveCount(STARTER_APP_COUNT);
 });
 
 test('HTML remains usable with JavaScript disabled', async ({ browser, baseURL }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto(baseURL);
-  await expect(page.locator('[data-app]')).toHaveCount(17);
+  await expect(page.locator('[data-app]')).toHaveCount(STARTER_APP_COUNT);
   await expect(page.getByRole('searchbox')).toBeHidden();
   await page.getByRole('heading', { name: 'Jetty', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Jetty', exact: true })).toBeVisible();

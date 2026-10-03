@@ -26,7 +26,7 @@ npm run preview
 
 Open <http://127.0.0.1:4173>. The generated site is in `dist/`.
 
-The starter catalogue contains 17 apps, using descriptions and screenshots from their
+The starter catalogue contains 16 apps, using descriptions and screenshots from their
 repos. Maturity is left unassessed unless the source explicitly describes it. Edit
 `catalogue/*.json` to assess them or change the selection. Screenshot snapshots are
 credited in [`catalogue/assets/README.md`](catalogue/assets/README.md).

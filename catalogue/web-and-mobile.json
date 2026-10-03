@@ -17,16 +17,6 @@
       "links": { "website": "https://dwindle.ch", "source": "https://github.com/L-K-M/Dwindle" }
     },
     {
-      "id": "leaflit",
-      "name": "Leaflit",
-      "summary": "An Android ebook reader with OPDS browsing, comics, and text-to-speech.",
-      "description": "Browse OPDS catalogues, download books, and read EPUB, PDF, CBZ and CBR files. Readium handles EPUBs, including fixed-layout comics. Requires Android 7 or later.",
-      "category": "Reading",
-      "platforms": ["android"],
-      "tags": ["ebooks", "OPDS", "comics"],
-      "links": { "source": "https://github.com/L-K-M/Leaflit" }
-    },
-    {
       "id": "meltorama",
       "name": "Meltorama 2000",
       "summary": "A photo-warping app for macOS and Android.",
