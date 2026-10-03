@@ -10,6 +10,9 @@ and images. Upload it to any static web server.
 
 ![App directory preview](docs/directory.png)
 
+Headings use self-hosted Syne; text uses self-hosted Instrument Sans. Both fonts
+are bundled under SIL OFL 1.1. [Sources and licenses](public/fonts/README.md).
+
 ## Run
 
 Requires Node 22.14+ and npm. Git is optional; it supplies source links from repo origins.
