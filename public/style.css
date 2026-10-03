@@ -17,7 +17,7 @@
 }
 
 :root {
-  --paper: #f5f2eb;
+  --paper: #fff;
   --ink: #252721;
   --muted: #64665b;
   --rule: #d3d1c7;
@@ -50,22 +50,21 @@ img { display: block; max-width: 100%; }
 .page { width: min(1200px, calc(100% - 64px)); margin-inline: auto; padding-block: 1.5rem; }
 .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--paper); padding: 0.75rem; z-index: 1; }
 .skip-link:focus { top: 1rem; }
-.directory-title { font-size: 1.4rem; font-weight: 600; line-height: 1.3; margin-bottom: 1rem; overflow-wrap: anywhere; }
 .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .filters input, .filters select, .filters button { min-height: 42px; padding: 0.5rem 0.75rem; font-size: 0.85rem; }
-.filters input { flex: 1 1 260px; min-width: 0; background: #fbf9f4; border-color: #9c9e90; }
+.filters input { flex: 1 1 260px; min-width: 0; background: var(--paper); border-color: #9c9e90; }
 .filters input::placeholder { color: var(--muted); }
 .filters select { max-width: 100%; }
 .result-count { color: var(--muted); font-size: 0.75rem; margin-block: 0.75rem; }
 .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 1rem 1.5rem; padding: 0; margin: 0; list-style: none; }
 .app-card { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; padding-block: 1rem; border-top: 1px solid var(--rule); }
 .card-heading { display: flex; gap: 0.75rem; align-items: center; }
-.card-heading h2 { font-size: 1.4rem; line-height: 1.25; overflow-wrap: anywhere; }
+.card-heading h2 { flex: 1; min-width: 0; font-size: 1.4rem; line-height: 1.25; overflow-wrap: anywhere; }
 .card-heading a { text-decoration: none; }
+.app-status { flex-shrink: 0; margin-left: auto; color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
 .app-icon { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
 .app-summary { font-size: 0.875rem; line-height: 1.5; }
-.app-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.75rem; color: var(--muted); }
-.app-meta span + span { padding-left: 1rem; border-left: 1px solid var(--rule); }
+.app-meta { font-size: 0.75rem; color: var(--muted); }
 .app-preview { display: block; width: 100%; margin-top: auto; padding-top: 0.5rem; }
 .app-preview img { width: 100%; height: 140px; object-fit: contain; }
 .empty-state { padding-block: 3.5rem; }
@@ -77,9 +76,10 @@ img { display: block; max-width: 100%; }
 .detail-heading { padding-block: 1.25rem 2rem; max-width: 950px; }
 .category-label { color: var(--accent); font-size: 0.75rem; margin-bottom: 0.75rem; }
 .detail-title { display: flex; align-items: center; gap: 1.25rem; }
-.detail-title h1 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+.detail-title h1 { flex: 1; min-width: 0; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; letter-spacing: -0.04em; overflow-wrap: anywhere; }
 .detail-title .app-icon { width: 72px; height: 72px; }
 .detail-summary { font-size: 1.15rem; max-width: 740px; margin-top: 1rem; }
+.maturity-note { color: var(--muted); font-size: 0.85rem; margin-top: 0.75rem; }
 .detail-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 2rem; border-top: 1px solid var(--ink); padding-top: 2rem; }
 .detail-facts dl { margin: 0; }
 .detail-facts dt { color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.65rem; }
@@ -109,8 +109,6 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 480px) {
-  .app-meta { gap: 0.4rem 0.75rem; }
-  .app-meta span + span { padding-left: 0.75rem; }
   .detail-summary { font-size: 1rem; }
 }
 

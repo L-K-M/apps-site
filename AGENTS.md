@@ -25,7 +25,7 @@
 ## Visual constraints
 
 Syne headings and Instrument Sans text, self-hosted under `public/fonts/`.
-Off-white paper, compact app grid, one accent. Screenshots show the apps.
+White background, compact app grid, one accent. Screenshots show the apps.
 No gradients, arbitrary rainbow colours, pulse badges, decorative card tabs, emoji,
 glassmorphism, generic hype, remote font dependencies, or redundant descriptions.
 Check desktop and phone screenshots after layout changes.
