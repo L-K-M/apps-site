@@ -4,6 +4,7 @@
   "apps": [
     {
       "id": "dwindle",
+      "status": "visible",
       "name": "Dwindle",
       "summary": "A daily word puzzle on a honeycomb grid that disappears as you solve it.",
       "description": "Trace hidden words through a hexagonal board. Letters drift away when they are no longer needed, until the board is empty. Daily puzzles are available in English, German, Spanish and Italian.",
@@ -18,6 +19,7 @@
     },
     {
       "id": "meltorama",
+      "status": "visible",
       "name": "Meltorama 2000",
       "summary": "A photo-warping app for macOS and Android.",
       "description": "Warp photos in an app inspired by the original Meltorama.",
@@ -28,6 +30,7 @@
     },
     {
       "id": "mirio",
+      "status": "visible",
       "name": "Mirio",
       "summary": "A browser platformer with a round world, a trip to the moon, and a kart race.",
       "description": "Explore a small world with its own gravity, take a rocket to the moon, fight Finster-Mirio, and finish with a kart race. The characters and scenery come from Miro's drawings.",
@@ -40,6 +43,7 @@
     },
     {
       "id": "qrat",
+      "status": "visible",
       "name": "QRat",
       "summary": "Design QR codes in your browser.",
       "description": "A browser-based QR code designer.",
@@ -50,6 +54,7 @@
     },
     {
       "id": "wordwarp",
+      "status": "visible",
       "name": "WordWarp",
       "summary": "Create warped, metallic, and dimensional text in a browser or native editor.",
       "description": "A text-art studio with alpha-correct image export. The browser studio and native editors share the drawing engine.",

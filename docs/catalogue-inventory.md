@@ -5,8 +5,13 @@ on 2026-10-03. The catalogue has 64 distinct apps: 61 from those repositories
 and the existing Dwindle, Mirio and QRat web entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's
-app ids or exclusion reason. CI checks that all mapped apps exist, no duplicates
+app ids or exclusion reason. CI checks that all mapped metadata entries exist, no duplicates
 are introduced, and Leaflit stays excluded.
+
+Publication is separate from inventory coverage: set an app's `status` to
+`hidden` to keep its metadata while excluding it from the generated site.
+Browser fixtures exercise the complete audited reference catalogue, independent
+of those publication choices.
 
 ## Selection
 

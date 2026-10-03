@@ -5,6 +5,7 @@
   "apps": [
     {
       "id": "suite-reader",
+      "status": "visible",
       "name": "Suite Reader",
       "summary": "Read the documents stored in your library.",
       "category": "Reading",
@@ -14,6 +15,7 @@
     },
     {
       "id": "suite-web",
+      "status": "visible",
       "name": "Suite Web",
       "summary": "Browse your library from a web browser.",
       "category": "Reading",

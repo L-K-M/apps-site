@@ -4,6 +4,7 @@
   "apps": [
     {
       "id": "web-tool",
+      "status": "visible",
       "name": "Web Tool",
       "summary": "Describe what the web app does.",
       "category": "Utilities",

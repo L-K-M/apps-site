@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 const FONTS = { HEADINGS: 'Syne', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
 const HTTP_OK = 200;
+const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
 const STARTER_APP_COUNT = 64;
 
@@ -101,6 +102,18 @@ test('finds all three Hauntware apps and browser/watch targets', async ({ page }
   await page.getByRole('combobox', { name: 'Platform', exact: true }).selectOption('firefox');
   await expect(page.getByRole('heading', { name: 'Danvers', exact: true })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'RSS Spy', exact: true })).toBeVisible();
+});
+
+test('hidden metadata is absent from the directory, export and detail routes', async ({ page, request }) => {
+  await page.goto('./');
+  await expect(page.getByRole('heading', { name: 'Hidden fixture app', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('combobox', { name: 'Category' }).locator('option', { hasText: 'Hidden fixture category' })).toHaveCount(0);
+  const exported = await request.get('apps.json');
+  expect(await exported.text()).not.toContain('hidden-fixture');
+  const detail = await request.get('apps/hidden-fixture/index.html');
+  expect(detail.status()).toBe(HTTP_NOT_FOUND);
+  await page.getByRole('searchbox').fill('Hidden fixture');
+  await expect(page.locator('[data-result-count]')).toHaveText('0 apps');
 });
 
 test('detail pages and screenshots work under a subpath', async ({ page }) => {

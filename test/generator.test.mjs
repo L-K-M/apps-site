@@ -105,6 +105,93 @@ test('repo-local metadata overrides central entries while duplicates within a ti
   await assert.rejects(buildSite(config), /Duplicate app id "sample".*duplicate.*native/);
 });
 
+test('visibility defaults to visible and hidden apps leave no public metadata or media', async (t) => {
+  const hidden = { ...APP, id: 'hidden-app', name: 'Private fixture app', category: 'Private category', status: 'hidden', path: 'missing/app', platforms: undefined, screenshots: [{ src: 'missing.png', alt: 'Private screen' }] };
+  const { config, output } = await fixture(t, {
+    'catalogue/apps.json': manifest([APP, { ...APP, id: 'explicit-visible', status: 'visible' }, hidden]),
+  }, { url: 'https://directory.example.org/' });
+
+  const { apps } = await buildSite(config);
+  assert.deepEqual(apps.map((app) => app.id).sort(), ['explicit-visible', 'sample']);
+  assert.ok(apps.every((app) => app.status === 'visible'));
+  assert.equal(await exists(join(output, 'apps/hidden-app')), false);
+  assert.equal(await exists(join(output, 'assets/media')), false);
+  for (const file of ['index.html', 'apps.json', 'sitemap.xml']) {
+    assert.doesNotMatch(await readFile(join(output, file), 'utf8'), /hidden-app|Private fixture|Private category|missing\.png/);
+  }
+});
+
+test('repo-local visibility wins over central visibility before publication', async (t) => {
+  const { config, output, root } = await fixture(t, {
+    'catalogue/seed.json': manifest([{ ...APP, status: 'visible', icon: { src: 'screen.png', alt: 'Only the hidden app uses this' } }]),
+    'catalogue/screen.png': IMAGE,
+    'repos/suite/app-directory.json': manifest([{ ...APP, status: 'hidden' }, { ...APP, id: 'sibling', status: 'visible' }]),
+  });
+  let result = await buildSite(config);
+  assert.deepEqual(result.apps.map((app) => app.id), ['sibling']);
+  assert.equal(await exists(join(output, 'apps/sample')), false);
+  assert.equal(await exists(join(output, 'assets/media')), false);
+
+  await writeFile(join(root, 'catalogue/seed.json'), manifest([{ ...APP, status: 'hidden' }]));
+  await writeFile(join(root, 'repos/suite/app-directory.json'), manifest([{ ...APP, status: 'visible' }, { ...APP, id: 'sibling', status: 'hidden' }]));
+  result = await buildSite(config);
+  assert.deepEqual(result.apps.map((app) => app.id), ['sample']);
+  assert.equal(await exists(join(output, 'apps/sibling')), false);
+});
+
+test('changing visible to hidden removes old pages and media; showing it restores them', async (t) => {
+  const app = { ...APP, status: 'visible', screenshots: [{ src: 'screen.png', alt: 'Screen' }] };
+  const { config, output, root } = await fixture(t, {
+    'catalogue/app.json': manifest([app]),
+    'catalogue/screen.png': IMAGE,
+  });
+  await buildSite(config);
+  assert.equal(await exists(join(output, 'apps/sample/index.html')), true);
+  await writeFile(join(root, 'catalogue/app.json'), manifest([{ ...app, status: 'hidden' }]));
+  const { apps } = await buildSite(config);
+  assert.equal(apps.length, 0);
+  assert.equal(await exists(join(output, 'apps/sample')), false);
+  assert.equal(await exists(join(output, 'assets/media')), false);
+  assert.deepEqual(JSON.parse(await readFile(join(output, 'apps.json'), 'utf8')).apps, []);
+
+  await writeFile(join(root, 'catalogue/app.json'), manifest([app]));
+  await buildSite(config);
+  assert.equal(await exists(join(output, 'apps/sample/index.html')), true);
+  assert.equal(await exists(join(output, 'assets/media')), true);
+});
+
+test('visibility rejects unsupported statuses and still rejects duplicate hidden ids', async (t) => {
+  const { config, root } = await fixture(t);
+  const file = join(root, 'catalogue/app.json');
+  for (const status of ['private', 'VISIBLE', null, false]) {
+    await writeFile(file, manifest([{ ...APP, status }]));
+    await assert.rejects(buildSite(config), /status/);
+  }
+
+  await writeFile(file, manifest([{ ...APP, status: 'hidden' }, APP]));
+  await assert.rejects(buildSite(config), /Duplicate app id/);
+});
+
+test('hidden app directories remain protected from output replacement', async (t) => {
+  const { config, root } = await fixture(t, {
+    'repos/suite/app-directory.json': manifest([{ ...APP, status: 'hidden', path: 'app' }]),
+    'repos/suite/app/.apps-site': 'apps-site output v1\n',
+    'repos/suite/app/private-code.txt': 'keep this source',
+  }, { output: 'repos/suite/app' });
+  await assert.rejects(buildSite(config), /replace an input directory/);
+  assert.equal(await readFile(join(root, 'repos/suite/app/private-code.txt'), 'utf8'), 'keep this source');
+});
+
+test('hidden repo overrides do not resolve unavailable central app sources', async (t) => {
+  const { config } = await fixture(t, {
+    'catalogue/seed.json': manifest([{ ...APP, path: 'unavailable/fallback', platforms: undefined }]),
+    'repos/suite/app-directory.json': manifest([{ ...APP, status: 'hidden', path: 'unavailable/hidden', platforms: undefined }]),
+    'repos/suite/package.json': '{ malformed',
+  });
+  const { apps } = await buildSite(config);
+  assert.deepEqual(apps, []);
+});
+
 test('discovers symlinked repo and catalogue directories without cycles or double counting', async (t) => {
   const { config, root } = await fixture(t, {
     'actual-repo/app-directory.json': manifest([APP]),

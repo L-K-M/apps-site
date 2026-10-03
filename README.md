@@ -43,6 +43,7 @@ Put **`app-directory.json` in the app repo's root**:
   "apps": [
     {
       "id": "my-app",
+      "status": "visible",
       "name": "My App",
       "summary": "A clipboard manager with searchable history.",
       "category": "Utilities",
@@ -87,9 +88,21 @@ Central catalogues can also describe apps whose repos are elsewhere.
 
 ### Metadata
 
+Set `"status": "hidden"` on an app to stop publishing it. Set it back to
+`"visible"` to show it; omitted status defaults to visible. Rebuild with
+`npm run build`, or `docker compose run --rm generator` in Compose, to apply
+the change. Hidden apps have no generated listing, detail page, search entry,
+count, sitemap entry, exported JSON or app-specific media. A rebuild removes
+previously published pages and media.
+
+`status` controls publication; `maturity` remains the experimental/usable/polished
+label beside the app's name. In a monorepo, each app has its own status. Repo-local
+entries take precedence over central entries, including their visibility.
+
 | Field | Meaning |
 |---|---|
 | `id` | Stable lowercase URL slug, e.g. `wordwarp` |
+| `status` | `visible` or `hidden`; defaults to `visible` |
 | `name`, `summary`, `category` | Required display text; summary is limited to 240 characters |
 | `description` | Optional plain text; blank lines separate paragraphs |
 | `maturity` | `experimental`, `usable`, or `polished`; omitted means “Not assessed” |

@@ -3,11 +3,12 @@ import { readdir, realpath, stat } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 import { detectPlatforms } from './platforms.mjs';
-import { exists, resolveInside } from './paths.mjs';
+import { exists, isWithin, resolveInside } from './paths.mjs';
 import { isWebUrl, readJson, validate } from './validation.mjs';
 
 const MANIFEST_NAME = 'app-directory.json';
 const exec = promisify(execFile);
+export const AppVisibility = Object.freeze({ VISIBLE: 'visible', HIDDEN: 'hidden' });
 
 export async function loadConfig(file, overrides = {}) {
   const configFile = resolve(file);
@@ -80,28 +81,37 @@ async function sourceUrl(root) {
 async function readManifest(file, tier) {
   const manifest = validate(await readJson(file), 'manifest', file);
   const root = dirname(file);
-  const repository = manifest.repository ?? (tier === 'repository' ? await sourceUrl(root) : undefined);
+  const hasVisibleApps = manifest.apps.some((app) => (app.status ?? AppVisibility.VISIBLE) === AppVisibility.VISIBLE);
+  const repository = manifest.repository ?? (tier === 'repository' && hasVisibleApps ? await sourceUrl(root) : undefined);
   const apps = [];
 
   for (const app of manifest.apps) {
-    const appRoot = await resolveInside(root, app.path ?? '.');
-    const inferred = app.platforms === undefined && tier === 'repository';
-    const platforms = inferred ? await detectPlatforms(appRoot) : app.platforms ?? [];
-
+    const status = app.status ?? AppVisibility.VISIBLE;
     apps.push({
       ...app,
-      platforms: [...platforms].sort(),
-      platformsInferred: inferred && platforms.length > 0,
+      status,
       maturity: app.maturity ?? null,
       links: { ...(repository ? { source: repository } : {}), ...app.links },
       screenshots: app.screenshots ?? [],
       tags: app.tags ?? [],
       features: app.features ?? [],
-      source: { file, root: appRoot, tier },
+      source: { file, root, tier },
     });
   }
 
   return apps;
+}
+
+async function resolveAppSource(app) {
+  const root = app.source.root;
+  const declaredRoot = resolve(root, app.path ?? '.');
+  if (!isWithin(root, declaredRoot)) throw new Error(`Path escapes its source directory: ${app.path}`);
+
+  // Protect declared hidden sources from output replacement without requiring their files.
+  const appRoot = app.status === AppVisibility.HIDDEN ? declaredRoot : await resolveInside(root, app.path ?? '.');
+  const inferred = app.status === AppVisibility.VISIBLE && app.platforms === undefined && app.source.tier === 'repository';
+  const platforms = inferred ? await detectPlatforms(appRoot) : app.platforms ?? [];
+  return { ...app, platforms: [...platforms].sort(), platformsInferred: inferred && platforms.length > 0, source: { ...app.source, root: appRoot } };
 }
 
 async function loadTier(files, tier) {
@@ -130,5 +140,7 @@ export async function collectApps(config) {
 
   // Repo-local metadata becomes authoritative as apps adopt the manifest.
   for (const [id, app] of repositories) catalogue.set(id, app);
-  return [...catalogue.values()].sort((a, b) => a.name.localeCompare(b.name, 'en') || a.id.localeCompare(b.id, 'en'));
+  const apps = [];
+  for (const app of catalogue.values()) apps.push(await resolveAppSource(app));
+  return apps.sort((a, b) => a.name.localeCompare(b.name, 'en') || a.id.localeCompare(b.id, 'en'));
 }
