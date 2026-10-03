@@ -4,7 +4,7 @@ const FONTS = { HEADINGS: 'Syne', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
 const HTTP_OK = 200;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
-const STARTER_APP_COUNT = 16;
+const STARTER_APP_COUNT = 64;
 
 async function expectBundledFonts(page) {
   const typography = await page.evaluate(async () => {
@@ -87,6 +87,20 @@ test('combines search, category, platform and maturity; clears zero results', as
   await page.getByRole('button', { name: 'Clear filters', exact: true }).click();
   await expect(page.locator('[data-app]:visible')).toHaveCount(STARTER_APP_COUNT);
   await expect(page.getByRole('searchbox')).toBeFocused();
+});
+
+test('finds all three Hauntware apps and browser/watch targets', async ({ page }) => {
+  await page.goto('./?q=Hauntware');
+  await expect(page.locator('[data-app]:visible')).toHaveCount(3);
+  for (const name of ['Séance', 'Poltergeist', 'Planchette']) await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
+
+  await page.getByRole('button', { name: 'Clear', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Platform', exact: true }).selectOption('pebble');
+  await expect(page.locator('[data-app]:visible')).toHaveCount(2);
+  await expect(page.getByRole('heading', { name: 'Game & Pebble', exact: true })).toBeVisible();
+  await page.getByRole('combobox', { name: 'Platform', exact: true }).selectOption('firefox');
+  await expect(page.getByRole('heading', { name: 'Danvers', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'RSS Spy', exact: true })).toBeVisible();
 });
 
 test('detail pages and screenshots work under a subpath', async ({ page }) => {

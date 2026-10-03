@@ -43,7 +43,7 @@
         "platforms": {
           "type": "array",
           "uniqueItems": true,
-          "items": { "enum": ["macos", "windows", "linux", "android", "ios", "web"] }
+          "items": { "enum": ["macos", "windows", "linux", "android", "ios", "web", "firefox", "chrome", "pebble", "rg-nano"] }
         },
         "tags": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/definitions/text" } },
         "features": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/definitions/text" } },

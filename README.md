@@ -26,8 +26,9 @@ npm run preview
 
 Open <http://127.0.0.1:4173>. The generated site is in `dist/`.
 
-The starter catalogue contains 16 apps, using descriptions and screenshots from their
-repos. Maturity is left unassessed unless the source explicitly describes it. Edit
+The starter catalogue contains 64 apps, covering the public L-K-M app repositories
+and the existing web-only entries. [Repository audit](docs/catalogue-inventory.md).
+Maturity is left unassessed unless the source explicitly describes it. Edit
 `catalogue/*.json` to assess them or change the selection. Screenshot snapshots are
 credited in [`catalogue/assets/README.md`](catalogue/assets/README.md).
 
@@ -73,6 +74,11 @@ A manifest-level `repository` URL supplies the shared source link. Without one, 
 Git origin is used when available. Individual `links.source` values override it.
 See [`examples/monorepo.json`](examples/monorepo.json).
 
+Hauntware's Séance, Poltergeist and Planchette share `catalogue/hauntware.json`.
+[`examples/hauntware.json`](examples/hauntware.json) has their actual imported app
+paths and is ready to adopt as the monorepo's root `app-directory.json`. Once
+adopted, those entries replace their central counterparts by id.
+
 ### Web-only apps
 
 Put a manifest in `catalogue/`. Supply `platforms: ["web"]` and `links.website`.
@@ -88,7 +94,7 @@ Central catalogues can also describe apps whose repos are elsewhere.
 | `description` | Optional plain text; blank lines separate paragraphs |
 | `maturity` | `experimental`, `usable`, or `polished`; omitted means “Not assessed” |
 | `maturityNote` | Explanation of the supplied maturity assessment |
-| `platforms` | Any of `macos`, `windows`, `linux`, `android`, `ios`, `web` |
+| `platforms` | `macos`, `windows`, `linux`, `android`, `ios`, `web`, `firefox`, `chrome`, `pebble`, `rg-nano` |
 | `path` | App directory relative to the manifest; default `.` |
 | `tags`, `features` | Search keywords and a list of features |
 | `icon` | Image object with `src` and `alt` |

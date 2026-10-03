@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/L-K-M/apps-site/main/schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "repository": "https://github.com/L-K-M/Hauntware",
+  "apps": [
+    {
+      "id": "seance", "name": "Séance",
+      "summary": "An SSH client with terminal sessions, a file browser and optional encrypted sync.",
+      "category": "Networking",
+      "path": "seance/app/seance_app",
+      "tags": ["Hauntware", "SSH", "terminal"],
+      "links": { "download": "https://github.com/L-K-M/Seance/releases/latest" }
+    },
+    {
+      "id": "poltergeist", "name": "Poltergeist",
+      "summary": "A two-pane SFTP client for browsing, transferring and synchronizing files.",
+      "category": "Networking",
+      "path": "poltergeist/app/poltergeist_app",
+      "tags": ["Hauntware", "SFTP", "files"],
+      "links": { "download": "https://github.com/L-K-M/Poltergeist/releases/latest" }
+    },
+    {
+      "id": "planchette", "name": "Planchette",
+      "summary": "A focused text editor and the editor foundation for Séance and Poltergeist.",
+      "category": "Developer tools",
+      "path": "planchette/app/planchette_app",
+      "tags": ["Hauntware", "text editor"]
+    }
+  ]
+}

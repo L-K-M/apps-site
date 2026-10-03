@@ -1,0 +1,29 @@
+{
+  "$schema": "../schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "repository": "https://github.com/L-K-M/Hauntware",
+  "apps": [
+    {
+      "id": "seance", "name": "Séance",
+      "summary": "Connect to remote machines over SSH, with a file browser and optional encrypted sync.",
+      "description": "An SSH client with terminal sessions, stored server profiles, ProxyJump chains, a remote file browser and an optional session-aware assistant. Existing releases include desktop and Android builds plus an unsigned iOS artifact.",
+      "category": "Networking", "platforms": ["macos", "windows", "linux", "android", "ios"], "tags": ["Hauntware", "SSH", "terminal", "sync"],
+      "screenshots": [{ "src": "assets/seance.png", "alt": "Séance SSH terminal and server browser" }],
+      "links": { "source": "https://github.com/L-K-M/Seance", "download": "https://github.com/L-K-M/Seance/releases/latest", "docs": "https://github.com/L-K-M/Seance#readme" }
+    },
+    {
+      "id": "poltergeist", "name": "Poltergeist",
+      "summary": "Browse and transfer files with a two-pane SFTP client.",
+      "description": "Local and remote file panes, queued transfers, bookmarks, synchronization and an integrated editor. Supports macOS, Windows, Linux and Android; install details and current platform limitations are documented in its existing repository.",
+      "category": "Networking", "platforms": ["macos", "windows", "linux", "android"], "tags": ["Hauntware", "SFTP", "files", "sync"],
+      "links": { "source": "https://github.com/L-K-M/Poltergeist", "download": "https://github.com/L-K-M/Poltergeist/releases/latest", "docs": "https://github.com/L-K-M/Poltergeist/blob/main/docs/INSTALL.md" }
+    },
+    {
+      "id": "planchette", "name": "Planchette",
+      "summary": "Edit local text, configuration files and scripts with a focused desktop editor.",
+      "description": "Document tabs, find and replace, syntax highlighting, line numbers and guarded saves. Its editor foundation is also used by Séance and Poltergeist.",
+      "category": "Developer tools", "platforms": ["macos", "windows", "linux"], "tags": ["Hauntware", "text editor", "UTF-8"],
+      "links": { "source": "https://github.com/L-K-M/Planchette", "docs": "https://github.com/L-K-M/Planchette#readme" }
+    }
+  ]
+}

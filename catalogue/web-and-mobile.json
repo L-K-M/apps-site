@@ -14,7 +14,7 @@
         { "src": "assets/dwindle-light.png", "alt": "Dwindle word puzzle in its light theme", "caption": "A daily board in the light theme." },
         { "src": "assets/dwindle-dark.png", "alt": "Dwindle word puzzle in its dark theme", "caption": "The same puzzle in the dark theme." }
       ],
-      "links": { "website": "https://dwindle.ch", "source": "https://github.com/L-K-M/Dwindle" }
+      "links": { "website": "https://dwindle.ch" }
     },
     {
       "id": "meltorama",
@@ -46,7 +46,7 @@
       "category": "Creative tools",
       "platforms": ["web"],
       "tags": ["QR codes"],
-      "links": { "website": "https://qrat.love", "source": "https://github.com/L-K-M/qrat.love" }
+      "links": { "website": "https://qrat.love" }
     },
     {
       "id": "wordwarp",

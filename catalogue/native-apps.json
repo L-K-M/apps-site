@@ -1,0 +1,195 @@
+{
+  "$schema": "../schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "apps": [
+    {
+      "id": "alan", "name": "Alan",
+      "summary": "Highlight the active Mac window with a border, or dim everything around it.",
+      "description": "A fork of tylerhall/Alan with border styles, per-app colours, a window-finding hotkey and spotlight dimming. Requires macOS 15.7 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["window focus", "fork"],
+      "screenshots": [{ "src": "assets/alan.png", "alt": "Alan highlighting the active Mac window" }],
+      "links": { "source": "https://github.com/L-K-M/Alan", "download": "https://github.com/L-K-M/Alan/releases/latest" }
+    },
+    {
+      "id": "asterinked", "name": "Asterinked",
+      "summary": "Annotate PDFs with a pressure-sensitive stylus on Android.",
+      "description": "Write, highlight and erase ink, then export an annotated PDF with vector strokes and selectable original text. Drafts stay on-device. Requires Android 10 or later.",
+      "category": "Productivity", "platforms": ["android"], "tags": ["PDF", "annotation", "stylus"],
+      "links": { "source": "https://github.com/L-K-M/Asterinked", "download": "https://github.com/L-K-M/Asterinked/releases/latest" }
+    },
+    {
+      "id": "baegun", "name": "Baegun",
+      "summary": "Convert PDF and CBZ books to EPUB from a desktop app or command line.",
+      "description": "PDF conversion uses Mistral OCR to recover text, tables and images. CBZ conversion runs locally and creates fixed-layout EPUBs. The desktop and command-line tools share the conversion engine.",
+      "category": "Reading", "platforms": ["macos", "windows", "linux"], "tags": ["EPUB", "PDF", "CBZ", "OCR", "CLI"],
+      "links": { "source": "https://github.com/L-K-M/Baegun", "download": "https://github.com/L-K-M/Baegun/releases/latest" }
+    },
+    {
+      "id": "bangnidraw", "name": "帮你Draw",
+      "summary": "Layered drawing and painting with pressure-sensitive pens and pigment colour mixing.",
+      "description": "Sketch with pencils and brushes, mix colours, smudge, fill, and work with layers. Built for Android and the S Pen, with desktop shells for macOS and Linux.",
+      "category": "Creative tools", "platforms": ["android", "macos", "linux"], "tags": ["BangniDraw", "drawing", "painting", "S Pen"],
+      "icon": { "src": "assets/bangnidraw-icon.png", "alt": "帮你Draw icon" },
+      "links": { "source": "https://github.com/L-K-M/BangniDraw", "download": "https://github.com/L-K-M/BangniDraw/releases/latest" }
+    },
+    {
+      "id": "blipbird", "name": "Blipbird",
+      "summary": "Track flights, gates, routes and itinerary changes on Android.",
+      "description": "A departure board, live route map, daylight and weather ribbon, and flight-change notifications. Itineraries remain available offline; flight data uses free or bring-your-own-key providers.",
+      "category": "Travel", "platforms": ["android"], "tags": ["flights", "itinerary", "offline"],
+      "screenshots": [{ "src": "assets/blipbird.png", "alt": "Blipbird flight board, route map and itinerary screens" }],
+      "links": { "source": "https://github.com/L-K-M/Blipbird", "download": "https://github.com/L-K-M/Blipbird/releases/latest" }
+    },
+    {
+      "id": "bootcaptain", "name": "BootCaptain",
+      "summary": "Audit Mac startup items and investigate failed launches.",
+      "description": "Inventories launch agents, login items and other startup mechanisms, attributes them to installed products, and investigates boot failures. Includes a SwiftUI app and a command-line tool.",
+      "category": "Utilities", "maturity": "experimental", "maturityNote": "A research prototype, not a supported release.",
+      "platforms": ["macos"], "tags": ["startup", "launchd", "diagnostics", "CLI"],
+      "icon": { "src": "assets/bootcaptain-icon.png", "alt": "BootCaptain icon" },
+      "links": { "source": "https://github.com/L-K-M/BootCaptain" }
+    },
+    {
+      "id": "dockvac", "name": "DockVac",
+      "summary": "Inspect Docker disk usage as a treemap and remove selected items.",
+      "description": "Shows images, containers, volumes and build cache by size. Review a cleanup plan with the corresponding Docker commands before removing individual items. Requires macOS 13 or later and a local Docker daemon.",
+      "category": "Developer tools", "platforms": ["macos"], "tags": ["Docker", "disk usage", "cleanup"],
+      "icon": { "src": "assets/dockvac-icon.png", "alt": "DockVac icon" },
+      "screenshots": [{ "src": "assets/dockvac.png", "alt": "DockVac treemap of Docker disk usage" }],
+      "links": { "source": "https://github.com/L-K-M/DockVac" }
+    },
+    {
+      "id": "eko", "name": "Eko",
+      "summary": "Forward Android notifications and verification codes to your Mac over local Wi-Fi.",
+      "description": "A Mac menu-bar app and paired Android companion forward notifications over an authenticated local connection. Missed notifications are queued on the phone and replayed when the Mac reconnects.",
+      "category": "Utilities", "platforms": ["macos", "android"], "tags": ["notifications", "OTP", "LAN"],
+      "links": { "source": "https://github.com/L-K-M/Eko" }
+    },
+    {
+      "id": "gans", "name": "Gans",
+      "summary": "Access Ente Auth verification codes from a Mac menu bar or Linux tray.",
+      "description": "Search accounts with a global hotkey and copy or type their current codes. Synchronizes with Ente Auth using its end-to-end encryption. A Linux port is available in the source tree.",
+      "category": "Utilities", "platforms": ["macos", "linux"], "tags": ["2FA", "TOTP", "Ente"],
+      "screenshots": [{ "src": "assets/gans.png", "alt": "Gans menu-bar verification-code list" }],
+      "links": { "source": "https://github.com/L-K-M/Gans", "download": "https://github.com/L-K-M/Gans/releases/latest" }
+    },
+    {
+      "id": "invoque", "name": "Invoque",
+      "summary": "Launch apps, find files and run custom commands from a keyboard-first Mac panel.",
+      "description": "A launcher with calculation, file search and plain-file custom commands. Its built-in make command can generate and refine new commands with a configured language model. Requires macOS 13 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["launcher", "keyboard", "commands"],
+      "icon": { "src": "assets/invoque-icon.png", "alt": "Invoque icon" },
+      "links": { "source": "https://github.com/L-K-M/Invoque", "download": "https://github.com/L-K-M/Invoque/releases/latest" }
+    },
+    {
+      "id": "kararead", "name": "Kararead",
+      "summary": "Read articles from your Karakeep library on Android.",
+      "description": "An independent Karakeep client with a focused article reader, configurable reading settings and saved lists. Connect it to your existing Karakeep server with an API key.",
+      "category": "Reading", "platforms": ["android"], "tags": ["Karakeep", "read it later", "self-hosted"],
+      "screenshots": [{ "src": "assets/kararead.jpeg", "alt": "Kararead article reader" }],
+      "links": { "source": "https://github.com/L-K-M/Kararead", "download": "https://github.com/L-K-M/Kararead/releases/latest" }
+    },
+    {
+      "id": "kirsch", "name": "Kirsch",
+      "summary": "Capture glare-reduced digital copies of printed photographs on Android.",
+      "description": "Aligns and combines multiple captures on-device, corrects the print's geometry, and exports JPEG or TIFF scans. Restoration options produce separate derivatives rather than replacing the scan.",
+      "category": "Creative tools", "platforms": ["android"], "tags": ["photo scanning", "glare reduction"],
+      "links": { "source": "https://github.com/L-K-M/Kirsch" }
+    },
+    {
+      "id": "llimit", "name": "LLimit",
+      "summary": "Monitor AI subscription quotas in a Mac menu bar, desktop widgets, or Linux status bars.",
+      "description": "Tracks rolling, weekly and monthly limits across multiple providers and accounts. The Linux daemon and CLI provide modules for waybar, polybar and eww.",
+      "category": "Developer tools", "platforms": ["macos", "linux"], "tags": ["AI", "quotas", "widgets", "CLI"],
+      "screenshots": [{ "src": "assets/llimit.png", "alt": "LLimit desktop quota widgets" }],
+      "links": { "source": "https://github.com/L-K-M/LLimit", "download": "https://github.com/L-K-M/LLimit/releases/latest" }
+    },
+    {
+      "id": "lucerne", "name": "Lucerne",
+      "summary": "Write letters and small documents with a ClarisWorks-inspired word processor.",
+      "description": "A native word processor with rulers, tabs and free image placement. Its .luce files contain an editable document model, original images, a Markdown copy and dated backups.",
+      "category": "Productivity", "maturity": "experimental", "maturityNote": "Described by its author as an experimental word processor.",
+      "platforms": ["macos", "linux"], "tags": ["writing", "word processor"],
+      "screenshots": [{ "src": "assets/lucerne.png", "alt": "Lucerne editing a letter" }],
+      "links": { "source": "https://github.com/L-K-M/Lucerne", "download": "https://github.com/L-K-M/Lucerne/releases/latest" }
+    },
+    {
+      "id": "opencode-quota-widget", "name": "OpenCodeQuota Widget",
+      "summary": "Show your OpenCode AI account quotas in a Mac desktop widget.",
+      "description": "A WidgetKit widget and host app that discover configured OpenCode accounts and display their quota usage. Supports several providers and requires macOS 14 or later.",
+      "category": "Developer tools", "platforms": ["macos"], "tags": ["OpenCode", "AI", "quotas", "widgets"],
+      "screenshots": [{ "src": "assets/opencode-quota-widget.png", "alt": "OpenCodeQuota desktop widget" }],
+      "links": { "source": "https://github.com/L-K-M/OpenCodeQuotaWidget" }
+    },
+    {
+      "id": "pict", "name": "Pict",
+      "summary": "Choose custom app icons shared by Pict, Jetty, Zap and Top Drawer.",
+      "description": "Pick icons from files, SVGs, themes or an embedded web browser. A shared local icon store lets the companion Mac utilities use the same artwork. Requires macOS 13 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["icons", "customization"],
+      "screenshots": [{ "src": "assets/pict.png", "alt": "Pict choosing an icon from a web page" }],
+      "links": { "source": "https://github.com/L-K-M/Pict", "download": "https://github.com/L-K-M/Pict/releases/latest" }
+    },
+    {
+      "id": "rememoru", "name": "Rememoru",
+      "summary": "Save and restore Mac window layouts across displays and Spaces.",
+      "description": "Records window positions, desktops, fullscreen states and Split View pairs, then restores a layout on demand or at login. The menu-bar app also offers a command-line interface. Requires macOS 13 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["windows", "Spaces", "CLI"],
+      "links": { "source": "https://github.com/L-K-M/Rememoru" }
+    },
+    {
+      "id": "shortking", "name": "Shortking",
+      "summary": "Find which Mac apps claim a keyboard shortcut and diagnose who intercepted it.",
+      "description": "Inventories system and app shortcuts, then uses live capture and diagnostic tests to investigate unexpected hotkey behaviour. It diagnoses shortcuts rather than remapping them. Requires macOS 14 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["keyboard shortcuts", "diagnostics"],
+      "screenshots": [{ "src": "assets/shortking.png", "alt": "Shortking shortcut inventory" }],
+      "links": { "source": "https://github.com/L-K-M/Shortking", "download": "https://github.com/L-K-M/Shortking/releases/latest" }
+    },
+    {
+      "id": "shrinkpub", "name": "ShrinkPub",
+      "summary": "Reduce EPUB file sizes by recompressing and resizing embedded images.",
+      "description": "Drop books into the desktop app or process them with the batch CLI. It writes a smaller sibling file and preserves the original book, retaining each replacement image only when it saves space.",
+      "category": "Reading", "platforms": ["macos", "windows", "linux"], "tags": ["EPUB", "compression", "CLI"],
+      "screenshots": [{ "src": "assets/shrinkpub.png", "alt": "ShrinkPub EPUB compression results" }],
+      "links": { "source": "https://github.com/L-K-M/ShrinkPub" }
+    },
+    {
+      "id": "sion", "name": "Sion",
+      "summary": "Draw diagrams and illustrations with editable shapes and routed connectors on macOS.",
+      "description": "Shapes have editable connection points; connectors preview their routed paths. Documents bundle the editable scene, original assets, SVG and Mermaid exports, and retained history. Requires macOS 13 or later.",
+      "category": "Creative tools", "platforms": ["macos"], "tags": ["diagrams", "illustration", "vector"],
+      "links": { "source": "https://github.com/L-K-M/Sion", "download": "https://github.com/L-K-M/Sion/releases/latest" }
+    },
+    {
+      "id": "sortomat", "name": "Sortomat",
+      "summary": "Organize incoming Mac files with folder rules and optional language-model classification.",
+      "description": "Match files by names, dates, tags and contents, then move them into templated destinations. Optional language-model steps choose from an allowed folder set. Moves are journaled and undoable. Requires macOS 13 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["files", "automation", "OCR"],
+      "links": { "source": "https://github.com/L-K-M/Sortomat" }
+    },
+    {
+      "id": "spots", "name": "Spots",
+      "summary": "Show sensor-driven motion cues at the screen edges on Android.",
+      "description": "An on-device overlay whose dots follow vehicle motion, inspired by Vehicle Motion Cues. It uses the phone's motion sensors and has off, on and automatic modes.",
+      "category": "Utilities", "maturity": "experimental", "maturityNote": "An experimental passenger comfort aid, not a medical device.",
+      "platforms": ["android"], "tags": ["motion cues", "sensors", "accessibility"],
+      "links": { "source": "https://github.com/L-K-M/Spots" }
+    },
+    {
+      "id": "vaultsquire", "name": "VaultSquire",
+      "summary": "Access Vaultwarden, Proton Pass and 1Password from a native Mac password-manager client.",
+      "description": "Vaultwarden supports reading and editing items with an encrypted offline cache. Proton Pass and 1Password use their official command-line clients for read-only access.",
+      "category": "Utilities", "maturity": "experimental", "maturityNote": "A source tree without a supported or distributable release.",
+      "platforms": ["macos"], "tags": ["passwords", "Vaultwarden", "Proton Pass", "1Password"],
+      "icon": { "src": "assets/vaultsquire-icon.png", "alt": "VaultSquire icon" },
+      "links": { "source": "https://github.com/L-K-M/VaultSquire" }
+    },
+    {
+      "id": "zen-backup-manager", "name": "Zen Backup Manager",
+      "summary": "Browse and restore saved Zen Browser sessions on macOS.",
+      "description": "Inspect tabs and Spaces on a timeline of browser-session backups. Restoration saves a verified safety copy and supports undo. Everything stays local. Requires macOS 14 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["Zen Browser", "backup", "sessions"],
+      "screenshots": [{ "src": "assets/zen-backup-manager.png", "alt": "Zen Backup Manager session-backup timeline" }],
+      "links": { "source": "https://github.com/L-K-M/ZenBackupManager" }
+    }
+  ]
+}
