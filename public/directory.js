@@ -1,7 +1,6 @@
 (() => {
   const form = document.querySelector('.filters');
   const rows = [...document.querySelectorAll('[data-app]')];
-  const categoryLinks = [...document.querySelectorAll('[data-category-link]')];
   const result = document.querySelector('[data-result-count]');
   const empty = document.querySelector('[data-empty]');
   const fields = ['q', 'platform', 'maturity', 'category'];
@@ -28,10 +27,6 @@
       if (visible) count += 1;
     }
 
-    for (const link of categoryLinks) {
-      if (link.dataset.categoryLink === values.category) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    }
     result.textContent = `${count} ${count === 1 ? 'app' : 'apps'}`;
     empty.hidden = count !== 0 || rows.length === 0;
 
@@ -54,15 +49,6 @@
   form.addEventListener('submit', (event) => { event.preventDefault(); filter(); });
   form.addEventListener('reset', (event) => { event.preventDefault(); clear(); });
   document.querySelector('[data-clear]').addEventListener('click', clear);
-
-  for (const link of categoryLinks) {
-    link.addEventListener('click', (event) => {
-      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      form.elements.category.value = link.dataset.categoryLink;
-      filter();
-    });
-  }
 
   window.addEventListener('popstate', () => { restore(); filter(); });
   restore();

@@ -9,10 +9,16 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
   });
 
   await page.goto('./');
-  await expect(page.getByRole('heading', { name: 'Apps.', exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Apps by L-K-M', exact: true })).toBeVisible();
   await expect(page.locator('[data-app]:visible')).toHaveCount(17);
   await expect(page.locator('[data-result-count]')).toHaveText('17 apps');
-  await page.locator('.site-footer').scrollIntoViewIfNeeded();
+  if (testInfo.project.name === 'desktop') {
+    const first = await page.locator('[data-app]').nth(0).boundingBox();
+    const second = await page.locator('[data-app]').nth(1).boundingBox();
+    expect(first.y).toBe(second.y);
+    expect(second.x).toBeGreaterThan(first.x);
+  }
+  for (const image of await page.locator('img').all()) await image.scrollIntoViewIfNeeded();
   await expect.poll(() => page.locator('img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await page.screenshot({ path: `test-results/directory-${testInfo.project.name}.png`, fullPage: true });
@@ -21,14 +27,13 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
   expect(errors).toEqual([]);
 });
 
-test('combines search, category, platform and maturity; clears zero results', async ({ page }, testInfo) => {
+test('combines search, category, platform and maturity; clears zero results', async ({ page }) => {
   await page.goto('./');
   await page.getByRole('searchbox', { name: 'Search apps' }).fill('Mirio');
   await page.getByRole('combobox', { name: 'Platform', exact: true }).selectOption('web');
   await page.getByRole('combobox', { name: 'Maturity', exact: true }).selectOption('experimental');
 
-  if (testInfo.project.name === 'mobile') await page.getByRole('combobox', { name: 'Category', exact: true }).selectOption('Games');
-  else await page.locator('[data-category-link="Games"]').click();
+  await page.getByRole('combobox', { name: 'Category', exact: true }).selectOption('Games');
 
   await expect(page.locator('[data-app]:visible')).toHaveCount(1);
   await expect(page.locator('[data-result-count]')).toHaveText('1 app');
