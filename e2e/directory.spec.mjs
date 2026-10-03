@@ -104,6 +104,16 @@ test('finds all three Hauntware apps and browser/watch targets', async ({ page }
   await expect(page.getByRole('heading', { name: 'RSS Spy', exact: true })).toBeVisible();
 });
 
+test('maturity filters distinguish estimated usable and polished apps', async ({ page }) => {
+  await page.goto('./?q=Jetty&maturity=polished');
+  await expect(page.locator('[data-app]:visible')).toHaveCount(1);
+  await expect(page.getByRole('heading', { name: 'Jetty', exact: true })).toBeVisible();
+  await page.getByRole('searchbox').fill('Dwindle');
+  await expect(page.locator('[data-app]:visible')).toHaveCount(0);
+  await page.getByRole('combobox', { name: 'Maturity', exact: true }).selectOption('usable');
+  await expect(page.getByRole('heading', { name: 'Dwindle', exact: true })).toBeVisible();
+});
+
 test('hidden metadata is absent from the directory, export and detail routes', async ({ page, request }) => {
   await page.goto('./');
   await expect(page.getByRole('heading', { name: 'Hidden fixture app', exact: true })).toHaveCount(0);
@@ -120,7 +130,8 @@ test('detail pages and screenshots work under a subpath', async ({ page }) => {
   await page.goto('./?q=Dwindle');
   await page.getByRole('heading', { name: 'Dwindle', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Dwindle', exact: true })).toBeVisible();
-  await expect(page.locator('.detail-title .app-status')).toHaveText('Not assessed');
+  await expect(page.locator('.detail-title .app-status')).toHaveText('Usable');
+  await expect(page.locator('.maturity-note')).toContainText('Estimated:');
   await expectBundledFonts(page);
   await expect(page.getByRole('link', { name: 'Open website' })).toHaveAttribute('href', 'https://dwindle.ch');
   await expect(page.getByRole('link', { name: 'Downloads' })).toHaveCount(0);
