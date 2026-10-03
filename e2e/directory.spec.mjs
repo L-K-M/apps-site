@@ -1,14 +1,44 @@
 import { expect, test } from '@playwright/test';
 
+const FONTS = { HEADINGS: 'Syne', TEXT: 'Instrument Sans' };
+const FONT_CONTENT_TYPE = 'font/woff2';
+const HTTP_OK = 200;
+
+async function expectBundledFonts(page) {
+  const typography = await page.evaluate(async () => {
+    await document.fonts.ready;
+    return {
+      loaded: [...document.fonts].filter((font) => font.status === 'loaded').map((font) => font.family.replace(/['"]/g, '')),
+      heading: getComputedStyle(document.querySelector('h1')).fontFamily,
+      text: getComputedStyle(document.body).fontFamily,
+    };
+  });
+  expect(typography.loaded).toEqual(expect.arrayContaining(Object.values(FONTS)));
+  expect(typography.heading).toContain(FONTS.HEADINGS);
+  expect(typography.text).toContain(FONTS.TEXT);
+}
+
 test('renders all apps, local screenshots, and a responsive directory', async ({ page }, testInfo) => {
   const errors = [];
+  const fontResponses = [];
   page.on('pageerror', (error) => errors.push(error.message));
+  page.on('response', (response) => {
+    if (response.request().resourceType() !== 'font') return;
+    fontResponses.push({ url: response.url(), status: response.status(), type: response.headers()['content-type'] });
+  });
   await page.route('**/*', (route) => {
     if (new URL(route.request().url()).origin !== 'http://127.0.0.1:4173') return route.abort();
     return route.continue();
   });
 
   await page.goto('./');
+  await expectBundledFonts(page);
+  expect(fontResponses).toHaveLength(2);
+  for (const response of fontResponses) {
+    expect(new URL(response.url).pathname).toMatch(/^\/catalogue\/assets\/fonts\//);
+    expect(response.status).toBe(HTTP_OK);
+    expect(response.type).toBe(FONT_CONTENT_TYPE);
+  }
   await expect(page.getByRole('heading', { name: 'Apps by L-K-M', exact: true })).toBeVisible();
   await expect(page.locator('[data-app]:visible')).toHaveCount(17);
   await expect(page.locator('[data-result-count]')).toHaveText('17 apps');
@@ -52,6 +82,7 @@ test('detail pages and screenshots work under a subpath', async ({ page }) => {
   await page.goto('./?q=Dwindle');
   await page.getByRole('heading', { name: 'Dwindle', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Dwindle', exact: true })).toBeVisible();
+  await expectBundledFonts(page);
   await expect(page.getByRole('link', { name: 'Open website' })).toHaveAttribute('href', 'https://dwindle.ch');
   await expect(page.getByRole('link', { name: 'Downloads' })).toHaveCount(0);
   await expect(page.locator('.gallery img')).toHaveCount(2);

@@ -6,7 +6,11 @@ import { publishSite, validateOutput } from './output.mjs';
 import { renderSite } from './render.mjs';
 
 export const BuildMode = Object.freeze({ CHECK: 'check', WRITE: 'build' });
-const PUBLIC_ASSETS = ['style.css', 'directory.js', 'favicon.svg'];
+const PUBLIC_ASSETS = [
+  'style.css', 'directory.js', 'favicon.svg',
+  'fonts/syne-variable.woff2', 'fonts/instrument-sans-variable.woff2',
+  'fonts/OFL-syne.txt', 'fonts/OFL-instrument-sans.txt',
+];
 
 export async function buildSite(configPath, overrides = {}, mode = BuildMode.WRITE) {
   const config = await loadConfig(configPath, overrides);

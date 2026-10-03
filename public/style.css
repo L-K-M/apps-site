@@ -1,14 +1,32 @@
+/* Bundled fonts keep the site self-contained. */
+@font-face {
+  font-family: 'Syne';
+  src: url('fonts/syne-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('fonts/instrument-sans-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
 :root {
   --paper: #f5f2eb;
   --ink: #252721;
   --muted: #64665b;
   --rule: #d3d1c7;
   --accent: #993c2c;
-  --serif: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
-  --sans: 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+  --heading-font: 'Syne', Arial, sans-serif;
+  --text-font: 'Instrument Sans', Arial, sans-serif;
   color: var(--ink);
   background: var(--paper);
-  font-family: var(--sans);
+  font-family: var(--text-font);
   font-size: 16px;
   line-height: 1.6;
   color-scheme: light;
@@ -26,7 +44,7 @@ button { padding: 0.5rem 0.9rem; }
 button:hover { border-color: var(--ink); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 h1, h2, p, figure { margin: 0; }
-h1, h2 { font-weight: 400; }
+h1, h2 { font-family: var(--heading-font); font-weight: 400; }
 img { display: block; max-width: 100%; }
 
 .page { width: min(1200px, calc(100% - 64px)); margin-inline: auto; padding-block: 1.5rem; }
@@ -42,7 +60,7 @@ img { display: block; max-width: 100%; }
 .app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 1rem 1.5rem; padding: 0; margin: 0; list-style: none; }
 .app-card { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; padding-block: 1rem; border-top: 1px solid var(--rule); }
 .card-heading { display: flex; gap: 0.75rem; align-items: center; }
-.card-heading h2 { font-family: var(--serif); font-size: 1.4rem; line-height: 1.25; overflow-wrap: anywhere; }
+.card-heading h2 { font-size: 1.4rem; line-height: 1.25; overflow-wrap: anywhere; }
 .card-heading a { text-decoration: none; }
 .app-icon { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
 .app-summary { font-size: 0.875rem; line-height: 1.5; }
@@ -51,7 +69,7 @@ img { display: block; max-width: 100%; }
 .app-preview { display: block; width: 100%; margin-top: auto; padding-top: 0.5rem; }
 .app-preview img { width: 100%; height: 140px; object-fit: contain; }
 .empty-state { padding-block: 3.5rem; }
-.empty-state h2 { font-family: var(--serif); font-size: 2rem; }
+.empty-state h2 { font-size: 2rem; }
 .empty-state p { color: var(--muted); margin-block: 0.5rem 1.5rem; }
 .catalogue-empty { padding-block: 3rem; }
 
@@ -59,7 +77,7 @@ img { display: block; max-width: 100%; }
 .detail-heading { padding-block: 1.25rem 2rem; max-width: 950px; }
 .category-label { color: var(--accent); font-size: 0.75rem; margin-bottom: 0.75rem; }
 .detail-title { display: flex; align-items: center; gap: 1.25rem; }
-.detail-title h1 { font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+.detail-title h1 { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; letter-spacing: -0.04em; overflow-wrap: anywhere; }
 .detail-title .app-icon { width: 72px; height: 72px; }
 .detail-summary { font-size: 1.15rem; max-width: 740px; margin-top: 1rem; }
 .detail-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 2rem; border-top: 1px solid var(--ink); padding-top: 2rem; }
@@ -72,7 +90,7 @@ img { display: block; max-width: 100%; }
 .app-link span { color: var(--accent); }
 .description p + p { margin-top: 1rem; }
 .features { margin-top: 2rem; }
-.features h2 { font-family: var(--serif); font-size: 1.75rem; }
+.features h2 { font-size: 1.75rem; }
 .features ul { padding-left: 1.25rem; }
 .features li { margin-block: 0.5rem; }
 .gallery { margin-top: 2.5rem; }
