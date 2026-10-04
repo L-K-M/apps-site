@@ -31,7 +31,11 @@ test('the public repository audit accounts for every catalogue entry and exclude
       const app = byId.get(id);
       assert.ok(app, `${repo.name}: missing ${id}`);
       accounted.add(id);
-      if (repo.name !== 'Hauntware') assert.equal(app.links.source, `https://github.com/L-K-M/${repo.name}`);
+      if (repo.name !== 'Hauntware') {
+        const repository = repo.sourceRepository ?? repo.name;
+        const path = repo.sourcePath ? `/tree/main/${repo.sourcePath}` : '';
+        assert.equal(app.links.source, `https://github.com/L-K-M/${repository}${path}`);
+      }
     }
   }
 
@@ -44,7 +48,11 @@ test('Hauntware is one manifest with three distinct searchable apps', async () =
   const manifest = JSON.parse(await readFile(join(ROOT, 'catalogue/hauntware.json'), 'utf8'));
   assert.equal(manifest.repository, HAUNTWARE_SOURCE);
   assert.deepEqual(manifest.apps.map((app) => app.id).sort(), HAUNTWARE_APP_IDS);
-  for (const app of manifest.apps) assert.ok(app.tags.includes('Hauntware'));
+  for (const app of manifest.apps) {
+    assert.ok(app.tags.includes('Hauntware'));
+    assert.equal(app.links.source, `${HAUNTWARE_SOURCE}/tree/main/${app.id}`);
+    assert.ok(app.links.docs.startsWith(`${HAUNTWARE_SOURCE}/blob/main/${app.id}/`));
+  }
 });
 
 test('curated apps have explained maturity ratings', async () => {
@@ -79,7 +87,7 @@ test('the Hauntware repo-ready manifest resolves each app root and overrides cen
   const apps = await collectApps({ repositoryRoots: [join(root, 'repos')], catalogues: [central] });
   assert.equal(apps.length, HAUNTWARE_APP_IDS.length);
   for (const app of apps) {
-    assert.equal(app.links.source, HAUNTWARE_SOURCE);
+    assert.equal(app.links.source, `${HAUNTWARE_SOURCE}/tree/main/${app.id}`);
     assert.equal(app.source.tier, 'repository');
     assert.equal(app.platformsInferred, true);
     assert.deepEqual(app.platforms, [app.id === 'planchette' ? 'linux' : 'android']);

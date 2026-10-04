@@ -9,10 +9,10 @@
       "maturity": "usable",
       "maturityNote": "Estimated: SSH sessions, profiles and encrypted sync are implemented; mobile distribution and platform differences remain rough edges.",
       "summary": "Connect to remote machines over SSH, with a file browser and optional encrypted sync.",
-      "description": "An SSH client with terminal sessions, stored server profiles, ProxyJump chains, a remote file browser and an optional session-aware assistant. Existing releases include desktop and Android builds plus an unsigned iOS artifact.",
+      "description": "Hauntware's SSH client, with terminal sessions, stored server profiles, ProxyJump chains, a remote file browser and an optional session-aware assistant. Existing standalone downloads remain available until the first suite release.",
       "category": "Networking", "platforms": ["macos", "windows", "linux", "android", "ios"], "tags": ["Hauntware", "SSH", "terminal", "sync"],
       "screenshots": [{ "src": "assets/seance.png", "alt": "Séance SSH terminal and server browser" }],
-      "links": { "source": "https://github.com/L-K-M/Seance", "download": "https://github.com/L-K-M/Seance/releases/latest", "docs": "https://github.com/L-K-M/Seance#readme" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/seance", "download": "https://github.com/L-K-M/Seance/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/seance/README.md" }
     },
     {
       "id": "poltergeist", "name": "Poltergeist",
@@ -20,9 +20,9 @@
       "maturity": "usable",
       "maturityNote": "Estimated: SFTP transfer, sync and editing are implemented; documented Android and extra-window limitations prevent a polished rating.",
       "summary": "Browse and transfer files with a two-pane SFTP client.",
-      "description": "Local and remote file panes, queued transfers, bookmarks, synchronization and an integrated editor. Supports macOS, Windows, Linux and Android; install details and current platform limitations are documented in its existing repository.",
+      "description": "Hauntware's file-transfer client, with local and remote panes, queued transfers, bookmarks, synchronization and the shared Planchette editor. Install details and platform limitations are documented in the monorepo.",
       "category": "Networking", "platforms": ["macos", "windows", "linux", "android"], "tags": ["Hauntware", "SFTP", "files", "sync"],
-      "links": { "source": "https://github.com/L-K-M/Poltergeist", "download": "https://github.com/L-K-M/Poltergeist/releases/latest", "docs": "https://github.com/L-K-M/Poltergeist/blob/main/docs/INSTALL.md" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/poltergeist", "download": "https://github.com/L-K-M/Poltergeist/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/poltergeist/docs/INSTALL.md" }
     },
     {
       "id": "planchette", "name": "Planchette",
@@ -30,9 +30,9 @@
       "maturity": "usable",
       "maturityNote": "Estimated: core editing and guarded saves are implemented; distribution, large-file handling and editor scope remain limited.",
       "summary": "Edit local text, configuration files and scripts with a focused desktop editor.",
-      "description": "Document tabs, find and replace, syntax highlighting, line numbers and guarded saves. Its editor foundation is also used by Séance and Poltergeist.",
+      "description": "Hauntware's standalone text editor, with document tabs, find and replace, syntax highlighting, line numbers and guarded saves. Its shared editor foundation is used by Séance and Poltergeist.",
       "category": "Developer tools", "platforms": ["macos", "windows", "linux"], "tags": ["Hauntware", "text editor", "UTF-8"],
-      "links": { "source": "https://github.com/L-K-M/Planchette", "docs": "https://github.com/L-K-M/Planchette#readme" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/planchette", "docs": "https://github.com/L-K-M/Hauntware/blob/main/planchette/README.md" }
     }
   ]
 }

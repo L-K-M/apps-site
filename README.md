@@ -76,9 +76,11 @@ Git origin is used when available. Individual `links.source` values override it.
 See [`examples/monorepo.json`](examples/monorepo.json).
 
 Hauntware's Séance, Poltergeist and Planchette share `catalogue/hauntware.json`.
-[`examples/hauntware.json`](examples/hauntware.json) has their actual imported app
-paths and is ready to adopt as the monorepo's root `app-directory.json`. Once
-adopted, those entries replace their central counterparts by id.
+Their source and documentation links use the merged monorepo. Standalone download
+links remain until the first Hauntware release is published.
+[`examples/hauntware.json`](examples/hauntware.json) has the merged app paths and
+can be adopted as the monorepo's root `app-directory.json`; those entries then
+replace their central counterparts by id.
 
 ### Web-only apps
 

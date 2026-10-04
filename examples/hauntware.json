@@ -12,7 +12,7 @@
       "category": "Networking",
       "path": "seance/app/seance_app",
       "tags": ["Hauntware", "SSH", "terminal"],
-      "links": { "download": "https://github.com/L-K-M/Seance/releases/latest" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/seance", "download": "https://github.com/L-K-M/Seance/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/seance/README.md" }
     },
     {
       "id": "poltergeist", "name": "Poltergeist",
@@ -23,7 +23,7 @@
       "category": "Networking",
       "path": "poltergeist/app/poltergeist_app",
       "tags": ["Hauntware", "SFTP", "files"],
-      "links": { "download": "https://github.com/L-K-M/Poltergeist/releases/latest" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/poltergeist", "download": "https://github.com/L-K-M/Poltergeist/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/poltergeist/docs/INSTALL.md" }
     },
     {
       "id": "planchette", "name": "Planchette",
@@ -33,7 +33,8 @@
       "summary": "A focused text editor and the editor foundation for Séance and Poltergeist.",
       "category": "Developer tools",
       "path": "planchette/app/planchette_app",
-      "tags": ["Hauntware", "text editor"]
+      "tags": ["Hauntware", "text editor"],
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/planchette", "docs": "https://github.com/L-K-M/Hauntware/blob/main/planchette/README.md" }
     }
   ]
 }
