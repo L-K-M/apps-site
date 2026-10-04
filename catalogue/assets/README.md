@@ -47,4 +47,4 @@ resized to at most 192 px; screenshots retain the upstream image data.
 | shiori-web-ext.png | `shiori-web-ext/docs/screenshot.png` |
 | skip-that-noise.png | `skip-that-noise/img-src/screenshot.png` |
 | whatsapp-backup.png | `whatsapp-backup/screenshot.png` |
-| seance.png | `Seance/screenshot.png` |
+| seance.png | `Hauntware/seance/screenshot.png` |

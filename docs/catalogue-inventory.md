@@ -32,12 +32,14 @@ Download links are supplied only for repositories with a verified public release
 Several READMEs advertise a latest-release link even though no release exists;
 those entries have source links instead.
 
-The account audit also verified [Starling 3.1.3](https://github.com/L-K-M/FunKey-OS-Starling/releases/tag/Starling-3.1.3),
-[Séance 0.9.2](https://github.com/L-K-M/Seance/releases/tag/v0.9.2), and
-[Poltergeist 1.0.1](https://github.com/L-K-M/Poltergeist/releases/tag/v1.0.1)
-through the GitHub Releases API. Séance's iOS target is represented by an
-unsigned IPA, not an App Store release. Browser targets for Hoarder's Pipette
-are documented in its [Chrome and Firefox installation guide](https://dansnow.github.io/hoarder-pipette/guides/installation/).
+The account audit also verified [Starling 3.1.3](https://github.com/L-K-M/FunKey-OS-Starling/releases/tag/Starling-3.1.3)
+through the GitHub Releases API. The standalone Séance 0.9.2 and
+Poltergeist 1.0.1 releases are superseded by
+[Hauntware v1.9.0](https://github.com/L-K-M/Hauntware/releases/tag/v1.9.0), the
+suite release that ships the seance-*, poltergeist-* and planchette-* download
+assets. Séance's iOS target is represented by an unsigned IPA, not an App Store
+release. Browser targets for Hoarder's Pipette are documented in its
+[Chrome and Firefox installation guide](https://dansnow.github.io/hoarder-pipette/guides/installation/).
 
 Maturity estimates are editable judgements, not hands-on certification. Source-only
 software can be usable; published builds can remain experimental. Distribution
@@ -47,8 +49,8 @@ status is considered alongside implemented workflows and documented limitations.
 
 `catalogue/hauntware.json` is one manifest containing Séance, Poltergeist and
 Planchette under the shared Hauntware repository. Search for **Hauntware** to
-find all three. Source and documentation links now use their merged subdirectories.
-Standalone release links remain because Hauntware has not published a suite release.
+find all three. Source, documentation and download links use the merged
+repository, with downloads pointing at its suite releases.
 
 [`examples/hauntware.json`](../examples/hauntware.json) is ready to copy to the
 Hauntware repo root as `app-directory.json`. It uses the verified merged layout:
@@ -59,8 +61,7 @@ Hauntware repo root as `app-directory.json`. It uses the verified merged layout:
 
 The repo-local manifest then overrides the central entries by their existing
 ids, uses app-specific source URLs in the shared repo, and infers each app's platforms from its
-own Flutter directory. Existing standalone releases remain linked until
-Hauntware publishes replacements.
+own Flutter directory. Downloads point at the Hauntware suite releases.
 
 ## Updating this snapshot
 

@@ -97,7 +97,7 @@ test('finds all three Hauntware apps and browser/watch targets', async ({ page }
 
   await page.getByRole('heading', { name: 'Poltergeist', exact: true }).getByRole('link').click();
   await expect(page.getByRole('link', { name: 'Source code' })).toHaveAttribute('href', 'https://github.com/L-K-M/Hauntware/tree/main/poltergeist');
-  await expect(page.getByRole('link', { name: 'Downloads' })).toHaveAttribute('href', 'https://github.com/L-K-M/Poltergeist/releases/latest');
+  await expect(page.getByRole('link', { name: 'Downloads' })).toHaveAttribute('href', 'https://github.com/L-K-M/Hauntware/releases/latest');
   await page.getByRole('link', { name: 'All apps' }).click();
 
   await page.getByRole('button', { name: 'Clear', exact: true }).click();

@@ -12,7 +12,7 @@
       "category": "Networking",
       "path": "seance/app/seance_app",
       "tags": ["Hauntware", "SSH", "terminal"],
-      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/seance", "download": "https://github.com/L-K-M/Seance/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/seance/README.md" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/seance", "download": "https://github.com/L-K-M/Hauntware/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/seance/README.md" }
     },
     {
       "id": "poltergeist", "name": "Poltergeist",
@@ -23,7 +23,7 @@
       "category": "Networking",
       "path": "poltergeist/app/poltergeist_app",
       "tags": ["Hauntware", "SFTP", "files"],
-      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/poltergeist", "download": "https://github.com/L-K-M/Poltergeist/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/poltergeist/docs/INSTALL.md" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/poltergeist", "download": "https://github.com/L-K-M/Hauntware/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/poltergeist/docs/INSTALL.md" }
     },
     {
       "id": "planchette", "name": "Planchette",
@@ -34,7 +34,7 @@
       "category": "Developer tools",
       "path": "planchette/app/planchette_app",
       "tags": ["Hauntware", "text editor"],
-      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/planchette", "docs": "https://github.com/L-K-M/Hauntware/blob/main/planchette/README.md" }
+      "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/planchette", "download": "https://github.com/L-K-M/Hauntware/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/planchette/README.md" }
     }
   ]
 }

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Point Hauntware download links at the published suite releases, replacing standalone repository links.
+
 - Use merged Hauntware source/docs links while retaining available standalone downloads.
 
 - Populate app maturity with reasoned estimates, preserving existing author assessments.
