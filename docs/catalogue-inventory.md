@@ -47,19 +47,18 @@ status is considered alongside implemented workflows and documented limitations.
 
 `catalogue/hauntware.json` is one manifest containing Séance, Poltergeist and
 Planchette under the shared Hauntware repository. Search for **Hauntware** to
-find all three. Existing source, release and documentation links stay available
-while their source moves into the new repo.
+find all three. Source and documentation links now use their merged subdirectories.
+Standalone release links remain because Hauntware has not published a suite release.
 
 [`examples/hauntware.json`](../examples/hauntware.json) is ready to copy to the
-Hauntware repo root as `app-directory.json` after its source import lands. It
-uses the current imported layout:
+Hauntware repo root as `app-directory.json`. It uses the verified merged layout:
 
 - `seance/app/seance_app`
 - `poltergeist/app/poltergeist_app`
 - `planchette/app/planchette_app`
 
 The repo-local manifest then overrides the central entries by their existing
-ids, inherits the shared source URL, and infers each app's platforms from its
+ids, uses app-specific source URLs in the shared repo, and infers each app's platforms from its
 own Flutter directory. Existing standalone releases remain linked until
 Hauntware publishes replacements.
 

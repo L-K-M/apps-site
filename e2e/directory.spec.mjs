@@ -95,6 +95,11 @@ test('finds all three Hauntware apps and browser/watch targets', async ({ page }
   await expect(page.locator('[data-app]:visible')).toHaveCount(3);
   for (const name of ['Séance', 'Poltergeist', 'Planchette']) await expect(page.getByRole('heading', { name, exact: true })).toBeVisible();
 
+  await page.getByRole('heading', { name: 'Poltergeist', exact: true }).getByRole('link').click();
+  await expect(page.getByRole('link', { name: 'Source code' })).toHaveAttribute('href', 'https://github.com/L-K-M/Hauntware/tree/main/poltergeist');
+  await expect(page.getByRole('link', { name: 'Downloads' })).toHaveAttribute('href', 'https://github.com/L-K-M/Poltergeist/releases/latest');
+  await page.getByRole('link', { name: 'All apps' }).click();
+
   await page.getByRole('button', { name: 'Clear', exact: true }).click();
   await page.getByRole('combobox', { name: 'Platform', exact: true }).selectOption('pebble');
   await expect(page.locator('[data-app]:visible')).toHaveCount(2);

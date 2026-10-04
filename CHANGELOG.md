@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Use merged Hauntware source/docs links while retaining available standalone downloads.
+
 - Populate app maturity with reasoned estimates, preserving existing author assessments.
 
 - Add per-app `status: visible/hidden` publication control; hide pages, media and exports on rebuild.
