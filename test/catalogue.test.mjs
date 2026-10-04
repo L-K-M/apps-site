@@ -11,6 +11,8 @@ const AUDITED_REPOSITORY_COUNT = 68;
 const CATALOGUE_APP_COUNT = 64;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
+const HAUNTWARE_DOWNLOAD = `${HAUNTWARE_SOURCE}/releases/latest`;
+const ARCHIVED_STANDALONE_REPOSITORIES = /github\.com\/L-K-M\/(?:Seance|Poltergeist|Planchette)(?:[/?#]|$)/;
 const MATURITY_LEVELS = new Set(['experimental', 'usable', 'polished']);
 
 test('the public repository audit accounts for every catalogue entry and excluded repo', async () => {
@@ -39,6 +41,12 @@ test('the public repository audit accounts for every catalogue entry and exclude
     }
   }
 
+  for (const app of apps) {
+    for (const url of Object.values(app.links ?? {})) {
+      assert.equal(ARCHIVED_STANDALONE_REPOSITORIES.test(url), false, `${app.id}: archived standalone repository link ${url}`);
+    }
+  }
+
   assert.deepEqual([...accounted].sort(), [...byId.keys()].sort());
   for (const id of inventory.excludedPrivateApps) assert.equal(byId.has(id), false);
   for (const id of ['dwindle', 'qrat']) assert.equal(byId.get(id).links.source, undefined);
@@ -51,6 +59,7 @@ test('Hauntware is one manifest with three distinct searchable apps', async () =
   for (const app of manifest.apps) {
     assert.ok(app.tags.includes('Hauntware'));
     assert.equal(app.links.source, `${HAUNTWARE_SOURCE}/tree/main/${app.id}`);
+    assert.equal(app.links.download, HAUNTWARE_DOWNLOAD);
     assert.ok(app.links.docs.startsWith(`${HAUNTWARE_SOURCE}/blob/main/${app.id}/`));
   }
 });
@@ -88,6 +97,7 @@ test('the Hauntware repo-ready manifest resolves each app root and overrides cen
   assert.equal(apps.length, HAUNTWARE_APP_IDS.length);
   for (const app of apps) {
     assert.equal(app.links.source, `${HAUNTWARE_SOURCE}/tree/main/${app.id}`);
+    assert.equal(app.links.download, HAUNTWARE_DOWNLOAD);
     assert.equal(app.source.tier, 'repository');
     assert.equal(app.platformsInferred, true);
     assert.deepEqual(app.platforms, [app.id === 'planchette' ? 'linux' : 'android']);
