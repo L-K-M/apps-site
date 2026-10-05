@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Rename the site to Cabinet of Curiosities with a blackletter wordmark, ornament rules and a keyhole favicon.
+
 - Point Hauntware download links at the published suite releases, replacing standalone repository links.
 
 - Use merged Hauntware source/docs links while retaining available standalone downloads.

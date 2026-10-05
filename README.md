@@ -10,8 +10,9 @@ and images. Upload it to any static web server.
 
 ![App directory preview](docs/directory.png)
 
-Headings use self-hosted Syne; text uses self-hosted Instrument Sans. Both fonts
-are bundled under SIL OFL 1.1. [Sources and licenses](public/fonts/README.md).
+The wordmark uses self-hosted Pirata One, headings use Syne, and text uses
+Instrument Sans. All fonts are bundled under SIL OFL 1.1.
+[Sources and licenses](public/fonts/README.md).
 
 ## Run
 

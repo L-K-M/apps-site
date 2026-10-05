@@ -8,6 +8,14 @@
 }
 
 @font-face {
+  font-family: 'Pirata One';
+  src: url('fonts/pirata-one-regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Instrument Sans';
   src: url('fonts/instrument-sans-variable.woff2') format('woff2');
   font-style: normal;
@@ -23,6 +31,7 @@
   --rule: #d3d1c7;
   --accent: #993c2c;
   --heading-font: 'Syne', Arial, sans-serif;
+  --wordmark-font: 'Pirata One', Georgia, serif;
   --text-font: 'Instrument Sans', Arial, sans-serif;
   color: var(--ink);
   background: var(--paper);
@@ -48,6 +57,13 @@ h1, h2 { font-family: var(--heading-font); font-weight: 400; }
 img { display: block; max-width: 100%; }
 
 .page { width: min(1200px, calc(100% - 64px)); margin-inline: auto; padding-block: 1.5rem; }
+.site-header { margin-bottom: 1.75rem; text-align: center; }
+.wordmark { font-family: var(--wordmark-font); font-weight: 400; font-size: clamp(1.75rem, 3.5vw, 2.75rem); line-height: 1.1; letter-spacing: 0.02em; }
+
+/* Diamond-tipped rule beneath the wordmark, drawn in CSS. */
+.ornament { display: flex; align-items: center; gap: 1rem; margin-top: 0.9rem; }
+.ornament::before, .ornament::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+.ornament span { width: 7px; height: 7px; border: 1px solid var(--ink); transform: rotate(45deg); }
 .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--paper); padding: 0.75rem; z-index: 1; }
 .skip-link:focus { top: 1rem; }
 .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; }
