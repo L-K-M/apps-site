@@ -83,6 +83,8 @@ test('builds a monorepo and a repo-less web app with portable media and links', 
   assert.match(detail, /href="\.\.\/\.\.\/assets\/style.css"/);
   assert.match(detail, /src="\.\.\/\.\.\/assets\/media\//);
   assert.match(detail, /https:\/\/directory\.example\.org\/tools\/apps\/desktop\//);
+  const home = await readFile(join(output, 'index.html'), 'utf8');
+  assert.match(home, /<h1 class="wordmark">Test Directory<\/h1>/);
   const webPage = await readFile(join(output, 'apps/web-only/index.html'), 'utf8');
   assert.match(webPage, /Open website/);
   assert.doesNotMatch(webPage, /Downloads|Source code/);

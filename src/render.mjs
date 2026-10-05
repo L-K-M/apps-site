@@ -88,7 +88,11 @@ function options(values, label) {
 function renderHome(config, apps) {
   const categories = [...new Set(apps.map((app) => app.category))].sort((a, b) => a.localeCompare(b, 'en'));
   const platforms = Object.entries(PLATFORMS).filter(([id]) => apps.some((app) => app.platforms.includes(id)));
-  const content = `<main id="main" class="directory-main" aria-label="App directory">
+  const content = `<header class="site-header">
+    <h1 class="wordmark">${escapeHtml(config.title)}</h1>
+    <div class="ornament" aria-hidden="true"><span></span></div>
+  </header>
+  <main id="main" class="directory-main" aria-label="App directory">
     <form class="filters" role="search" data-enhanced hidden>
       <input type="search" name="q" aria-label="Search apps" placeholder="Search apps" autocomplete="off">
       <select name="category" aria-label="Category">${options(categories.map((category) => [category, category]), 'All categories')}</select>

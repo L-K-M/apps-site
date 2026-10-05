@@ -1,22 +1,22 @@
 import { expect, test } from '@playwright/test';
 
-const FONTS = { HEADINGS: 'Syne', TEXT: 'Instrument Sans' };
+const FONTS = { HEADINGS: 'Syne', WORDMARK: 'Pirata One', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
 const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
 const STARTER_APP_COUNT = 64;
 
-async function expectBundledFonts(page) {
+async function expectBundledFonts(page, families = [FONTS.HEADINGS, FONTS.TEXT]) {
   const typography = await page.evaluate(async () => {
     await document.fonts.ready;
     return {
       loaded: [...document.fonts].filter((font) => font.status === 'loaded').map((font) => font.family.replace(/['"]/g, '')),
-      heading: getComputedStyle(document.querySelector('h1, h2')).fontFamily,
+      heading: getComputedStyle(document.querySelector('.card-heading h2, .detail-title h1')).fontFamily,
       text: getComputedStyle(document.body).fontFamily,
     };
   });
-  expect(typography.loaded).toEqual(expect.arrayContaining(Object.values(FONTS)));
+  expect(typography.loaded).toEqual(expect.arrayContaining(families));
   expect(typography.heading).toContain(FONTS.HEADINGS);
   expect(typography.text).toContain(FONTS.TEXT);
 }
@@ -35,14 +35,15 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
   });
 
   await page.goto('./');
-  await expectBundledFonts(page);
-  expect(fontResponses).toHaveLength(2);
+  await expectBundledFonts(page, Object.values(FONTS));
+  expect(fontResponses).toHaveLength(Object.keys(FONTS).length);
   for (const response of fontResponses) {
     expect(new URL(response.url).pathname).toMatch(/^\/catalogue\/assets\/fonts\//);
     expect(response.status).toBe(HTTP_OK);
     expect(response.type).toBe(FONT_CONTENT_TYPE);
   }
-  await expect(page.getByRole('heading', { name: 'Apps by L-K-M', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Cabinet of Curiosities', exact: true })).toBeVisible();
+  expect(await page.evaluate(() => getComputedStyle(document.querySelector('.wordmark')).fontFamily)).toContain(FONTS.WORDMARK);
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe(WHITE_BACKGROUND);
   const mirio = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: 'Mirio', exact: true }) });
   const name = mirio.getByRole('heading');
