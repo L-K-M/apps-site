@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add red/amber/green traffic-light dots beside maturity labels on cards and detail pages.
+
 - Replace platform names on cards and detail pages with accessible, self-hosted SVG icons.
 
 - Use C64 Keyboard for app names and headlines, retaining the blackletter site wordmark.

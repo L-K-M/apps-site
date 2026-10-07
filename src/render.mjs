@@ -7,6 +7,7 @@ const MATURITY = {
   usable: 'Usable',
   polished: 'Polished',
 };
+const UNRATED_MATURITY = 'unrated';
 const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'Source code', docs: 'Documentation' };
 const PLATFORM_SPRITE = 'assets/icons/platforms.svg';
 
@@ -19,7 +20,7 @@ function maturity(app) {
 }
 
 function appStatus(app) {
-  return `<span class="app-status">${escapeHtml(maturity(app))}</span>`;
+  return `<span class="app-status" data-maturity="${escapeHtml(app.maturity ?? UNRATED_MATURITY)}">${escapeHtml(maturity(app))}</span>`;
 }
 
 function platformIcons(app, prefix = '') {
@@ -82,7 +83,7 @@ function renderApp(app) {
   const href = `apps/${app.id}/index.html`;
   const search = [app.name, app.summary, app.description ?? '', app.category, ...app.tags, ...app.features].join(' ');
 
-  return `<li class="app-card" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? 'unrated'}">
+  return `<li class="app-card" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? UNRATED_MATURITY}">
     <div class="card-heading">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2>${appStatus(app)}</div>
     <p class="app-summary">${escapeHtml(app.summary)}</p>
     <p class="app-meta">${platformIcons(app)}</p>
@@ -106,7 +107,7 @@ function renderHome(config, apps) {
       <input type="search" name="q" aria-label="Search apps" placeholder="Search apps" autocomplete="off">
       <select name="category" aria-label="Category">${options(categories.map((category) => [category, category]), 'All categories')}</select>
       <select name="platform" aria-label="Platform">${options(platforms, 'All platforms')}</select>
-      <select name="maturity" aria-label="Maturity">${options([...Object.entries(MATURITY), ['unrated', 'Not assessed']], 'All stages')}</select>
+      <select name="maturity" aria-label="Maturity">${options([...Object.entries(MATURITY), [UNRATED_MATURITY, 'Not assessed']], 'All stages')}</select>
       <button type="reset">Clear</button>
     </form>
     <p class="result-count" data-result-count role="status" aria-live="polite">${apps.length} ${apps.length === 1 ? 'app' : 'apps'}</p>

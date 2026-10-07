@@ -128,9 +128,11 @@ self-contained site. Links are supplied by the author, not fabricated from repo 
 
 Maturity is an editable assessment:
 
-- **Experimental:** early version; expect rough edges and changing behaviour.
-- **Usable:** works for its intended purpose; some rough edges remain.
-- **Polished:** refined for regular use, with attention to details.
+- **Experimental (red):** early version; expect rough edges and changing behaviour.
+- **Usable (amber):** works for its intended purpose; some rough edges remain.
+- **Polished (green):** refined for regular use, with attention to details.
+
+Traffic-light dots accompany the labels. Unassessed apps use a hollow grey dot.
 
 The starter catalogue estimates missing ratings from documented core workflows,
 known limitations, install/build paths and maintenance history. Estimated ratings

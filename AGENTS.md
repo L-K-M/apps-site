@@ -28,7 +28,8 @@
 ## Visual constraints
 
 Pirata One wordmark, C64 Keyboard headings and Instrument Sans text, self-hosted under
-`public/fonts/`. White background, compact app grid, one accent. Screenshots show the apps.
+`public/fonts/`. White background, compact app grid, one accent plus maturity traffic lights.
+Red/amber/green dots accompany plain maturity labels. Screenshots show the apps.
 No gradients, arbitrary rainbow colours, pulse badges, decorative card tabs, emoji,
 glassmorphism, generic hype, remote font dependencies, or redundant descriptions.
 Check desktop and phone screenshots after layout changes.
