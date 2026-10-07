@@ -8,6 +8,7 @@ const MATURITY = {
   polished: 'Polished',
 };
 const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'Source code', docs: 'Documentation' };
+const PLATFORM_SPRITE = 'assets/icons/platforms.svg';
 
 export function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
@@ -21,8 +22,16 @@ function appStatus(app) {
   return `<span class="app-status">${escapeHtml(maturity(app))}</span>`;
 }
 
-function platformText(app) {
-  return app.platforms.map((platform) => PLATFORMS[platform]).join(', ') || 'Platform not specified';
+function platformIcons(app, prefix = '') {
+  if (!app.platforms.length) return 'Platform not specified';
+
+  // Name each icon for assistive technology; titles also identify it on hover.
+  const icons = app.platforms.map((platform) => {
+    const label = escapeHtml(PLATFORMS[platform]);
+    return `<svg class="platform-icon" viewBox="0 0 16 16" role="img" aria-label="${label}" focusable="false"><title>${label}</title><use href="${prefix}${PLATFORM_SPRITE}#${platform}"></use></svg>`;
+  }).join('');
+
+  return `<span class="platforms">${icons}</span>`;
 }
 
 function mediaUrl(src, prefix) {
@@ -76,7 +85,7 @@ function renderApp(app) {
   return `<li class="app-card" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? 'unrated'}">
     <div class="card-heading">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2>${appStatus(app)}</div>
     <p class="app-summary">${escapeHtml(app.summary)}</p>
-    <p class="app-meta">${escapeHtml(platformText(app))}</p>
+    <p class="app-meta">${platformIcons(app)}</p>
     ${preview ? `<a class="app-preview" href="${href}" aria-label="View ${escapeHtml(app.name)}"><img src="${escapeHtml(mediaUrl(preview.thumbnail ?? preview.src, ''))}" alt="${escapeHtml(preview.alt)}" loading="lazy" width="260" height="160"></a>` : ''}
   </li>`;
 }
@@ -122,7 +131,7 @@ function renderDetail(config, app) {
     <a class="back-link" href="${prefix}index.html">← All apps</a>
     <header class="detail-heading"><p class="category-label">${escapeHtml(app.category)}</p><div class="detail-title">${appIcon(app, prefix)}<h1>${escapeHtml(app.name)}</h1>${appStatus(app)}</div><p class="detail-summary">${escapeHtml(app.summary)}</p>${app.maturityNote ? `<p class="maturity-note">${escapeHtml(app.maturityNote)}</p>` : ''}</header>
     <div class="detail-layout">
-      <aside class="detail-facts"><dl><dt>Platforms</dt><dd>${escapeHtml(platformText(app))}${app.platformsInferred ? '<small>Inferred from build files.</small>' : ''}</dd>${app.tags.length ? `<dt>Topics</dt><dd>${app.tags.map(escapeHtml).join(', ')}</dd>` : ''}</dl><nav class="app-links" aria-label="${escapeHtml(app.name)} links">${links}</nav></aside>
+      <aside class="detail-facts"><dl><dt>Platforms</dt><dd>${platformIcons(app, prefix)}${app.platformsInferred ? '<small>Inferred from build files.</small>' : ''}</dd>${app.tags.length ? `<dt>Topics</dt><dd>${app.tags.map(escapeHtml).join(', ')}</dd>` : ''}</dl><nav class="app-links" aria-label="${escapeHtml(app.name)} links">${links}</nav></aside>
       <div class="detail-body"><section class="description" aria-label="About ${escapeHtml(app.name)}">${description}</section>${app.features.length ? `<section class="features"><h2>What it does</h2><ul>${app.features.map((feature) => `<li>${escapeHtml(feature)}</li>`).join('')}</ul></section>` : ''}${gallery ? `<section class="gallery" aria-label="Screenshots">${gallery}</section>` : ''}</div>
     </div>
   </main>`;

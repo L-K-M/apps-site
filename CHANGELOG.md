@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Replace platform names on cards and detail pages with accessible, self-hosted SVG icons.
+
 - Use C64 Keyboard for app names and headlines, retaining the blackletter site wordmark.
 
 - Rename the site to Cabinet of Curiosities with a blackletter wordmark, ornament rules and a keyhole favicon.
