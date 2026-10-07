@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const FONTS = { HEADINGS: 'Syne', WORDMARK: 'Pirata One', TEXT: 'Instrument Sans' };
+const FONTS = { HEADINGS: 'C64 Keyboard', WORDMARK: 'Pirata One', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
 const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
@@ -132,7 +132,7 @@ test('hidden metadata is absent from the directory, export and detail routes', a
   await expect(page.locator('[data-result-count]')).toHaveText('0 apps');
 });
 
-test('detail pages and screenshots work under a subpath', async ({ page }) => {
+test('detail pages and screenshots work under a subpath', async ({ page }, testInfo) => {
   await page.goto('./?q=Dwindle');
   await page.getByRole('heading', { name: 'Dwindle', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Dwindle', exact: true })).toBeVisible();
@@ -144,6 +144,7 @@ test('detail pages and screenshots work under a subpath', async ({ page }) => {
   await expect(page.locator('.gallery img')).toHaveCount(2);
   await expect.poll(() => page.locator('.gallery img').evaluateAll((images) => images.every((image) => image.complete && image.naturalWidth > 0))).toBe(true);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  await page.screenshot({ path: `test-results/detail-${testInfo.project.name}.png` });
   await page.getByRole('link', { name: 'All apps' }).click();
   await expect(page.locator('[data-app]:visible')).toHaveCount(STARTER_APP_COUNT);
 });

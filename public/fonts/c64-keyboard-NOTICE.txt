@@ -1,0 +1,9 @@
+C64 Keyboard, version 1.107
+
+An independent, unofficial reconstruction of Commodore 64 keycap lettering.
+Source: https://github.com/szabadkai/c64-keyboard-font
+Revision: 5b043911830c8dd035ec166993511c8e32532117
+File: fonts/C64Keyboard-Regular.woff2 (bundled unchanged)
+
+This upstream revision contains no explicit license file or embedded license.
+The application's Unlicense does not apply to this third-party font.
