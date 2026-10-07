@@ -995,7 +995,7 @@
     // Without motion, scared monsters come straight back where they stood,
     // and any caught mid-reaction resume their normal form.
     function settle() {
-      for (const monster of monsters) Object.assign(monster, { mood: Mood.WANDER, lift: 0 });
+      for (const monster of monsters) Object.assign(monster, { mood: Mood.WANDER, lift: 0, x: wrap(monster.x, width) });
     }
 
     return { resize, update, door, draw, hit, scare, settle };
@@ -1260,10 +1260,10 @@
     return { x: ((event.clientX - box.left) * canvas.width) / box.width, y: ((event.clientY - box.top) * canvas.height) / box.height, box };
   }
 
-  function monsterAt(event) {
+  function monsterAt(event, pointerType) {
     const point = bandPoint(event);
     if (!point) return null;
-    const slop = event.pointerType === 'touch' ? HIT_SLOP.touch : HIT_SLOP.mouse;
+    const slop = pointerType === 'touch' ? HIT_SLOP.touch : HIT_SLOP.mouse;
     const monster = crowd.hit(point.x, point.y, slop, showTime);
     return monster && { monster, point };
   }
@@ -1326,17 +1326,18 @@
   }
 
   canvas.addEventListener('pointermove', (event) => {
-    canvas.toggleAttribute('data-hot', Boolean(monsterAt(event)));
+    canvas.toggleAttribute('data-hot', Boolean(monsterAt(event, event.pointerType)));
   });
   canvas.addEventListener('pointerleave', () => canvas.removeAttribute('data-hot'));
+  // Scare on click, which a touch scroll cancels, so swiping past a monster
+  // leaves it be. Not every browser reports a click's pointer type.
+  let pointerType = 'mouse';
   canvas.addEventListener('pointerdown', (event) => {
-    if (event.button !== 0) return;
-    const found = monsterAt(event);
+    pointerType = event.pointerType;
+  });
+  canvas.addEventListener('click', (event) => {
+    const found = monsterAt(event, pointerType);
     if (!found) return;
-    // Keep the document listener below from closing the new ticket, and the
-    // mouse default from moving focus off it.
-    event.stopPropagation();
-    event.preventDefault();
     // Close first: without motion, closing returns scared monsters, this one included.
     closeTicket();
     crowd.scare(found.monster, found.point.x, animating() ? Motion.FULL : Motion.REDUCED);
@@ -1394,8 +1395,8 @@
   });
 
   // Skip drawing the band while it is scrolled out of view.
-  new IntersectionObserver(([entry]) => {
-    bandVisible = entry.isIntersecting;
+  new IntersectionObserver((entries) => {
+    bandVisible = entries[entries.length - 1].isIntersecting;
   }).observe(band);
 
   band.hidden = false;

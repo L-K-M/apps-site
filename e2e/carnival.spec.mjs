@@ -11,6 +11,8 @@ const GARGOYLE_ARRIVAL_MS = 4000;
 const GARGOYLE_DART_MS = 3000;
 const GARGOYLE_RETURN_MS = 16000;
 const APP_PAGE = /^apps\/[^/]+\/index\.html$/;
+const CLOCK_START = Date.parse('2026-10-31T20:00:00Z');
+const PAUSE_AFTER_LOAD_MS = 60000; // later than any page load, so the jump is forward
 
 // Find the middles of green clusters on the band canvas, densest first and
 // at least a monster apart, in band pixels and client coordinates.
@@ -66,8 +68,10 @@ async function poke(page, point, testInfo) {
 async function openCarnival(page) {
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.clock.install();
+  await page.clock.install({ time: CLOCK_START });
   await page.goto('./');
+  // Hold time still between steps, so monsters stay where they were found.
+  await page.clock.pauseAt(CLOCK_START + PAUSE_AFTER_LOAD_MS);
   await page.locator('.carnival').scrollIntoViewIfNeeded();
   await page.clock.runFor(SETTLE_MS);
   return errors;
@@ -83,8 +87,15 @@ test('a scared monster runs off and drops a ticket to an app', async ({ page }, 
 
   const monster = await findMonster(page);
   expect(monster).not.toBeNull();
-  await poke(page, monster, testInfo);
   const ticket = page.getByRole('dialog', { name: 'Carnival ticket' });
+
+  // A touch that turns into a scroll is cancelled, never clicked: no scare.
+  const press = { bubbles: true, pointerType: 'touch', clientX: monster.clientX, clientY: monster.clientY };
+  await page.locator('.carnival-scene').dispatchEvent('pointerdown', press);
+  await page.locator('.carnival-scene').dispatchEvent('pointercancel', press);
+  await expect(ticket).toHaveCount(0);
+
+  await poke(page, monster, testInfo);
   await expect(ticket).toBeVisible();
   await expect(ticket).toBeFocused();
 
