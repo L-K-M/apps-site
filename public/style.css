@@ -81,6 +81,8 @@ img { display: block; max-width: 100%; }
 .app-icon { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
 .app-summary { font-size: 0.875rem; line-height: 1.5; }
 .app-meta { font-size: 0.75rem; color: var(--muted); }
+.platforms { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; vertical-align: middle; color: var(--muted); }
+.platform-icon { width: 1.125rem; height: 1.125rem; flex-shrink: 0; fill: currentColor; }
 .app-preview { display: block; width: 100%; margin-top: auto; padding-top: 0.5rem; }
 .app-preview img { width: 100%; height: 140px; object-fit: contain; }
 .empty-state { padding-block: 3.5rem; }

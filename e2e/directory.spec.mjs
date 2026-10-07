@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const FONTS = { HEADINGS: 'C64 Keyboard', WORDMARK: 'Pirata One', TEXT: 'Instrument Sans' };
 const FONT_CONTENT_TYPE = 'font/woff2';
+const PLATFORM_ICON_CONTENT_TYPE = 'image/svg+xml';
 const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
@@ -21,6 +22,17 @@ async function expectBundledFonts(page, families = [FONTS.HEADINGS, FONTS.TEXT])
   expect(typography.text).toContain(FONTS.TEXT);
 }
 
+async function expectRenderedPlatformIcons(page) {
+  const icons = page.locator('.platform-icon');
+  await expect(icons.first()).toBeVisible();
+
+  // An SVG wrapper can be visible even when its external symbol failed to load.
+  await expect.poll(() => icons.evaluateAll((elements) => elements.every((icon) => {
+    const box = icon.getBBox();
+    return box.width > 0 && box.height > 0;
+  }))).toBe(true);
+}
+
 test('renders all apps, local screenshots, and a responsive directory', async ({ page }, testInfo) => {
   const errors = [];
   const fontResponses = [];
@@ -34,7 +46,12 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
     return route.continue();
   });
 
+  const iconResponse = page.waitForResponse('**/assets/icons/platforms.svg');
   await page.goto('./');
+  const sprite = await iconResponse;
+  expect(sprite.status()).toBe(HTTP_OK);
+  expect(sprite.headers()['content-type']).toBe(PLATFORM_ICON_CONTENT_TYPE);
+  await expectRenderedPlatformIcons(page);
   await expectBundledFonts(page, Object.values(FONTS));
   expect(fontResponses).toHaveLength(Object.keys(FONTS).length);
   for (const response of fontResponses) {
@@ -46,6 +63,9 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
   expect(await page.evaluate(() => getComputedStyle(document.querySelector('.wordmark')).fontFamily)).toContain(FONTS.WORDMARK);
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe(WHITE_BACKGROUND);
   const mirio = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: 'Mirio', exact: true }) });
+  await expect(mirio.locator('.app-meta').getByRole('img', { name: 'Web', exact: true })).toBeVisible();
+  const baegun = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: 'Baegun', exact: true }) });
+  for (const platform of ['Linux', 'macOS', 'Windows']) await expect(baegun.locator('.app-meta').getByRole('img', { name: platform, exact: true })).toBeVisible();
   const name = mirio.getByRole('heading');
   const status = mirio.locator('.card-heading .app-status');
   await expect(status).toHaveText('Experimental');
@@ -139,6 +159,8 @@ test('detail pages and screenshots work under a subpath', async ({ page }, testI
   await expect(page.locator('.detail-title .app-status')).toHaveText('Usable');
   await expect(page.locator('.maturity-note')).toContainText('Estimated:');
   await expectBundledFonts(page);
+  await expect(page.locator('.detail-facts').getByRole('img', { name: 'Web', exact: true })).toBeVisible();
+  await expectRenderedPlatformIcons(page);
   await expect(page.getByRole('link', { name: 'Open website' })).toHaveAttribute('href', 'https://dwindle.ch');
   await expect(page.getByRole('link', { name: 'Downloads' })).toHaveCount(0);
   await expect(page.locator('.gallery img')).toHaveCount(2);
@@ -157,6 +179,8 @@ test('HTML remains usable with JavaScript disabled', async ({ browser, baseURL }
   await expect(page.getByRole('searchbox')).toBeHidden();
   await page.getByRole('heading', { name: 'Jetty', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Jetty', exact: true })).toBeVisible();
+  await expect(page.locator('.detail-facts').getByRole('img', { name: 'macOS', exact: true })).toBeVisible();
+  await expectRenderedPlatformIcons(page);
   await expect(page.getByRole('link', { name: 'Downloads' })).toBeVisible();
   await context.close();
 });

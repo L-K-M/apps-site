@@ -14,6 +14,9 @@ The wordmark uses Pirata One, app names and headlines use C64 Keyboard, and text
 uses Instrument Sans. Fonts are self-hosted; C64 Keyboard renders lowercase as capitals.
 [Sources and licenses](public/fonts/README.md).
 
+Platforms use monochrome SVG icons with hover titles and screen-reader labels.
+[Icon sources and license](public/icons/README.md).
+
 ## Run
 
 Requires Node 22.14+ and npm. Git is optional; it supplies source links from repo origins.

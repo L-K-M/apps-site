@@ -8,6 +8,7 @@ import { renderSite } from './render.mjs';
 export const BuildMode = Object.freeze({ CHECK: 'check', WRITE: 'build' });
 const PUBLIC_ASSETS = [
   'style.css', 'directory.js', 'favicon.svg',
+  'icons/platforms.svg', 'icons/LICENSE-bootstrap.txt',
   'fonts/c64-keyboard-regular.woff2', 'fonts/instrument-sans-variable.woff2', 'fonts/pirata-one-regular.woff2',
   'fonts/c64-keyboard-NOTICE.txt', 'fonts/OFL-instrument-sans.txt', 'fonts/OFL-pirata-one.txt',
 ];
