@@ -12,9 +12,9 @@ const GARGOYLE_DART_MS = 3000;
 const GARGOYLE_RETURN_MS = 16000;
 const APP_PAGE = /^apps\/[^/]+\/index\.html$/;
 
-// Find the middle of the densest green cluster on the band canvas, in band
-// pixels and client coordinates.
-function findMonster(page) {
+// Find the middles of green clusters on the band canvas, densest first and
+// at least a monster apart, in band pixels and client coordinates.
+function findMonsters(page) {
   return page.evaluate(([green, radius]) => {
     const canvas = document.querySelector('.carnival-scene');
     const { data, width, height } = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
@@ -24,21 +24,27 @@ function findMonster(page) {
       return data[index] === green[0] && data[index + 1] === green[1] && data[index + 2] === green[2];
     };
 
-    let best = null;
+    const candidates = [];
     for (let y = 0; y < height; y += 1) {
       for (let x = 0; x < width; x += 1) {
         if (!isGreen(x, y)) continue;
         let count = 0;
         for (let dy = -radius; dy <= radius; dy += 1) for (let dx = -radius; dx <= radius; dx += 1) count += isGreen(x + dx, y + dy);
-        if (!best || count > best.count) best = { x, y, count };
+        candidates.push({ x, y, count });
       }
     }
-    if (!best) return null;
 
     const box = canvas.getBoundingClientRect();
-    return { ...best, clientX: box.left + ((best.x + 0.5) * box.width) / width, clientY: box.top + ((best.y + 0.5) * box.height) / height };
+    const clusters = [];
+    for (const candidate of candidates.sort((a, b) => b.count - a.count)) {
+      if (clusters.some((cluster) => Math.abs(cluster.x - candidate.x) < radius * 4)) continue;
+      clusters.push({ ...candidate, clientX: box.left + ((candidate.x + 0.5) * box.width) / width, clientY: box.top + ((candidate.y + 0.5) * box.height) / height });
+    }
+    return clusters;
   }, [MONSTER_GREEN, CLUSTER_RADIUS]);
 }
+
+const findMonster = async (page) => (await findMonsters(page))[0] ?? null;
 
 function greenAround(page, point) {
   return page.evaluate(([green, radius, { x, y }]) => {
@@ -113,7 +119,9 @@ test('the gargoyle roams the page, darts away when clicked and respects reduced 
   expect(await flyer.boundingBox()).not.toEqual(first);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 
-  await flyer.click();
+  // Dispatch directly: a fixed element half off-screen never passes click actionability.
+  const target = await flyer.boundingBox();
+  await flyer.dispatchEvent('pointerdown', { button: 0, pointerType: 'mouse', clientX: target.x + target.width / 2, clientY: target.y + target.height / 2 });
   await page.clock.runFor(GARGOYLE_DART_MS);
   await expect(flyer).toBeHidden();
   await page.clock.runFor(GARGOYLE_RETURN_MS);
@@ -129,16 +137,23 @@ test('the gargoyle roams the page, darts away when clicked and respects reduced 
   expect(errors).toEqual([]);
 });
 
-test('pausing freezes the carnival and survives a reload', async ({ page }) => {
+test('pausing freezes the carnival, sends the gargoyle away and survives a reload', async ({ page }) => {
   await openCarnival(page);
-  await page.getByRole('button', { name: 'Pause carnival', exact: true }).click();
+  await page.clock.runFor(GARGOYLE_ARRIVAL_MS);
+  const flyer = page.locator('.carnival-flyer');
+  await expect(flyer).toBeVisible();
+
+  // Keyboard activation, as the gargoyle may be flying over the button.
+  await page.getByRole('button', { name: 'Pause carnival', exact: true }).focus();
+  await page.keyboard.press('Enter');
   const resume = page.getByRole('button', { name: 'Resume carnival', exact: true });
   await expect(resume).toBeVisible();
+  await expect(flyer).toBeHidden();
 
   const frame = await bandFrame(page);
   await page.clock.runFor(GARGOYLE_ARRIVAL_MS);
   expect(await bandFrame(page)).toBe(frame);
-  await expect(page.locator('.carnival-flyer')).toBeHidden();
+  await expect(flyer).toBeHidden();
 
   await page.reload();
   await expect(resume).toBeVisible();
@@ -168,6 +183,17 @@ test.describe('with reduced motion', () => {
     await ticket.getByRole('button', { name: 'Close' }).click();
     await expect(ticket).toHaveCount(0);
     expect(await greenAround(page, monster)).toBe(monster.count);
+
+    // Scaring another monster replaces the ticket: the first returns, the second stays away.
+    const [first, second] = await findMonsters(page);
+    await poke(page, first, testInfo);
+    await expect(ticket).toBeVisible();
+    await poke(page, second, testInfo);
+    await expect(ticket).toHaveCount(1);
+    expect(await greenAround(page, first)).toBe(first.count);
+    expect(await greenAround(page, second)).toBeLessThan(second.count / 2);
+    await page.keyboard.press('Escape');
+    expect(await greenAround(page, second)).toBe(second.count);
 
     // The ticket is a working link.
     await poke(page, monster, testInfo);

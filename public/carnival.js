@@ -992,9 +992,10 @@
       else Object.assign(monster, { mood: Mood.STARTLED, timer: TIMING.startled });
     }
 
-    // Without motion, scared monsters come straight back where they stood.
+    // Without motion, scared monsters come straight back where they stood,
+    // and any caught mid-reaction resume their normal form.
     function settle() {
-      for (const monster of monsters) if (monster.mood === Mood.HIDDEN) monster.mood = Mood.WANDER;
+      for (const monster of monsters) Object.assign(monster, { mood: Mood.WANDER, lift: 0 });
     }
 
     return { resize, update, door, draw, hit, scare, settle };
@@ -1142,7 +1143,6 @@
     }
 
     // Dart away from the pointer, up and out of sight.
-    // A paused gargoyle ignores clicks.
     canvas.addEventListener('pointerdown', (event) => {
       if (!awake || state.flight === Flight.DART) return;
       const away = Math.sign(state.x - event.clientX) || state.facing;
@@ -1154,7 +1154,7 @@
       update,
       render,
       wake() { awake = true; },
-      freeze() { awake = false; },
+      // Leave the page; it flies back in a while after waking.
       dismiss() {
         awake = false;
         Object.assign(state, { flight: Flight.AWAY, timer: GARGOYLE.firstVisit });
@@ -1287,7 +1287,6 @@
 
   // A ticket to a random app, placed beside the monster that dropped it.
   function openTicket(monster, point) {
-    closeTicket();
     returnFocus = document.activeElement;
     ticket = document.createElement('div');
     ticket.className = 'carnival-ticket';
@@ -1338,6 +1337,8 @@
     // mouse default from moving focus off it.
     event.stopPropagation();
     event.preventDefault();
+    // Close first: without motion, closing returns scared monsters, this one included.
+    closeTicket();
     crowd.scare(found.monster, found.point.x, animating() ? Motion.FULL : Motion.REDUCED);
     canvas.removeAttribute('data-hot');
     openTicket(found.monster, found.point);
@@ -1359,7 +1360,8 @@
   }
 
   // Reduced motion shows one still frame with the gargoyle perched on the
-  // house; pausing freezes everything where it is.
+  // house. Pausing freezes the band; the gargoyle leaves rather than hang
+  // motionless over the page.
   function applyMotion() {
     motion = motionQuery.matches ? Motion.REDUCED : Motion.FULL;
     pauseButton.hidden = motion === Motion.REDUCED;
@@ -1367,7 +1369,6 @@
 
     if (motion === Motion.REDUCED) {
       showTime = STILL_TIME;
-      gargoyle.dismiss();
       crowd.settle();
     }
 
@@ -1377,7 +1378,7 @@
       return;
     }
 
-    gargoyle.freeze();
+    gargoyle.dismiss();
     drawBand();
   }
 
