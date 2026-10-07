@@ -77,7 +77,12 @@ img { display: block; max-width: 100%; }
 .card-heading { display: flex; gap: 0.75rem; align-items: center; }
 .card-heading h2 { flex: 1; min-width: 0; font-size: 1.4rem; line-height: 1.25; overflow-wrap: anywhere; }
 .card-heading a { text-decoration: none; }
-.app-status { flex-shrink: 0; margin-left: auto; color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
+/* Traffic-light dots supplement readable maturity labels. */
+.app-status { display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0; margin-left: auto; color: var(--muted); font-size: 0.75rem; white-space: nowrap; }
+.app-status::before { content: ''; width: 0.5rem; height: 0.5rem; flex-shrink: 0; border: 1px solid var(--maturity-light, var(--muted)); border-radius: 50%; background: var(--maturity-light, transparent); }
+.app-status[data-maturity="experimental"] { --maturity-light: #b33b33; }
+.app-status[data-maturity="usable"] { --maturity-light: #a87300; }
+.app-status[data-maturity="polished"] { --maturity-light: #287848; }
 .app-icon { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
 .app-summary { font-size: 0.875rem; line-height: 1.5; }
 .app-meta { font-size: 0.75rem; color: var(--muted); }
