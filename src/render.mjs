@@ -12,7 +12,8 @@ const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'S
 const PLATFORM_SPRITE = 'assets/icons/platforms.svg';
 // Pixel-art band beneath the directory; carnival.js reveals and animates it.
 // The buttons give keyboard and screen reader users the same play as a click.
-const CARNIVAL = `<aside class="carnival" data-carnival aria-label="Carnival" hidden>
+// A configured prize is the only thing the page fetches at run time.
+const carnival = (prize) => `<aside class="carnival" data-carnival aria-label="Carnival"${prize ? ` data-prize-name="${escapeHtml(prize.name)}" data-prize-endpoint="${escapeHtml(prize.endpoint)}"` : ''} hidden>
     <canvas class="carnival-scene" aria-hidden="true"></canvas>
     <div class="carnival-controls">
       <button class="carnival-scare" type="button" data-carnival-scare>Scare a monster</button>
@@ -127,7 +128,7 @@ function renderHome(config, apps) {
   </main>`;
 
   const scripts = '<script src="assets/directory.js" defer></script><script src="assets/carnival.js" defer></script>';
-  return document(config, { title: config.title, description: config.description ?? config.title, content, scripts, after: CARNIVAL });
+  return document(config, { title: config.title, description: config.description ?? config.title, content, scripts, after: carnival(config.carnivalPrize) });
 }
 
 function renderDetail(config, app) {

@@ -16,7 +16,8 @@
 //   Scenery   rides and buildings: a cached still layer plus lively details
 //   Crowd     monster state machines and hit testing
 //   Gargoyle  the free-flying monster and its overlay canvas
-//   Carnival  DOM wiring: sizing, frame loop, input, ticket, pause, motion
+//   Striker   the hidden high striker game and its prize
+//   Carnival  DOM wiring: sizing, frame loop, input, panels, pause, motion
 (() => {
   const band = document.querySelector('[data-carnival]');
   if (!band) return;
@@ -519,6 +520,10 @@
   const HOUSE = { left: -24, door: 2 }; // offsets from SITE.house
   const doorLeft = (x) => x + HOUSE.door - 3;
   const Door = Object.freeze({ SHUT: 'shut', OPEN: 'open' });
+  // The high striker: pole height in band pixels, and the share of it a puck
+  // must reach to ring the bell.
+  const STRIKE = { pole: 42, hit: 0.9 };
+  const SWING_SECONDS = 1; // a swung puck's flight up the pole and back
 
   // Smooth pseudo-random signal in [0, 1) for flickers, stable per seed.
   function flicker(time, seed) {
@@ -745,17 +750,25 @@
     surface.blit({ ...ART.hand, rows: ART.hand.rows.slice(0, rise), height: rise }, x + 3, HORIZON + 2 - rise);
   }
 
-  function striker(surface, x, time) {
+  // How high a swung puck is `time` into the show.
+  function swingHeight(swing, time) {
+    const elapsed = time - swing.at;
+    if (elapsed < 0 || elapsed > SWING_SECONDS) return 0;
+    return Math.sin((elapsed / SWING_SECONDS) * Math.PI) * swing.power * STRIKE.pole;
+  }
+
+  // A puck flies up now and then; the bell flashes when it hits. While the
+  // game is open the puck follows the player's swings instead.
+  function striker(surface, x, time, swing) {
     surface.rect(x - 1, HORIZON - 44, 3, 44, 'k');
     surface.rect(x, HORIZON - 43, 1, 42, 'w');
     for (let mark = HORIZON - 40; mark < HORIZON; mark += 6) surface.put(x, mark, 'r');
     surface.rect(x - 6, HORIZON - 3, 13, 3, 'k');
 
-    // A puck flies up; the bell flashes when it hits.
     const cycle = time % 5;
-    const height = cycle < 1 ? Math.sin(cycle * Math.PI) * 42 : 0;
+    const height = swing ? swingHeight(swing, time) : cycle < 1 ? Math.sin(cycle * Math.PI) * STRIKE.pole : 0;
     surface.rect(x - 1, Math.round(HORIZON - 4 - height), 3, 2, 'r');
-    surface.disc(x, HORIZON - 47, 2, height > 38 ? 'a' : 'k');
+    surface.disc(x, HORIZON - 47, 2, height >= STRIKE.pole * STRIKE.hit - 0.5 ? 'a' : 'k');
   }
 
   // A few bats circle the tower.
@@ -801,7 +814,7 @@
     surface.stand(ART.pumpkin, centre + SITE.booth + 14, HORIZON + 1);
   }
 
-  function paintLively(surface, centre, time, door) {
+  function paintLively(surface, centre, time, door, swing) {
     carousel(surface, centre + SITE.carousel, time);
     pennant(surface, centre + SITE.tent, HORIZON - 42, time);
     pennant(surface, centre + SITE.smallTent, HORIZON - 30, time + 0.5);
@@ -811,7 +824,7 @@
     lamp(surface, centre + SITE.lamp, time);
     ferrisWheel(surface, centre + SITE.wheel, time);
     graveHand(surface, centre + SITE.graves, time);
-    striker(surface, centre + SITE.striker, time);
+    striker(surface, centre + SITE.striker, time, swing);
   }
 
   // ── Crowd ─────────────────────────────────────────────────────────────────
@@ -1183,17 +1196,207 @@
     };
   }
 
+  // ── Striker ───────────────────────────────────────────────────────────────
+  // The hidden game, found at the ticket booth or the striker, or through a
+  // hint on every third ticket. A bar sweeps up and down; swing when it is
+  // nearly full to ring the bell. Three rings in a row win the prize: an
+  // invite minted by the operator's giveaway endpoint (site.json
+  // carnivalPrize), the only thing the site fetches at run time.
+  //
+  // The sweep runs even under reduced motion: the player starts it, and the
+  // game is the motion.
+
+  const STRIKER_GAME = {
+    rings: 3,
+    periods: [1.6, 1.3, 1.0], // seconds per sweep, faster after each ring
+    rest: 0.9, // seconds the bar holds after a swing
+  };
+  const Outcome = Object.freeze({ WON: 'won', EMPTY: 'empty', LIMIT: 'limit', CLOSED: 'closed' });
+  // Error codes of the Manors & Menaces giveaway endpoint; anything else means closed.
+  const GIVEAWAY_OUTCOMES = { GIVEAWAY_EMPTY: Outcome.EMPTY, GIVEAWAY_LIMIT: Outcome.LIMIT };
+  const PRIZE_TIMEOUT_MS = 10000;
+  const PRIZE_NAME_LENGTH = 40; // the server's limit for invite names
+  const PRIZE_MESSAGES = {
+    [Outcome.EMPTY]: 'Every invite has been won. Try again another day.',
+    [Outcome.LIMIT]: 'One invite per visitor a day. Come back tomorrow.',
+    [Outcome.CLOSED]: 'The prize booth is closed right now. Try again later.',
+  };
+  const WEB_PROTOCOLS = new Set(['https:', 'http:']);
+
+  // Ask the giveaway endpoint for an invite: { outcome, url }. The link it
+  // returns must still be a web address before it becomes a link.
+  async function claimPrize(endpoint, name) {
+    const abort = new AbortController();
+    const timer = setTimeout(() => abort.abort(), PRIZE_TIMEOUT_MS);
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'omit',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(name ? { name } : {}),
+        signal: abort.signal,
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) return { outcome: GIVEAWAY_OUTCOMES[body.code] ?? Outcome.CLOSED };
+
+      const url = new URL(body.url);
+      return WEB_PROTOCOLS.has(url.protocol) ? { outcome: Outcome.WON, url: url.href } : { outcome: Outcome.CLOSED };
+    } catch {
+      return { outcome: Outcome.CLOSED };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  function node(tag, className, text) {
+    const element = document.createElement(tag);
+    if (className) element.className = className;
+    if (text) element.textContent = text;
+    return element;
+  }
+
+  // The game's panel. onSwing(power) lets the band's striker follow along.
+  function createStrikerGame(prize, onSwing) {
+    const panel = node('div', 'carnival-panel carnival-game');
+    const intro = `Ring the bell ${STRIKER_GAME.rings} times in a row`;
+    const meter = node('div', 'carnival-meter');
+    meter.setAttribute('aria-hidden', 'true');
+    const zone = node('span', 'carnival-meter-zone');
+    zone.style.left = `${STRIKE.hit * 100}%`;
+    const fill = node('span', 'carnival-meter-fill');
+    meter.append(zone, fill);
+    const status = node('p', 'carnival-game-status', 'Swing when the bar is nearly full.');
+    status.setAttribute('role', 'status');
+    const swingButton = node('button', null, 'Swing');
+    swingButton.type = 'button';
+    panel.append(node('p', 'carnival-game-title', 'High striker'), node('p', null, prize ? `${intro} to win an invite to ${prize.name}.` : `${intro}.`), meter, status, swingButton);
+
+    let rings = 0;
+    let power = 0;
+    let clock = 0; // animation frame time, ms
+    let sweepFrom = 0;
+    let holdUntil = 0;
+    let frame = 0;
+
+    function sweep(now) {
+      clock = now;
+      if (now >= holdUntil) {
+        const period = STRIKER_GAME.periods[Math.min(rings, STRIKER_GAME.periods.length - 1)] * 1000;
+        power = (1 - Math.cos(((now - sweepFrom) / period) * Math.PI * 2)) / 2;
+        fill.style.width = `${(power * 100).toFixed(1)}%`;
+      }
+      frame = requestAnimationFrame(sweep);
+    }
+
+    function claimForm() {
+      const form = node('form', 'carnival-claim');
+      const label = node('label', null, `Your name in ${prize.name}`);
+      const input = node('input');
+      input.name = 'name';
+      input.maxLength = PRIZE_NAME_LENGTH;
+      input.autocomplete = 'nickname';
+      label.append(input);
+      const submit = node('button', null, 'Claim invite');
+      submit.type = 'submit';
+      form.append(label, submit);
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        submit.disabled = true;
+        status.textContent = 'Fetching your invite.';
+        const result = await claimPrize(prize.endpoint, input.value.trim());
+        if (!panel.isConnected) return;
+
+        // Only a closed booth is worth another try.
+        if (result.outcome === Outcome.CLOSED) {
+          status.textContent = PRIZE_MESSAGES[result.outcome];
+          submit.disabled = false;
+          return;
+        }
+
+        form.remove();
+        panel.focus({ preventScroll: true });
+        if (result.outcome !== Outcome.WON) {
+          status.textContent = PRIZE_MESSAGES[result.outcome];
+          return;
+        }
+
+        status.textContent = 'Your invite is ready. Open it on the device you play on:';
+        const link = node('a', null, result.url);
+        link.href = result.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        const invite = node('p', 'carnival-invite');
+        invite.append(link);
+        panel.append(invite);
+        link.focus({ preventScroll: true });
+      });
+
+      return { form, input };
+    }
+
+    function win() {
+      cancelAnimationFrame(frame);
+      meter.remove();
+      swingButton.remove();
+      if (!prize) {
+        status.textContent = 'Ding ding ding! Every monster at the fair is impressed.';
+        panel.focus({ preventScroll: true });
+        return;
+      }
+
+      status.textContent = `Ding ding ding! You win an invite to ${prize.name}.`;
+      const { form, input } = claimForm();
+      panel.append(form);
+      input.focus({ preventScroll: true });
+    }
+
+    // Swings during the hold after the last one do nothing.
+    swingButton.addEventListener('click', () => {
+      if (clock < holdUntil) return;
+      const rang = power >= STRIKE.hit;
+      onSwing(power);
+      rings = rang ? rings + 1 : 0;
+      holdUntil = clock + STRIKER_GAME.rest * 1000;
+      sweepFrom = holdUntil;
+      if (rings === STRIKER_GAME.rings) return win();
+      status.textContent = rang ? `Ding! ${rings} of ${STRIKER_GAME.rings}.` : `Missed at ${Math.round(power * 100)}%. Back to the start.`;
+    });
+
+    return {
+      element: panel,
+      focus: swingButton,
+      start() {
+        frame = requestAnimationFrame((now) => {
+          sweepFrom = now;
+          sweep(now);
+        });
+      },
+      stop: () => cancelAnimationFrame(frame),
+    };
+  }
+
   // ── Carnival ──────────────────────────────────────────────────────────────
 
   const HIT_SLOP = { mouse: 2, touch: 6 }; // band pixels of forgiveness
   // CSS px. Tickets hang in the sky below the pause button, leaving the
   // ground clear so the monster can be seen running away.
   const TICKET = { gap: 10, inset: 8, top: 44 };
+  const HINT_EVERY = 3; // tickets; every third one points to the game
+  const Place = Object.freeze({ BESIDE: 'beside', CENTRE: 'centre' });
+  // Where the game hides, in band pixels from the centre: the ticket booth and the striker.
+  const ATTRACTIONS = [
+    { left: SITE.booth - 9, right: SITE.booth + 9, top: HORIZON - 24 },
+    { left: SITE.striker - 6, right: SITE.striker + 6, top: HORIZON - 50 },
+  ];
 
   const canvas = band.querySelector('canvas');
   const context = canvas.getContext('2d');
   const pauseButton = band.querySelector('[data-carnival-pause]');
   const scareButton = band.querySelector('[data-carnival-scare]');
+  const { prizeName, prizeEndpoint } = band.dataset;
+  const prize = prizeEndpoint ? { name: prizeName, endpoint: prizeEndpoint } : null;
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const palette = readPalette(band);
   const crowd = createCrowd();
@@ -1209,8 +1412,11 @@
   let bandVisible = true;
   let motion = Motion.FULL;
   let paused = readPaused();
-  let ticket = null;
+  let panel = null; // the open ticket or game
+  let panelClosed = null;
   let returnFocus = null;
+  let ticketsShown = 0;
+  let swing = null; // the game's last swing, for the band's striker
 
   function readPaused() {
     try {
@@ -1249,7 +1455,7 @@
   function drawBand() {
     if (!surface && !layout()) return;
     surface.restore(still);
-    paintLively(surface, centre, showTime, crowd.door());
+    paintLively(surface, centre, showTime, crowd.door(), swing);
     if (motion === Motion.REDUCED) surface.stand(ART.roost[0], centre + SITE.house + HOUSE.left + 29, HORIZON - 51);
     crowd.draw(surface, showTime);
     surface.present();
@@ -1297,11 +1503,13 @@
     return links.length ? links[Math.floor(Math.random() * links.length)] : null;
   }
 
-  function closeTicket() {
-    if (!ticket) return;
-    const hadFocus = ticket.contains(document.activeElement);
-    ticket.remove();
-    ticket = null;
+  function closePanel() {
+    if (!panel) return;
+    const hadFocus = panel.contains(document.activeElement);
+    panel.remove();
+    panel = null;
+    panelClosed?.();
+    panelClosed = null;
     if (hadFocus && returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
     if (!animating()) {
       crowd.settle();
@@ -1309,15 +1517,57 @@
     }
   }
 
-  // A ticket to a random app, placed beside the monster that dropped it.
-  function openTicket(monster) {
+  // Show one dialog in the band at a time: a ticket beside the monster that
+  // dropped it (anchor, in band pixels), or the game in the middle.
+  function showPanel(element, { label, place, anchor = 0, focus = element, onClose = null }) {
+    closePanel();
     returnFocus = document.activeElement;
-    ticket = document.createElement('div');
-    ticket.className = 'carnival-ticket';
-    ticket.setAttribute('role', 'dialog');
-    ticket.setAttribute('aria-label', 'Carnival ticket');
-    ticket.tabIndex = -1;
+    element.setAttribute('role', 'dialog');
+    element.setAttribute('aria-label', label);
+    element.tabIndex = -1;
 
+    const close = node('button', 'carnival-close', '×');
+    close.type = 'button';
+    close.setAttribute('aria-label', 'Close');
+    close.addEventListener('click', closePanel);
+    element.append(close);
+    band.append(element);
+    panel = element;
+    panelClosed = onClose;
+
+    const width = element.offsetWidth;
+    const scaled = (anchor * band.clientWidth) / canvas.width;
+    const beside = scaled + TICKET.gap * PIXEL + width + TICKET.inset <= band.clientWidth ? scaled + TICKET.gap * PIXEL : scaled - TICKET.gap * PIXEL - width;
+    const left = place === Place.CENTRE ? (band.clientWidth - width) / 2 : beside;
+    element.style.left = `${Math.max(TICKET.inset, Math.min(left, band.clientWidth - width - TICKET.inset))}px`;
+    // The game stands on the band's foot (style.css); tickets hang in the sky.
+    if (place === Place.BESIDE) element.style.top = `${TICKET.top}px`;
+    focus.focus({ preventScroll: true });
+  }
+
+  function openGame() {
+    const game = createStrikerGame(prize, (power) => {
+      // A still band shows the swing at its height.
+      swing = { power, at: animating() ? showTime : showTime - SWING_SECONDS / 2 };
+      if (!animating()) drawBand();
+    });
+    showPanel(game.element, {
+      label: 'High striker',
+      place: Place.CENTRE,
+      focus: game.focus,
+      onClose: () => {
+        game.stop();
+        swing = null;
+      },
+    });
+    // The puck rests until the first swing.
+    swing = { power: 0, at: -Infinity };
+    game.start();
+  }
+
+  // A ticket to a random app; every third also points to the hidden game.
+  function openTicket(monster) {
+    const ticket = node('div', 'carnival-panel carnival-ticket');
     const message = document.createElement('p');
     const app = randomApp();
     if (app) {
@@ -1329,27 +1579,26 @@
       message.textContent = `${monster.kind.fled}.`;
     }
 
-    const close = document.createElement('button');
-    close.type = 'button';
-    close.className = 'carnival-ticket-close';
-    close.setAttribute('aria-label', 'Close');
-    close.textContent = '×';
-    close.addEventListener('click', closeTicket);
+    ticket.append(message);
 
-    ticket.append(message, close);
-    band.append(ticket);
+    ticketsShown += 1;
+    if (ticketsShown % HINT_EVERY === 0) {
+      const hint = node('button', 'carnival-hint', 'Try the high striker');
+      hint.type = 'button';
+      hint.addEventListener('click', openGame);
+      ticket.append(hint);
+    }
 
-    const anchor = (monster.x * band.clientWidth) / canvas.width;
-    const right = anchor + TICKET.gap * PIXEL;
-    const width = ticket.offsetWidth;
-    const left = right + width + TICKET.inset <= band.clientWidth ? right : anchor - TICKET.gap * PIXEL - width;
-    ticket.style.left = `${Math.max(TICKET.inset, Math.min(left, band.clientWidth - width - TICKET.inset))}px`;
-    ticket.style.top = `${TICKET.top}px`;
-    ticket.focus({ preventScroll: true });
+    showPanel(ticket, { label: 'Carnival ticket', place: Place.BESIDE, anchor: monster.x });
+  }
+
+  function attractionAt(point) {
+    return ATTRACTIONS.some(({ left, right, top }) => point.x >= centre + left && point.x <= centre + right && point.y >= top && point.y <= HORIZON + 1);
   }
 
   canvas.addEventListener('pointermove', (event) => {
-    canvas.toggleAttribute('data-hot', Boolean(monsterAt(event, event.pointerType)));
+    const point = bandPoint(event);
+    canvas.toggleAttribute('data-hot', Boolean(monsterAt(event, event.pointerType) || (point && attractionAt(point))));
   });
   canvas.addEventListener('pointerleave', () => canvas.removeAttribute('data-hot'));
   // Scare on click, which a touch scroll cancels, so swiping past a monster
@@ -1361,7 +1610,7 @@
   // Scare a monster away from fromX (band pixels) and show its ticket.
   function scare(monster, fromX) {
     // Close first: without motion, closing returns scared monsters, this one included.
-    closeTicket();
+    closePanel();
     crowd.scare(monster, fromX, animating() ? Motion.FULL : Motion.REDUCED);
     canvas.removeAttribute('data-hot');
     openTicket(monster);
@@ -1370,7 +1619,9 @@
 
   canvas.addEventListener('click', (event) => {
     const found = monsterAt(event, pointerType);
-    if (found) scare(found.monster, found.point.x);
+    if (found) return scare(found.monster, found.point.x);
+    const point = bandPoint(event);
+    if (point && attractionAt(point)) openGame();
   });
 
   // The monster turns tail on whatever it was walking towards.
@@ -1380,12 +1631,12 @@
   });
 
   document.addEventListener('pointerdown', (event) => {
-    if (ticket && !ticket.contains(event.target)) closeTicket();
+    if (panel && !panel.contains(event.target)) closePanel();
     gargoyle.startle(event.clientX, event.clientY);
   });
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
-    if (ticket) closeTicket();
+    if (panel) closePanel();
     else gargoyle.shoo();
   });
 

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Hide a high striker game in the carnival. Three rings in a row win an invite to Manors & Menaces when `carnivalPrize` points at a server's giveaway endpoint.
+
 - Add a pixel-art haunted carnival beneath the directory. Clicked monsters flee and drop a ticket to a random app, also from the keyboard via a Scare a monster button; a gargoyle roams the page. Reduced motion shows a still scene and a button pauses the animation.
 
 - Keep app names and icons together; wrap maturity labels at tight card widths.

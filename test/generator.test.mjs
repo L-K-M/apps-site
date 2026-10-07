@@ -88,6 +88,7 @@ test('builds a monorepo and a repo-less web app with portable media and links', 
   // The carnival decorates only the directory and stays hidden until its script runs.
   assert.match(home, /<aside class="carnival" data-carnival aria-label="Carnival" hidden>/);
   assert.match(home, /<script src="assets\/carnival.js" defer><\/script>/);
+  assert.doesNotMatch(home, /data-prize/);
   assert.doesNotMatch(detail, /carnival/);
   assert.match(await readFile(join(output, 'assets/carnival.js'), 'utf8'), /data-carnival/);
   const webPage = await readFile(join(output, 'apps/web-only/index.html'), 'utf8');
@@ -364,6 +365,21 @@ test('output checks protect input ancestors reached through an aliased parent', 
 test('output cannot be nested inside a recursively scanned catalogue', async (t) => {
   const { config } = await fixture(t, { 'catalogue/app.json': manifest([APP]) }, { output: 'catalogue/generated' });
   await assert.rejects(buildSite(config), /Output overlaps a catalogue/);
+});
+
+test('renders the optional carnival prize as escaped data and rejects bad prize settings', async (t) => {
+  const prize = { name: 'Manors & <Menaces>', endpoint: 'https://play.example.org/api/giveaway' };
+  const { config, output } = await fixture(t, { 'catalogue/app.json': manifest([APP]) }, { carnivalPrize: prize });
+  await buildSite(config);
+  const home = await readFile(join(output, 'index.html'), 'utf8');
+  assert.match(home, /data-prize-name="Manors &amp; &lt;Menaces&gt;"/);
+  assert.match(home, /data-prize-endpoint="https:\/\/play\.example\.org\/api\/giveaway"/);
+
+  const settings = JSON.parse(await readFile(config, 'utf8'));
+  for (const bad of [{ ...prize, endpoint: 'javascript:alert(1)' }, { ...prize, name: '' }, { ...prize, extra: true }, { name: prize.name }]) {
+    await writeFile(config, JSON.stringify({ ...settings, carnivalPrize: bad }));
+    await assert.rejects(buildSite(config), /carnivalPrize/);
+  }
 });
 
 test('renders text as text, retains remote media without fetching, and supports an empty directory', async (t) => {

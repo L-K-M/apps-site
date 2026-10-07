@@ -264,3 +264,129 @@ test.describe('with reduced motion', () => {
     expect(errors).toEqual([]);
   });
 });
+
+// The hidden high striker: the ticket booth stands 64 band pixels left of the
+// band's centre; its awning sits above every monster's head.
+const BOOTH = { fromCentre: -64, row: 64 };
+const GIVEAWAY = 'https://play.example.org/api/giveaway';
+const INVITE = { url: 'https://play.example.org/invite/abc123def456', code: 'abc123def456', name: 'Lucky Ghost' };
+const SWEEP_STEP_MS = 20;
+const MAX_SWEEP_STEPS = 200;
+const HOLD_MS = 1000; // beyond the bar's pause after a swing
+const RINGS = 3;
+const NEARLY_FULL = 95; // per cent of the bar
+const LOW = 40;
+
+function answerGiveaway(page, status, body) {
+  const requests = [];
+  return page.route(GIVEAWAY, (route) => {
+    requests.push(route.request().postDataJSON());
+    if (status === null) return route.abort();
+    return route.fulfill({ status, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify(body) });
+  }).then(() => requests);
+}
+
+async function boothPoint(page) {
+  return page.evaluate(({ fromCentre, row }) => {
+    const scene = document.querySelector('.carnival-scene');
+    const box = scene.getBoundingClientRect();
+    const scale = box.width / scene.width;
+    return { clientX: box.left + (Math.floor(scene.width / 2) + fromCentre + 0.5) * scale, clientY: box.top + (row + 0.5) * scale };
+  }, BOOTH);
+}
+
+// Step the paused clock until the bar is where the swing should land, then swing.
+async function swing(page, aim) {
+  const fill = page.locator('.carnival-meter-fill');
+  for (let step = 0; step < MAX_SWEEP_STEPS; step += 1) {
+    const width = await fill.evaluate((element) => parseFloat(element.style.width) || 0);
+    if (aim === 'hit' ? width >= NEARLY_FULL : width > 0 && width <= LOW) break;
+    await page.clock.runFor(SWEEP_STEP_MS);
+  }
+  await page.getByRole('button', { name: 'Swing', exact: true }).click();
+  await page.clock.runFor(HOLD_MS);
+}
+
+test.describe('the hidden high striker', () => {
+  test('the ticket booth hides a game whose winners claim an invite', async ({ page }, testInfo) => {
+    const errors = await openCarnival(page);
+    const requests = await answerGiveaway(page, 200, INVITE);
+    await poke(page, await boothPoint(page), testInfo);
+
+    const game = page.getByRole('dialog', { name: 'High striker' });
+    await expect(game).toBeVisible();
+    await expect(game).toContainText('Ring the bell 3 times in a row to win an invite to Manors & Menaces.');
+    await expect(game.getByRole('button', { name: 'Swing', exact: true })).toBeFocused();
+
+    const status = game.getByRole('status');
+    await swing(page, 'miss');
+    await expect(status).toContainText('Back to the start.');
+    for (let ring = 1; ring < RINGS; ring += 1) {
+      await swing(page, 'hit');
+      await expect(status).toHaveText(`Ding! ${ring} of ${RINGS}.`);
+    }
+    await swing(page, 'hit');
+    await expect(status).toHaveText('Ding ding ding! You win an invite to Manors & Menaces.');
+
+    const name = game.getByRole('textbox', { name: 'Your name in Manors & Menaces' });
+    await expect(name).toBeFocused();
+    await name.fill(INVITE.name);
+    await game.getByRole('button', { name: 'Claim invite' }).click();
+    const invite = game.getByRole('link', { name: INVITE.url });
+    await expect(invite).toHaveAttribute('href', INVITE.url);
+    await expect(invite).toBeFocused();
+    expect(requests).toEqual([{ name: INVITE.name }]);
+
+    await game.screenshot({ path: `test-results/striker-${testInfo.project.name}.png` });
+    await page.keyboard.press('Escape');
+    await expect(game).toHaveCount(0);
+    expect(errors).toEqual([]);
+  });
+
+  test('every third ticket leads keyboard users to the game; the booth reports closures and limits', async ({ page }) => {
+    const errors = await openCarnival(page);
+    const scare = page.getByRole('button', { name: 'Scare a monster', exact: true });
+    const ticket = page.getByRole('dialog', { name: 'Carnival ticket' });
+    for (let count = 1; count < 3; count += 1) {
+      await scare.focus();
+      await page.keyboard.press('Enter');
+      await expect(ticket.getByRole('button', { name: 'Try the high striker' })).toHaveCount(0);
+    }
+    await scare.focus();
+    await page.keyboard.press('Enter');
+    await ticket.getByRole('button', { name: 'Try the high striker' }).focus();
+    await page.keyboard.press('Enter');
+
+    const game = page.getByRole('dialog', { name: 'High striker' });
+    await expect(game.getByRole('button', { name: 'Swing', exact: true })).toBeFocused();
+    for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
+
+    // An unreachable booth may be tried again; a limit ends the game.
+    await page.route(GIVEAWAY, (route) => route.abort());
+    const claim = game.getByRole('button', { name: 'Claim invite' });
+    await claim.click();
+    await expect(game.getByRole('status')).toHaveText('The prize booth is closed right now. Try again later.');
+    await expect(claim).toBeEnabled();
+
+    await page.unroute(GIVEAWAY);
+    await answerGiveaway(page, 429, { error: 'one a day', code: 'GIVEAWAY_LIMIT' });
+    await claim.click();
+    await expect(game.getByRole('status')).toHaveText('One invite per visitor a day. Come back tomorrow.');
+    await expect(claim).toHaveCount(0);
+    await expect(game).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(scare).toBeFocused();
+    expect(errors).toEqual([]);
+  });
+
+  test('a link that is not a web address is never shown', async ({ page }, testInfo) => {
+    await openCarnival(page);
+    await answerGiveaway(page, 200, { ...INVITE, url: 'javascript:alert(1)' });
+    await poke(page, await boothPoint(page), testInfo);
+    for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
+    await page.getByRole('button', { name: 'Claim invite' }).click();
+    await expect(page.getByRole('dialog', { name: 'High striker' }).getByRole('status')).toHaveText('The prize booth is closed right now. Try again later.');
+    await expect(page.locator('.carnival-game a')).toHaveCount(0);
+  });
+});

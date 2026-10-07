@@ -29,7 +29,9 @@ await writeFile(join(input, 'hidden-fixture.json'), JSON.stringify({
 
 const config = JSON.parse(await readFile('site.json', 'utf8'));
 const fixtureConfig = resolve('test-results/browser-site.json');
-await writeFile(fixtureConfig, JSON.stringify({ ...config, catalogues: [input], repositoryRoots: [], output: resolve('test-results/site/catalogue') }));
+// The carnival's prize endpoint is never reached: browser tests answer it themselves.
+const carnivalPrize = { name: 'Manors & Menaces', endpoint: 'https://play.example.org/api/giveaway' };
+await writeFile(fixtureConfig, JSON.stringify({ ...config, carnivalPrize, catalogues: [input], repositoryRoots: [], output: resolve('test-results/site/catalogue') }));
 // Serve under a subdirectory to catch accidental root-relative asset links.
 await buildSite(fixtureConfig);
 const server = await startPreview(resolve('test-results/site'));
