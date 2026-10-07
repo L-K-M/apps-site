@@ -20,7 +20,8 @@ Platforms use monochrome SVG icons with hover titles and screen-reader labels.
 A pixel-art haunted carnival runs along the foot of the directory. Click a monster,
 or use the Scare a monster button, and it flees, dropping a ticket to a random app.
 A gargoyle roams the page; click it or press Escape to shoo it. The scene stands
-still when reduced motion is requested, and a button pauses it.
+still when reduced motion is requested, and a button pauses it. The carnival also
+hides a game; every third ticket drops a hint.
 
 ## Run
 
@@ -164,6 +165,13 @@ Edit [`site.json`](site.json):
 - `title`, `description`, `author`, `authorUrl`: site identity and metadata.
 - `url`: optional public URL, including a deployment subpath. Enables canonical URLs and
   `sitemap.xml`, e.g. `https://example.org/apps/`.
+- `carnivalPrize`: optional prize for the carnival's hidden high striker game, as
+  `{ "name": "Manors & Menaces", "endpoint": "https://play.example.org/api/giveaway" }`.
+  Winners claim an invite from a Manors & Menaces server's giveaway endpoint; the page
+  calls it only then. Set the server up as its
+  [invites guide](https://github.com/L-K-M/ManorsAndMenaces/blob/main/docs/invites.md)
+  describes, with `GIVEAWAY_ORIGIN` set to this site's origin. Without it, the game
+  still plays, for glory alone.
 
 Paths are relative to the configuration file. All configured sources must exist.
 Repo-local entries replace central entries with the same `id`. Duplicates within either

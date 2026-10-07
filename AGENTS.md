@@ -16,6 +16,7 @@
 - Platform inference only reads evidenced build metadata. Never execute source repo code.
 - Media owns path containment and copying. Rendering is pure; publication owns output lifecycle.
 - Generated pages use relative paths, escaped plain text, bundled CSS/JS and no runtime API.
+  The one exception: the optional `carnivalPrize` endpoint, called only when a winner claims it.
 - Repo-local `app-directory.json` takes precedence over central catalogues by app id.
 - App `status` controls publication: visible by default, hidden after source overrides resolve.
 - Hidden apps retain validated metadata but are excluded before media processing and rendering.

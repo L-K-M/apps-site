@@ -13,6 +13,16 @@
     "url": { "type": "string", "format": "web-url" },
     "repositoryRoots": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
     "catalogues": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
-    "output": { "type": "string", "minLength": 1 }
+    "output": { "type": "string", "minLength": 1 },
+    "carnivalPrize": {
+      "description": "Optional prize for the carnival's hidden high striker game: an invite minted by a Manors & Menaces giveaway endpoint.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "endpoint"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "pattern": "\\S" },
+        "endpoint": { "type": "string", "format": "web-url" }
+      }
+    }
   }
 }
