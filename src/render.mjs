@@ -10,11 +10,15 @@ const MATURITY = {
 const UNRATED_MATURITY = 'unrated';
 const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'Source code', docs: 'Documentation' };
 const PLATFORM_SPRITE = 'assets/icons/platforms.svg';
-// Decorative pixel-art band beneath the directory; carnival.js reveals and animates it.
-const CARNIVAL = `<div class="carnival" data-carnival hidden>
+// Pixel-art band beneath the directory; carnival.js reveals and animates it.
+// The buttons give keyboard and screen reader users the same play as a click.
+const CARNIVAL = `<aside class="carnival" data-carnival aria-label="Carnival" hidden>
     <canvas class="carnival-scene" aria-hidden="true"></canvas>
-    <button class="carnival-pause" type="button" data-carnival-pause>Pause carnival</button>
-  </div>`;
+    <div class="carnival-controls">
+      <button class="carnival-scare" type="button" data-carnival-scare>Scare a monster</button>
+      <button class="carnival-pause" type="button" data-carnival-pause>Pause carnival</button>
+    </div>
+  </aside>`;
 
 export function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);

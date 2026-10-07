@@ -132,6 +132,25 @@ test('a scared monster runs off and drops a ticket to an app', async ({ page }, 
   expect(errors).toEqual([]);
 });
 
+test('keyboard users scare monsters with a button and reach the ticket', async ({ page }) => {
+  const errors = await openCarnival(page);
+  await expect(page.getByRole('complementary', { name: 'Carnival' })).toBeVisible();
+  const scare = page.getByRole('button', { name: 'Scare a monster', exact: true });
+  await scare.focus();
+  await page.keyboard.press('Enter');
+
+  const ticket = page.getByRole('dialog', { name: 'Carnival ticket' });
+  await expect(ticket).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(ticket.getByRole('link')).toBeFocused();
+  await expect(ticket.getByRole('link')).toHaveAttribute('href', APP_PAGE);
+
+  await page.keyboard.press('Escape');
+  await expect(ticket).toHaveCount(0);
+  await expect(scare).toBeFocused();
+  expect(errors).toEqual([]);
+});
+
 test('the gargoyle roams the page, darts away when clicked and respects reduced motion', async ({ page }) => {
   const errors = await openCarnival(page);
   const flyer = page.locator('.carnival-flyer');
@@ -144,9 +163,22 @@ test('the gargoyle roams the page, darts away when clicked and respects reduced 
   expect(await flyer.boundingBox()).not.toEqual(first);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 
-  // Dispatch directly: a fixed element half off-screen never passes click actionability.
+  // The gargoyle lets presses through to the page beneath, yet still darts off.
   const target = await flyer.boundingBox();
-  await flyer.dispatchEvent('pointerdown', { button: 0, pointerType: 'mouse', clientX: target.x + target.width / 2, clientY: target.y + target.height / 2 });
+  const centre = { x: target.x + target.width / 2, y: target.y + target.height / 2 };
+  const beneath = await page.evaluate(({ x, y }) => {
+    const element = document.elementFromPoint(x, y);
+    element.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, clientX: x, clientY: y }));
+    return element.className;
+  }, centre);
+  expect(beneath).not.toBe('carnival-flyer');
+  await page.clock.runFor(GARGOYLE_DART_MS);
+  await expect(flyer).toBeHidden();
+  await page.clock.runFor(GARGOYLE_RETURN_MS);
+  await expect(flyer).toBeVisible();
+
+  // Escape shoos it too.
+  await page.keyboard.press('Escape');
   await page.clock.runFor(GARGOYLE_DART_MS);
   await expect(flyer).toBeHidden();
   await page.clock.runFor(GARGOYLE_RETURN_MS);

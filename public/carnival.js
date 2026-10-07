@@ -992,13 +992,19 @@
       else Object.assign(monster, { mood: Mood.STARTLED, timer: TIMING.startled });
     }
 
+    // A wandering monster in view, for the scare button.
+    function pick() {
+      const inView = monsters.filter((monster) => monster.mood === Mood.WANDER && monster.x >= 0 && monster.x < width);
+      return inView.length ? inView[Math.floor(Math.random() * inView.length)] : null;
+    }
+
     // Without motion, scared monsters come straight back where they stood,
     // and any caught mid-reaction resume their normal form.
     function settle() {
       for (const monster of monsters) Object.assign(monster, { mood: Mood.WANDER, lift: 0, x: wrap(monster.x, width) });
     }
 
-    return { resize, update, door, draw, hit, scare, settle };
+    return { resize, update, door, draw, hit, pick, scare, settle };
   }
 
   // ── Gargoyle ──────────────────────────────────────────────────────────────
@@ -1142,17 +1148,31 @@
       canvas.style.transform = `translate(${Math.round(state.x - size.width / 2)}px, ${Math.round(state.y - size.height / 2)}px)`;
     }
 
-    // Dart away from the pointer, up and out of sight.
-    canvas.addEventListener('pointerdown', (event) => {
-      if (!awake || state.flight === Flight.DART) return;
-      const away = Math.sign(state.x - event.clientX) || state.facing;
+    const flying = () => awake && !canvas.hidden && state.flight !== Flight.DART;
+
+    // Dart away from a point, up and out of sight.
+    function dart(fromX) {
+      const away = Math.sign(state.x - fromX) || state.facing;
       Object.assign(state, { flight: Flight.DART, vx: away * GARGOYLE.dart, vy: -GARGOYLE.dart * 0.55 });
-    });
+    }
+
+    // The canvas lets presses through to the page, so test them here.
+    function startle(x, y) {
+      if (!flying()) return;
+      const box = canvas.getBoundingClientRect();
+      if (x < box.left || x > box.right || y < box.top || y > box.bottom) return;
+      dart(x);
+    }
 
     return {
       element: canvas,
       update,
       render,
+      startle,
+      // Send it off ahead of itself, for keyboard users.
+      shoo() {
+        if (flying()) dart(state.x - state.facing);
+      },
       wake() { awake = true; },
       // Leave the page; it flies back in a while after waking.
       dismiss() {
@@ -1173,6 +1193,7 @@
   const canvas = band.querySelector('canvas');
   const context = canvas.getContext('2d');
   const pauseButton = band.querySelector('[data-carnival-pause]');
+  const scareButton = band.querySelector('[data-carnival-scare]');
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const palette = readPalette(band);
   const crowd = createCrowd();
@@ -1289,7 +1310,7 @@
   }
 
   // A ticket to a random app, placed beside the monster that dropped it.
-  function openTicket(monster, point) {
+  function openTicket(monster) {
     returnFocus = document.activeElement;
     ticket = document.createElement('div');
     ticket.className = 'carnival-ticket';
@@ -1318,8 +1339,7 @@
     ticket.append(message, close);
     band.append(ticket);
 
-    const scale = point.box.width / canvas.width;
-    const anchor = monster.x * scale;
+    const anchor = (monster.x * band.clientWidth) / canvas.width;
     const right = anchor + TICKET.gap * PIXEL;
     const width = ticket.offsetWidth;
     const left = right + width + TICKET.inset <= band.clientWidth ? right : anchor - TICKET.gap * PIXEL - width;
@@ -1338,22 +1358,35 @@
   canvas.addEventListener('pointerdown', (event) => {
     pointerType = event.pointerType;
   });
-  canvas.addEventListener('click', (event) => {
-    const found = monsterAt(event, pointerType);
-    if (!found) return;
+  // Scare a monster away from fromX (band pixels) and show its ticket.
+  function scare(monster, fromX) {
     // Close first: without motion, closing returns scared monsters, this one included.
     closeTicket();
-    crowd.scare(found.monster, found.point.x, animating() ? Motion.FULL : Motion.REDUCED);
+    crowd.scare(monster, fromX, animating() ? Motion.FULL : Motion.REDUCED);
     canvas.removeAttribute('data-hot');
-    openTicket(found.monster, found.point);
+    openTicket(monster);
     if (!animating()) drawBand();
+  }
+
+  canvas.addEventListener('click', (event) => {
+    const found = monsterAt(event, pointerType);
+    if (found) scare(found.monster, found.point.x);
+  });
+
+  // The monster turns tail on whatever it was walking towards.
+  scareButton.addEventListener('click', () => {
+    const monster = crowd.pick();
+    if (monster) scare(monster, monster.x + monster.facing);
   });
 
   document.addEventListener('pointerdown', (event) => {
     if (ticket && !ticket.contains(event.target)) closeTicket();
+    gargoyle.startle(event.clientX, event.clientY);
   });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeTicket();
+    if (event.key !== 'Escape') return;
+    if (ticket) closeTicket();
+    else gargoyle.shoo();
   });
 
   function setPaused(value) {
