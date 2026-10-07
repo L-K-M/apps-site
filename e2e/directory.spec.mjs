@@ -213,6 +213,7 @@ test('HTML remains usable with JavaScript disabled', async ({ browser, baseURL }
   await page.goto(baseURL);
   await expect(page.locator('[data-app]')).toHaveCount(STARTER_APP_COUNT);
   await expect(page.getByRole('searchbox')).toBeHidden();
+  await expect(page.locator('.carnival')).toBeHidden();
   await page.getByRole('heading', { name: 'Jetty', exact: true }).getByRole('link').click();
   await expect(page.getByRole('heading', { name: 'Jetty', exact: true })).toBeVisible();
   await expect(page.locator('.detail-facts').getByRole('img', { name: 'macOS', exact: true })).toBeVisible();

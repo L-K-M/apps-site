@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a pixel-art haunted carnival beneath the directory. Clicked monsters flee and drop a ticket to a random app; a gargoyle roams the page. Reduced motion shows a still scene and a button pauses the animation.
+
 - Keep app names and icons together; wrap maturity labels at tight card widths.
 
 - Increase vertical spacing between app entries.

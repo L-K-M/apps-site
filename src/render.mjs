@@ -10,6 +10,11 @@ const MATURITY = {
 const UNRATED_MATURITY = 'unrated';
 const LINK_LABELS = { website: 'Open website', download: 'Downloads', source: 'Source code', docs: 'Documentation' };
 const PLATFORM_SPRITE = 'assets/icons/platforms.svg';
+// Decorative pixel-art band beneath the directory; carnival.js reveals and animates it.
+const CARNIVAL = `<div class="carnival" data-carnival hidden>
+    <canvas class="carnival-scene" aria-hidden="true"></canvas>
+    <button class="carnival-pause" type="button" data-carnival-pause>Pause carnival</button>
+  </div>`;
 
 export function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
@@ -49,7 +54,7 @@ function canonical(config, path) {
   return new URL(path, `${config.url.replace(/\/$/, '')}/`).href;
 }
 
-function document(config, { title, description, content, prefix = '', path = '', scripts = '' }) {
+function document(config, { title, description, content, prefix = '', path = '', scripts = '', after = '' }) {
   const url = canonical(config, path);
 
   return `<!doctype html>
@@ -73,6 +78,7 @@ function document(config, { title, description, content, prefix = '', path = '',
   <div class="page">
     ${content}
   </div>
+  ${after}
 </body>
 </html>
 `;
@@ -116,7 +122,8 @@ function renderHome(config, apps) {
     ${apps.length ? '' : '<p class="catalogue-empty">The directory has no entries yet.</p>'}
   </main>`;
 
-  return document(config, { title: config.title, description: config.description ?? config.title, content, scripts: '<script src="assets/directory.js" defer></script>' });
+  const scripts = '<script src="assets/directory.js" defer></script><script src="assets/carnival.js" defer></script>';
+  return document(config, { title: config.title, description: config.description ?? config.title, content, scripts, after: CARNIVAL });
 }
 
 function renderDetail(config, app) {
