@@ -84,7 +84,7 @@ function renderApp(app) {
   const search = [app.name, app.summary, app.description ?? '', app.category, ...app.tags, ...app.features].join(' ');
 
   return `<li class="app-card" data-app data-search="${escapeHtml(search)}" data-category="${escapeHtml(app.category)}" data-platforms="${app.platforms.join(' ')}" data-maturity="${app.maturity ?? UNRATED_MATURITY}">
-    <div class="card-heading">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2>${appStatus(app)}</div>
+    <div class="card-heading"><div class="card-name">${appIcon(app, '')}<h2><a href="${href}">${escapeHtml(app.name)}</a></h2></div>${appStatus(app)}</div>
     <p class="app-summary">${escapeHtml(app.summary)}</p>
     <p class="app-meta">${platformIcons(app)}</p>
     ${preview ? `<a class="app-preview" href="${href}" aria-label="View ${escapeHtml(app.name)}"><img src="${escapeHtml(mediaUrl(preview.thumbnail ?? preview.src, ''))}" alt="${escapeHtml(preview.alt)}" loading="lazy" width="260" height="160"></a>` : ''}

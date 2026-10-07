@@ -7,6 +7,9 @@ const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
 const STARTER_APP_COUNT = 64;
+const TIGHT_HEADER_VIEWPORTS = [{ width: 1200, height: 1000 }, { width: 320, height: 800 }];
+const ICON_HEADER_APP_NAME = 'BootCaptain';
+const LONG_APP_NAME = 'VeryLongApplicationNameWithoutWordBreaks'.repeat(4);
 
 async function expectBundledFonts(page, families = [FONTS.HEADINGS, FONTS.TEXT]) {
   const typography = await page.evaluate(async () => {
@@ -88,6 +91,39 @@ test('renders all apps, local screenshots, and a responsive directory', async ({
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({ path: `test-results/preview-${testInfo.project.name}.png` });
   expect(errors).toEqual([]);
+});
+
+test('keeps card title words intact at tight grid widths', async ({ page }, testInfo) => {
+  await page.goto('./');
+  await expectBundledFonts(page, Object.values(FONTS));
+
+  for (const viewport of TIGHT_HEADER_VIEWPORTS) {
+    await page.setViewportSize(viewport);
+    for (const name of [ICON_HEADER_APP_NAME, 'ImageContentDetector']) {
+      const title = page.getByRole('heading', { name, exact: true }).getByRole('link');
+      const lines = await title.evaluate((link) => {
+        const range = document.createRange();
+        range.selectNodeContents(link);
+        return range.getClientRects().length;
+      });
+      expect(lines, `${name} at ${viewport.width}px`).toBe(1);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    const card = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: ICON_HEADER_APP_NAME, exact: true }) });
+    await card.screenshot({ path: `test-results/tight-header-${testInfo.project.name}-${viewport.width}.png` });
+  }
+
+  // Exceptionally long names must still wrap within the card, alongside their icon.
+  const card = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: ICON_HEADER_APP_NAME, exact: true }) });
+  const title = card.getByRole('heading').getByRole('link');
+  await title.evaluate((link, name) => { link.textContent = name; }, LONG_APP_NAME);
+  const longHeading = page.getByRole('heading', { name: LONG_APP_NAME, exact: true });
+  const longCard = page.locator('[data-app]').filter({ has: longHeading });
+  const iconBox = await longCard.locator('.app-icon').boundingBox();
+  const headingBox = await longHeading.boundingBox();
+  expect(headingBox.y).toBeLessThan(iconBox.y + iconBox.height);
+  expect(iconBox.y).toBeLessThan(headingBox.y + headingBox.height);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
 test('combines search, category, platform and maturity; clears zero results', async ({ page }) => {
