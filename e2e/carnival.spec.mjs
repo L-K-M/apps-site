@@ -380,6 +380,38 @@ test.describe('the hidden high striker', () => {
     expect(errors).toEqual([]);
   });
 
+  test('closing the game mid-claim brings the invite back when it arrives', async ({ page }, testInfo) => {
+    await openCarnival(page);
+    let release;
+    const held = new Promise((resolve) => { release = resolve; });
+    await page.route(GIVEAWAY, async (route) => {
+      await held;
+      await route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify(INVITE) });
+    });
+    await poke(page, await boothPoint(page), testInfo);
+    for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
+    await page.getByRole('button', { name: 'Claim invite' }).click();
+
+    // The server mints the invite even if the winner walks away; it must not be lost.
+    const game = page.getByRole('dialog', { name: 'High striker' });
+    await page.keyboard.press('Escape');
+    await expect(game).toHaveCount(0);
+    release();
+    await expect(game.getByRole('link', { name: INVITE.url })).toBeFocused();
+  });
+
+  test('an empty prize booth says every invite has been won', async ({ page }, testInfo) => {
+    await openCarnival(page);
+    await answerGiveaway(page, 410, { error: 'gone', code: 'GIVEAWAY_EMPTY' });
+    await poke(page, await boothPoint(page), testInfo);
+    for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
+    await page.getByRole('button', { name: 'Claim invite' }).click();
+    const game = page.getByRole('dialog', { name: 'High striker' });
+    await expect(game.getByRole('status')).toHaveText('Every invite has been won. Try again another day.');
+    await expect(game.getByRole('button', { name: 'Claim invite' })).toHaveCount(0);
+    await expect(game).toBeFocused();
+  });
+
   test('a link that is not a web address is never shown', async ({ page }, testInfo) => {
     await openCarnival(page);
     await answerGiveaway(page, 200, { ...INVITE, url: 'javascript:alert(1)' });

@@ -768,7 +768,9 @@
     const cycle = time % 5;
     const height = swing ? swingHeight(swing, time) : cycle < 1 ? Math.sin(cycle * Math.PI) * STRIKE.pole : 0;
     surface.rect(x - 1, Math.round(HORIZON - 4 - height), 3, 2, 'r');
-    surface.disc(x, HORIZON - 47, 2, height >= STRIKE.pole * STRIKE.hit - 0.5 ? 'a' : 'k');
+    // A swing rings only if the game counted it, near the top of its flight.
+    const ringing = swing ? swing.power >= STRIKE.hit && height >= swing.power * STRIKE.pole * 0.9 : height >= STRIKE.pole * STRIKE.hit;
+    surface.disc(x, HORIZON - 47, 2, ringing ? 'a' : 'k');
   }
 
   // A few bats circle the tower.
@@ -1256,8 +1258,9 @@
     return element;
   }
 
-  // The game's panel. onSwing(power) lets the band's striker follow along.
-  function createStrikerGame(prize, onSwing) {
+  // The game's panel. onSwing(power) lets the band's striker follow along;
+  // reopen() shows the panel again for an invite that arrives after it closed.
+  function createStrikerGame(prize, { onSwing, reopen }) {
     const panel = node('div', 'carnival-panel carnival-game');
     const intro = `Ring the bell ${STRIKER_GAME.rings} times in a row`;
     const meter = node('div', 'carnival-meter');
@@ -1306,7 +1309,12 @@
         submit.disabled = true;
         status.textContent = 'Fetching your invite.';
         const result = await claimPrize(prize.endpoint, input.value.trim());
-        if (!panel.isConnected) return;
+        // The server minted the invite even if the winner closed the game
+        // meanwhile; bring it back rather than lose it.
+        if (!panel.isConnected) {
+          if (result.outcome !== Outcome.WON) return;
+          reopen();
+        }
 
         // Only a closed booth is worth another try.
         if (result.outcome === Outcome.CLOSED) {
@@ -1526,11 +1534,14 @@
     element.setAttribute('aria-label', label);
     element.tabIndex = -1;
 
-    const close = node('button', 'carnival-close', '×');
-    close.type = 'button';
-    close.setAttribute('aria-label', 'Close');
-    close.addEventListener('click', closePanel);
-    element.append(close);
+    // A panel shown again keeps its close button.
+    if (!element.querySelector(':scope > .carnival-close')) {
+      const close = node('button', 'carnival-close', '×');
+      close.type = 'button';
+      close.setAttribute('aria-label', 'Close');
+      close.addEventListener('click', closePanel);
+      element.append(close);
+    }
     band.append(element);
     panel = element;
     panelClosed = onClose;
@@ -1546,20 +1557,23 @@
   }
 
   function openGame() {
-    const game = createStrikerGame(prize, (power) => {
-      // A still band shows the swing at its height.
-      swing = { power, at: animating() ? showTime : showTime - SWING_SECONDS / 2 };
-      if (!animating()) drawBand();
-    });
-    showPanel(game.element, {
+    const options = {
       label: 'High striker',
       place: Place.CENTRE,
-      focus: game.focus,
       onClose: () => {
         game.stop();
         swing = null;
       },
+    };
+    const game = createStrikerGame(prize, {
+      onSwing: (power) => {
+        // A still band shows the swing at its height.
+        swing = { power, at: animating() ? showTime : showTime - SWING_SECONDS / 2 };
+        if (!animating()) drawBand();
+      },
+      reopen: () => showPanel(game.element, options),
     });
+    showPanel(game.element, { ...options, focus: game.focus });
     // The puck rests until the first swing.
     swing = { power: 0, at: -Infinity };
     game.start();
