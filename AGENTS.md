@@ -27,7 +27,7 @@
 
 ## Visual constraints
 
-Pirata One wordmark, Syne headings and Instrument Sans text, self-hosted under
+Pirata One wordmark, C64 Keyboard headings and Instrument Sans text, self-hosted under
 `public/fonts/`. White background, compact app grid, one accent. Screenshots show the apps.
 No gradients, arbitrary rainbow colours, pulse badges, decorative card tabs, emoji,
 glassmorphism, generic hype, remote font dependencies, or redundant descriptions.

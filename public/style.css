@@ -1,9 +1,9 @@
 /* Bundled fonts keep the site self-contained. */
 @font-face {
-  font-family: 'Syne';
-  src: url('fonts/syne-variable.woff2') format('woff2');
+  font-family: 'C64 Keyboard';
+  src: url('fonts/c64-keyboard-regular.woff2') format('woff2');
   font-style: normal;
-  font-weight: 400 800;
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -30,7 +30,7 @@
   --muted: #64665b;
   --rule: #d3d1c7;
   --accent: #993c2c;
-  --heading-font: 'Syne', Arial, sans-serif;
+  --heading-font: 'C64 Keyboard', Arial, sans-serif;
   --wordmark-font: 'Pirata One', Georgia, serif;
   --text-font: 'Instrument Sans', Arial, sans-serif;
   color: var(--ink);
@@ -92,7 +92,7 @@ img { display: block; max-width: 100%; }
 .detail-heading { padding-block: 1.25rem 2rem; max-width: 950px; }
 .category-label { color: var(--accent); font-size: 0.75rem; margin-bottom: 0.75rem; }
 .detail-title { display: flex; align-items: center; gap: 1.25rem; }
-.detail-title h1 { flex: 1; min-width: 0; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; letter-spacing: -0.04em; overflow-wrap: anywhere; }
+.detail-title h1 { flex: 1; min-width: 0; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; overflow-wrap: anywhere; }
 .detail-title .app-icon { width: 72px; height: 72px; }
 .detail-summary { font-size: 1.15rem; max-width: 740px; margin-top: 1rem; }
 .maturity-note { color: var(--muted); font-size: 0.85rem; margin-top: 0.75rem; }

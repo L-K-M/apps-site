@@ -10,8 +10,8 @@ and images. Upload it to any static web server.
 
 ![App directory preview](docs/directory.png)
 
-The wordmark uses self-hosted Pirata One, headings use Syne, and text uses
-Instrument Sans. All fonts are bundled under SIL OFL 1.1.
+The wordmark uses Pirata One, app names and headlines use C64 Keyboard, and text
+uses Instrument Sans. Fonts are self-hosted; C64 Keyboard renders lowercase as capitals.
 [Sources and licenses](public/fonts/README.md).
 
 ## Run
