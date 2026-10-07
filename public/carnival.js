@@ -1212,6 +1212,9 @@
   function layout() {
     const width = Math.ceil(band.clientWidth / PIXEL);
     if (!width) return false;
+    // Phone address bars resize the viewport's height while scrolling; only a
+    // new width needs a new scene.
+    if (width === surface?.width) return true;
     canvas.width = width;
     canvas.height = ROWS;
     surface = createSurface(context, width, ROWS, palette);

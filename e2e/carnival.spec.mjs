@@ -12,6 +12,8 @@ const GARGOYLE_DART_MS = 3000;
 const GARGOYLE_RETURN_MS = 16000;
 const APP_PAGE = /^apps\/[^/]+\/index\.html$/;
 const CLOCK_START = Date.parse('2026-10-31T20:00:00Z');
+const NARROWER_PX = 100;
+const RESIZE_SETTLE_MS = 500; // beyond the band's resize debounce
 const MIN_TARGET_PX = 24; // WCAG 2.5.8 target size
 const PAUSE_AFTER_LOAD_MS = 60000; // later than any page load, so the jump is forward
 
@@ -115,6 +117,17 @@ test('a scared monster runs off and drops a ticket to an app', async ({ page }, 
   await page.keyboard.press('Escape');
   await expect(ticket).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+
+  // A narrower viewport redraws the band at its new width.
+  const viewport = page.viewportSize();
+  await page.setViewportSize({ width: viewport.width - NARROWER_PX, height: viewport.height });
+  await page.clock.runFor(RESIZE_SETTLE_MS);
+  expect(await page.evaluate(() => {
+    const scene = document.querySelector('.carnival-scene');
+    return scene.width === Math.ceil(scene.clientWidth / 2);
+  })).toBe(true);
+  await page.setViewportSize(viewport);
+  await page.clock.runFor(RESIZE_SETTLE_MS);
   await band.screenshot({ path: `test-results/carnival-${testInfo.project.name}.png` });
   expect(errors).toEqual([]);
 });
