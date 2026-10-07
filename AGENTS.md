@@ -32,6 +32,8 @@ Pirata One wordmark, C64 Keyboard headings and Instrument Sans text, self-hosted
 Red/amber/green dots accompany plain maturity labels. Screenshots show the apps.
 No gradients, arbitrary rainbow colours, pulse badges, decorative card tabs, emoji,
 glassmorphism, generic hype, remote font dependencies, or redundant descriptions.
+The home page ends in a decorative pixel-art carnival drawn from the same palette;
+keep it pausable and still under reduced motion.
 Check desktop and phone screenshots after layout changes.
 
 <!-- shared-rules:start -->

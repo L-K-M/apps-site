@@ -85,6 +85,11 @@ test('builds a monorepo and a repo-less web app with portable media and links', 
   assert.match(detail, /https:\/\/directory\.example\.org\/tools\/apps\/desktop\//);
   const home = await readFile(join(output, 'index.html'), 'utf8');
   assert.match(home, /<h1 class="wordmark">Test Directory<\/h1>/);
+  // The carnival decorates only the directory and stays hidden until its script runs.
+  assert.match(home, /<aside class="carnival" data-carnival aria-label="Carnival" hidden>/);
+  assert.match(home, /<script src="assets\/carnival.js" defer><\/script>/);
+  assert.doesNotMatch(detail, /carnival/);
+  assert.match(await readFile(join(output, 'assets/carnival.js'), 'utf8'), /data-carnival/);
   const webPage = await readFile(join(output, 'apps/web-only/index.html'), 'utf8');
   assert.match(webPage, /Open website/);
   assert.doesNotMatch(webPage, /Downloads|Source code/);

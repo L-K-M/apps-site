@@ -5,8 +5,8 @@
 
 **Version:** v<!-- version -->0.1.0<!-- /version --> · [Releases](https://github.com/L-K-M/apps-site/releases)
 
-Generate an app directory from JSON files. The output is HTML, CSS, a small search script,
-and images. Upload it to any static web server.
+Generate an app directory from JSON files. The output is HTML, CSS, small search and
+carnival scripts, and images. Upload it to any static web server.
 
 ![App directory preview](docs/directory.png)
 
@@ -16,6 +16,11 @@ uses Instrument Sans. Fonts are self-hosted; C64 Keyboard renders lowercase as c
 
 Platforms use monochrome SVG icons with hover titles and screen-reader labels.
 [Icon sources and license](public/icons/README.md).
+
+A pixel-art haunted carnival runs along the foot of the directory. Click a monster,
+or use the Scare a monster button, and it flees, dropping a ticket to a random app.
+A gargoyle roams the page; click it or press Escape to shoo it. The scene stands
+still when reduced motion is requested, and a button pauses it.
 
 ## Run
 
