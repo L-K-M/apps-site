@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Increase vertical spacing between app entries.
+
 - Add red/amber/green traffic-light dots beside maturity labels on cards and detail pages.
 
 - Replace platform names on cards and detail pages with accessible, self-hosted SVG icons.
