@@ -12,6 +12,7 @@ const GARGOYLE_DART_MS = 3000;
 const GARGOYLE_RETURN_MS = 16000;
 const APP_PAGE = /^apps\/[^/]+\/index\.html$/;
 const CLOCK_START = Date.parse('2026-10-31T20:00:00Z');
+const MIN_TARGET_PX = 24; // WCAG 2.5.8 target size
 const PAUSE_AFTER_LOAD_MS = 60000; // later than any page load, so the jump is forward
 
 // Find the middles of green clusters on the band canvas, densest first and
@@ -191,7 +192,10 @@ test.describe('with reduced motion', () => {
     await expect(ticket).toBeVisible();
     expect(await greenAround(page, monster)).toBeLessThan(monster.count / 2);
 
-    await ticket.getByRole('button', { name: 'Close' }).click();
+    const close = ticket.getByRole('button', { name: 'Close' });
+    const closeBox = await close.boundingBox();
+    expect(Math.min(closeBox.width, closeBox.height)).toBeGreaterThanOrEqual(MIN_TARGET_PX);
+    await close.click();
     await expect(ticket).toHaveCount(0);
     expect(await greenAround(page, monster)).toBe(monster.count);
 
