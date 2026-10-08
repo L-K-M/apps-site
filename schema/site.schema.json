@@ -21,7 +21,11 @@
       "required": ["name", "endpoint"],
       "properties": {
         "name": { "type": "string", "minLength": 1, "pattern": "\\S" },
-        "endpoint": { "type": "string", "format": "web-url" }
+        "endpoint": { "type": "string", "format": "web-url" },
+        "riddle": {
+          "description": "Optional riddle the game shows: the order of five monsters to scare before claiming. Never write the plain answer here.",
+          "type": "string", "minLength": 1, "maxLength": 500, "pattern": "\\S"
+        }
       }
     }
   }

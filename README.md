@@ -173,6 +173,15 @@ Edit [`site.json`](site.json):
   describes, with `GIVEAWAY_ORIGIN` set to this site's origin. Without it, the game
   still plays, for glory alone.
 
+  The server can also ask for a puzzle first: five monsters scared in the right order.
+  Each monster has a number, and the claim carries a key made from the numbers of the
+  last five scared, in order. Choose the order and print its key with
+  `node bin/apps-site.mjs carnival-key ghost cat vampire mummy zombie`, then set the
+  printed `GIVEAWAY_KEY` on the server. Keep the order itself out of this repository and
+  `site.json`: anyone can compute the key of any order, so the order is the secret. An
+  optional `riddle` in `carnivalPrize` hints at it in the game; with a prize, a picker
+  beside Scare a monster lets keyboard and phone players aim at one monster.
+
 Paths are relative to the configuration file. All configured sources must exist.
 Repo-local entries replace central entries with the same `id`. Duplicates within either
 tier are errors. Remove a central seed after adoption if you do not want it to reappear
