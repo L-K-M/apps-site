@@ -1218,7 +1218,7 @@
     periods: [1.6, 1.3, 1.0], // seconds per sweep, faster after each ring
     rest: 0.9, // seconds the bar holds after a swing
   };
-  const Outcome = Object.freeze({ WON: 'won', EMPTY: 'empty', LIMIT: 'limit', WRONG: 'wrong', TRIES: 'tries', CLOSED: 'closed' });
+  const Outcome = Object.freeze({ WON: 'won', EMPTY: 'empty', LIMIT: 'limit', UNSOLVED: 'unsolved', WRONG: 'wrong', TRIES: 'tries', CLOSED: 'closed' });
   // Error codes of the Manors & Menaces giveaway endpoint; anything else means closed.
   const GIVEAWAY_OUTCOMES = {
     GIVEAWAY_EMPTY: Outcome.EMPTY,
@@ -1231,6 +1231,7 @@
   const PRIZE_MESSAGES = {
     [Outcome.EMPTY]: 'Every invite has been won. Try again another day.',
     [Outcome.LIMIT]: 'One invite per visitor a day. Come back tomorrow.',
+    [Outcome.UNSOLVED]: 'Scare five monsters in the right order first, then ring the bell again.',
     [Outcome.WRONG]: 'Those were the wrong monsters, or the wrong order. Scare five in the right order, then ring the bell again.',
     [Outcome.TRIES]: 'Too many wrong orders today. Come back tomorrow.',
     [Outcome.CLOSED]: 'The prize booth is closed right now. Try again later.',
@@ -1323,7 +1324,10 @@
         event.preventDefault();
         submit.disabled = true;
         status.textContent = 'Fetching your invite.';
-        const result = await claimPrize(prize.endpoint, input.value.trim(), orderKey());
+        const key = orderKey();
+        const claimed = await claimPrize(prize.endpoint, input.value.trim(), key);
+        // A key the server wanted but never got: the puzzle was not tried.
+        const result = claimed.outcome === Outcome.WRONG && !key ? { outcome: Outcome.UNSOLVED } : claimed;
         // The server minted the invite even if the winner closed the game
         // meanwhile; bring it back rather than lose it.
         if (!panel.isConnected) {
@@ -1687,7 +1691,8 @@
     const kindId = target?.value || null;
     const monster = crowd.pick(kindId);
     if (monster) return scare(monster, monster.x + monster.facing);
-    if (kindId) showNote(`The ${target.selectedOptions[0].text} is hiding. Try again in a moment.`);
+    if (kindId) return showNote(`The ${target.selectedOptions[0].text} is hiding. Try again in a moment.`);
+    if (target) showNote('Every monster is hiding. Try again in a moment.');
   });
 
   document.addEventListener('pointerdown', (event) => {
