@@ -1425,11 +1425,13 @@
   const controls = scareButton.parentElement; // wraps to two rows on phones
   const { prizeName, prizeEndpoint, prizeRiddle } = band.dataset;
   const prize = prizeEndpoint ? { name: prizeName, endpoint: prizeEndpoint, riddle: prizeRiddle ?? null } : null;
-  const puzzle = globalThis.carnivalKey;
+  // Without its script (blocked, or a stale cached page) there is no puzzle,
+  // and the carnival plays on.
+  const puzzle = globalThis.carnivalKey ?? null;
   // With a prize, the puzzle needs particular monsters scared, so the scare
   // button can aim: keyboard, screen reader and phone players cannot all
   // point at one moving monster.
-  const target = prize ? monsterPicker() : null;
+  const target = prize && puzzle ? monsterPicker() : null;
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const palette = readPalette(band);
   const crowd = createCrowd();
@@ -1450,7 +1452,7 @@
   let returnFocus = null;
   let ticketsShown = 0;
   let swing = null; // the game's last swing, for the band's striker
-  const scared = []; // ids of the last puzzle.STEPS monsters scared, oldest first
+  const scared = []; // ids of the last puzzle.STEPS different monsters scared, oldest first
 
   function readPaused() {
     try {
@@ -1591,7 +1593,17 @@
   }
 
   function orderKey() {
-    return scared.length === puzzle.STEPS ? puzzle.keyFor(scared) : null;
+    return puzzle && scared.length === puzzle.STEPS ? puzzle.keyFor(scared) : null;
+  }
+
+  // A monster scared again moves to the end instead of taking a second
+  // place: no answer repeats one, and without motion one comes straight back.
+  function rememberScare(id) {
+    if (!puzzle) return;
+    const seen = scared.indexOf(id);
+    if (seen >= 0) scared.splice(seen, 1);
+    scared.push(id);
+    if (scared.length > puzzle.STEPS) scared.shift();
   }
 
   // A short message in a ticket, for when the scare button finds nobody.
@@ -1672,8 +1684,7 @@
     // Close first: without motion, closing returns scared monsters, this one included.
     closePanel();
     crowd.scare(monster, fromX, animating() ? Motion.FULL : Motion.REDUCED);
-    scared.push(monster.kind.id);
-    if (scared.length > puzzle.STEPS) scared.shift();
+    rememberScare(monster.kind.id);
     canvas.removeAttribute('data-hot');
     openTicket(monster);
     if (!animating()) drawBand();
