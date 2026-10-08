@@ -280,8 +280,22 @@ const LOW = 40;
 // The puzzle: five monsters scared in order make the key a claim carries.
 const { keyFor } = globalThis.carnivalKey;
 const PICKED = ['ghost', 'cat', 'vampire', 'mummy'];
-// Ticket lines of the green monsters findMonster finds, by monster id.
-const GREEN_TICKETS = { zombie: /^The zombie/, frankenstein: /^Frankenstein/, slime: /^The slime/ };
+// How each monster's ticket line starts, by monster id.
+const TICKET_KINDS = {
+  ghost: /^You startled the ghost/, zombie: /^The zombie/, mummy: /^The mummy/, skeleton: /^You scared the skeleton/,
+  frankenstein: /^Frankenstein/, jack: /^The pumpkin head/, slime: /^The slime/, cat: /^The black cat/, vampire: /^The vampire/,
+};
+const KEY_STEPS = 5;
+
+// The last five different monsters of a run of scares, as the claim counts them.
+function lastFive(scares) {
+  const window = [];
+  for (const id of scares) {
+    if (window.includes(id)) window.splice(window.indexOf(id), 1);
+    window.push(id);
+  }
+  return window.slice(-KEY_STEPS);
+}
 const RETRY_MS = 1000;
 const MAX_RETRIES = 30; // a scared monster hides for up to 13 s
 // Markup in the operator's riddle stays text.
@@ -450,13 +464,13 @@ test.describe('the hidden high striker', () => {
     const scares = ['zombie', 'skeleton', 'cat', 'ghost', 'vampire', 'ghost'];
     for (const kind of scares) await scareKind(page, kind);
 
-    // The last by pointer: whichever green monster is nearest to hand, bar
-    // the zombie scared first.
+    // The last by pointer, at a green monster; another may stand in front,
+    // so read who fled from the ticket.
     await page.getByRole('combobox', { name: 'Monster to scare' }).selectOption('');
     await poke(page, await findMonster(page), testInfo);
     const line = await page.getByRole('dialog', { name: 'Carnival ticket' }).textContent();
-    const last = Object.keys(GREEN_TICKETS).find((id) => GREEN_TICKETS[id].test(line));
-    expect(['frankenstein', 'slime']).toContain(last);
+    const last = Object.keys(TICKET_KINDS).find((id) => TICKET_KINDS[id].test(line));
+    expect(last).toBeTruthy();
 
     await page.keyboard.press('Escape');
     await poke(page, await boothPoint(page), testInfo);
@@ -466,7 +480,8 @@ test.describe('the hidden high striker', () => {
     for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
     await game.getByRole('button', { name: 'Claim invite' }).click();
     await expect(game.getByRole('link', { name: INVITE.url })).toBeVisible();
-    expect(requests).toEqual([{ key: keyFor(['skeleton', 'cat', 'vampire', 'ghost', last]) }]);
+    expect(lastFive(scares)).toEqual(['zombie', 'skeleton', 'cat', 'vampire', 'ghost']);
+    expect(requests).toEqual([{ key: keyFor(lastFive([...scares, last])) }]);
     expect(errors).toEqual([]);
   });
 
