@@ -16,7 +16,7 @@
 //   Scenery   rides and buildings: a cached still layer plus lively details
 //   Crowd     monster state machines and hit testing
 //   Gargoyle  the free-flying monster and its overlay canvas
-//   Striker   the hidden high striker game and its prize
+//   Striker   the hidden high striker game, its prize and puzzle
 //   Carnival  DOM wiring: sizing, frame loop, input, panels, pause, motion
 (() => {
   const band = document.querySelector('[data-carnival]');
@@ -1007,9 +1007,9 @@
       else Object.assign(monster, { mood: Mood.STARTLED, timer: TIMING.startled });
     }
 
-    // A wandering monster in view, for the scare button.
-    function pick() {
-      const inView = monsters.filter((monster) => monster.mood === Mood.WANDER && monster.x >= 0 && monster.x < width);
+    // A wandering monster in view, of the kind named if any, for the scare button.
+    function pick(kindId = null) {
+      const inView = monsters.filter((monster) => monster.mood === Mood.WANDER && monster.x >= 0 && monster.x < width && (!kindId || monster.kind.id === kindId));
       return inView.length ? inView[Math.floor(Math.random() * inView.length)] : null;
     }
 
@@ -1205,6 +1205,11 @@
   // invite minted by the operator's giveaway endpoint (site.json
   // carnivalPrize), the only thing the site fetches at run time.
   //
+  // The endpoint may also want a puzzle solved first: five monsters scared
+  // in the right order. The claim carries the key of the last five scares
+  // (carnival-key.js); only the server knows which key is right, and an
+  // optional riddle in the game tells players the order.
+  //
   // The sweep runs even under reduced motion: the player starts it, and the
   // game is the motion.
 
@@ -1213,21 +1218,28 @@
     periods: [1.6, 1.3, 1.0], // seconds per sweep, faster after each ring
     rest: 0.9, // seconds the bar holds after a swing
   };
-  const Outcome = Object.freeze({ WON: 'won', EMPTY: 'empty', LIMIT: 'limit', CLOSED: 'closed' });
+  const Outcome = Object.freeze({ WON: 'won', EMPTY: 'empty', LIMIT: 'limit', WRONG: 'wrong', TRIES: 'tries', CLOSED: 'closed' });
   // Error codes of the Manors & Menaces giveaway endpoint; anything else means closed.
-  const GIVEAWAY_OUTCOMES = { GIVEAWAY_EMPTY: Outcome.EMPTY, GIVEAWAY_LIMIT: Outcome.LIMIT };
+  const GIVEAWAY_OUTCOMES = {
+    GIVEAWAY_EMPTY: Outcome.EMPTY,
+    GIVEAWAY_LIMIT: Outcome.LIMIT,
+    GIVEAWAY_KEY: Outcome.WRONG,
+    GIVEAWAY_TRIES: Outcome.TRIES,
+  };
   const PRIZE_TIMEOUT_MS = 10000;
   const PRIZE_NAME_LENGTH = 40; // the server's limit for invite names
   const PRIZE_MESSAGES = {
     [Outcome.EMPTY]: 'Every invite has been won. Try again another day.',
     [Outcome.LIMIT]: 'One invite per visitor a day. Come back tomorrow.',
+    [Outcome.WRONG]: 'Those were the wrong monsters, or the wrong order. Scare five in the right order, then ring the bell again.',
+    [Outcome.TRIES]: 'Too many wrong orders today. Come back tomorrow.',
     [Outcome.CLOSED]: 'The prize booth is closed right now. Try again later.',
   };
   const WEB_PROTOCOLS = new Set(['https:', 'http:']);
 
   // Ask the giveaway endpoint for an invite: { outcome, url }. The link it
   // returns must still be a web address before it becomes a link.
-  async function claimPrize(endpoint, name) {
+  async function claimPrize(endpoint, name, key) {
     const abort = new AbortController();
     const timer = setTimeout(() => abort.abort(), PRIZE_TIMEOUT_MS);
     try {
@@ -1236,7 +1248,7 @@
         mode: 'cors',
         credentials: 'omit',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(name ? { name } : {}),
+        body: JSON.stringify({ ...(name ? { name } : {}), ...(key ? { key } : {}) }),
         signal: abort.signal,
       });
       const body = await response.json().catch(() => ({}));
@@ -1259,8 +1271,9 @@
   }
 
   // The game's panel. onSwing(power) lets the band's striker follow along;
-  // reopen() shows the panel again for an invite that arrives after it closed.
-  function createStrikerGame(prize, { onSwing, reopen }) {
+  // reopen() shows the panel again for an invite that arrives after it
+  // closed; orderKey() is the key of the last five scares, or null.
+  function createStrikerGame(prize, { onSwing, reopen, orderKey }) {
     const panel = node('div', 'carnival-panel carnival-game');
     const intro = `Ring the bell ${STRIKER_GAME.rings} times in a row`;
     const meter = node('div', 'carnival-meter');
@@ -1273,7 +1286,9 @@
     status.setAttribute('role', 'status');
     const swingButton = node('button', null, 'Swing');
     swingButton.type = 'button';
-    panel.append(node('p', 'carnival-game-title', 'High striker'), node('p', null, prize ? `${intro} to win an invite to ${prize.name}.` : `${intro}.`), meter, status, swingButton);
+    panel.append(node('p', 'carnival-game-title', 'High striker'), node('p', null, prize ? `${intro} to win an invite to ${prize.name}.` : `${intro}.`));
+    if (prize?.riddle) panel.append(node('p', 'carnival-riddle', `The clerk whispers: ${prize.riddle}`));
+    panel.append(meter, status, swingButton);
 
     let rings = 0;
     let power = 0;
@@ -1308,7 +1323,7 @@
         event.preventDefault();
         submit.disabled = true;
         status.textContent = 'Fetching your invite.';
-        const result = await claimPrize(prize.endpoint, input.value.trim());
+        const result = await claimPrize(prize.endpoint, input.value.trim(), orderKey());
         // The server minted the invite even if the winner closed the game
         // meanwhile; bring it back rather than lose it.
         if (!panel.isConnected) {
@@ -1390,7 +1405,7 @@
   const HIT_SLOP = { mouse: 2, touch: 6 }; // band pixels of forgiveness
   // CSS px. Tickets hang in the sky below the pause button, leaving the
   // ground clear so the monster can be seen running away.
-  const TICKET = { gap: 10, inset: 8, top: 44 };
+  const TICKET = { gap: 10, inset: 8 };
   const HINT_EVERY = 3; // tickets; every third one points to the game
   const Place = Object.freeze({ BESIDE: 'beside', CENTRE: 'centre' });
   // Where the game hides, in band pixels from the centre: the ticket booth and the striker.
@@ -1403,8 +1418,14 @@
   const context = canvas.getContext('2d');
   const pauseButton = band.querySelector('[data-carnival-pause]');
   const scareButton = band.querySelector('[data-carnival-scare]');
-  const { prizeName, prizeEndpoint } = band.dataset;
-  const prize = prizeEndpoint ? { name: prizeName, endpoint: prizeEndpoint } : null;
+  const controls = scareButton.parentElement; // wraps to two rows on phones
+  const { prizeName, prizeEndpoint, prizeRiddle } = band.dataset;
+  const prize = prizeEndpoint ? { name: prizeName, endpoint: prizeEndpoint, riddle: prizeRiddle ?? null } : null;
+  const puzzle = globalThis.carnivalKey;
+  // With a prize, the puzzle needs particular monsters scared, so the scare
+  // button can aim: keyboard, screen reader and phone players cannot all
+  // point at one moving monster.
+  const target = prize ? monsterPicker() : null;
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   const palette = readPalette(band);
   const crowd = createCrowd();
@@ -1425,6 +1446,7 @@
   let returnFocus = null;
   let ticketsShown = 0;
   let swing = null; // the game's last swing, for the band's striker
+  const scared = []; // ids of the last puzzle.STEPS monsters scared, oldest first
 
   function readPaused() {
     try {
@@ -1552,8 +1574,27 @@
     const left = place === Place.CENTRE ? (band.clientWidth - width) / 2 : beside;
     element.style.left = `${Math.max(TICKET.inset, Math.min(left, band.clientWidth - width - TICKET.inset))}px`;
     // The game stands on the band's foot (style.css); tickets hang in the sky.
-    if (place === Place.BESIDE) element.style.top = `${TICKET.top}px`;
+    if (place === Place.BESIDE) element.style.top = `${controls.offsetTop + controls.offsetHeight + TICKET.inset}px`;
     focus.focus({ preventScroll: true });
+  }
+
+  function monsterPicker() {
+    const select = node('select', 'carnival-target');
+    select.setAttribute('aria-label', 'Monster to scare');
+    select.append(new Option('any monster', ''), ...puzzle.MONSTERS.map(({ id, name }) => new Option(name, id)));
+    scareButton.before(select);
+    return select;
+  }
+
+  function orderKey() {
+    return scared.length === puzzle.STEPS ? puzzle.keyFor(scared) : null;
+  }
+
+  // A short message in a ticket, for when the scare button finds nobody.
+  function showNote(text) {
+    const note = node('div', 'carnival-panel carnival-ticket');
+    note.append(node('p', null, text));
+    showPanel(note, { label: 'Carnival note', place: Place.BESIDE, anchor: canvas.width / 2 });
   }
 
   function openGame() {
@@ -1572,6 +1613,7 @@
         if (!animating()) drawBand();
       },
       reopen: () => showPanel(game.element, options),
+      orderKey,
     });
     showPanel(game.element, { ...options, focus: game.focus });
     // The puck rests until the first swing.
@@ -1626,6 +1668,8 @@
     // Close first: without motion, closing returns scared monsters, this one included.
     closePanel();
     crowd.scare(monster, fromX, animating() ? Motion.FULL : Motion.REDUCED);
+    scared.push(monster.kind.id);
+    if (scared.length > puzzle.STEPS) scared.shift();
     canvas.removeAttribute('data-hot');
     openTicket(monster);
     if (!animating()) drawBand();
@@ -1640,8 +1684,10 @@
 
   // The monster turns tail on whatever it was walking towards.
   scareButton.addEventListener('click', () => {
-    const monster = crowd.pick();
-    if (monster) scare(monster, monster.x + monster.facing);
+    const kindId = target?.value || null;
+    const monster = crowd.pick(kindId);
+    if (monster) return scare(monster, monster.x + monster.facing);
+    if (kindId) showNote(`The ${target.selectedOptions[0].text} is hiding. Try again in a moment.`);
   });
 
   document.addEventListener('pointerdown', (event) => {

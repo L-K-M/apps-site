@@ -13,13 +13,18 @@ const PLATFORM_SPRITE = 'assets/icons/platforms.svg';
 // Pixel-art band beneath the directory; carnival.js reveals and animates it.
 // The buttons give keyboard and screen reader users the same play as a click.
 // A configured prize is the only thing the page fetches at run time.
-const carnival = (prize) => `<aside class="carnival" data-carnival aria-label="Carnival"${prize ? ` data-prize-name="${escapeHtml(prize.name)}" data-prize-endpoint="${escapeHtml(prize.endpoint)}"` : ''} hidden>
+const carnival = (prize) => `<aside class="carnival" data-carnival aria-label="Carnival"${prize ? prizeData(prize) : ''} hidden>
     <canvas class="carnival-scene" aria-hidden="true"></canvas>
     <div class="carnival-controls">
       <button class="carnival-scare" type="button" data-carnival-scare>Scare a monster</button>
       <button class="carnival-pause" type="button" data-carnival-pause>Pause carnival</button>
     </div>
   </aside>`;
+
+function prizeData({ name, endpoint, riddle }) {
+  const data = ` data-prize-name="${escapeHtml(name)}" data-prize-endpoint="${escapeHtml(endpoint)}"`;
+  return riddle ? `${data} data-prize-riddle="${escapeHtml(riddle)}"` : data;
+}
 
 export function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
@@ -127,7 +132,7 @@ function renderHome(config, apps) {
     ${apps.length ? '' : '<p class="catalogue-empty">The directory has no entries yet.</p>'}
   </main>`;
 
-  const scripts = '<script src="assets/directory.js" defer></script><script src="assets/carnival.js" defer></script>';
+  const scripts = '<script src="assets/directory.js" defer></script><script src="assets/carnival-key.js" defer></script><script src="assets/carnival.js" defer></script>';
   return document(config, { title: config.title, description: config.description ?? config.title, content, scripts, after: carnival(config.carnivalPrize) });
 }
 

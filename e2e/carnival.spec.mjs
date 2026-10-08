@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import '../public/carnival-key.js';
 
 // Monster greens (zombie, Frankenstein's monster, slime) are the band's
 // densest clusters of --pixel-green; pumpkin stems add only single pixels.
@@ -276,6 +277,34 @@ const HOLD_MS = 1000; // beyond the bar's pause after a swing
 const RINGS = 3;
 const NEARLY_FULL = 95; // per cent of the bar
 const LOW = 40;
+// The puzzle: five monsters scared in order make the key a claim carries.
+const { keyFor } = globalThis.carnivalKey;
+const PICKED = ['ghost', 'cat', 'vampire', 'mummy'];
+// Ticket lines of the green monsters findMonster finds, by monster id.
+const GREEN_TICKETS = { zombie: /^The zombie/, frankenstein: /^Frankenstein/, slime: /^The slime/ };
+const RETRY_MS = 1000;
+const MAX_RETRIES = 10;
+const RIDDLE = 'The clerk whispers: First the one in a sheet, then the one with nine lives.';
+
+// Scare a monster by name, as keyboard and phone players aim; one at the
+// band's edge may be out of view, so let the show run on and try again.
+async function scareKind(page, kind) {
+  const ticket = page.getByRole('dialog', { name: 'Carnival ticket' });
+  await page.getByRole('combobox', { name: 'Monster to scare' }).selectOption(kind);
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt += 1) {
+    await page.getByRole('button', { name: 'Scare a monster', exact: true }).click();
+    if (await ticket.isVisible()) return;
+    await page.keyboard.press('Escape');
+    await page.clock.runFor(RETRY_MS);
+  }
+  throw new Error(`No ${kind} came into view`);
+}
+
+async function winGame(page, testInfo) {
+  await page.keyboard.press('Escape');
+  await poke(page, await boothPoint(page), testInfo);
+  for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
+}
 
 function answerGiveaway(page, status, body) {
   const requests = [];
@@ -410,6 +439,57 @@ test.describe('the hidden high striker', () => {
     await expect(game.getByRole('status')).toHaveText('Every invite has been won. Try again another day.');
     await expect(game.getByRole('button', { name: 'Claim invite' })).toHaveCount(0);
     await expect(game).toBeFocused();
+  });
+
+  test('five monsters scared in order make the key a winner claims with', async ({ page }, testInfo) => {
+    const errors = await openCarnival(page);
+    const requests = await answerGiveaway(page, 200, INVITE);
+    // Only the last five scares count.
+    for (const kind of ['skeleton', ...PICKED]) await scareKind(page, kind);
+
+    // The fifth by pointer: whichever green monster is nearest to hand.
+    await page.getByRole('combobox', { name: 'Monster to scare' }).selectOption('');
+    await poke(page, await findMonster(page), testInfo);
+    const line = await page.getByRole('dialog', { name: 'Carnival ticket' }).textContent();
+    const last = Object.keys(GREEN_TICKETS).find((id) => GREEN_TICKETS[id].test(line));
+    expect(last).toBeTruthy();
+
+    await page.keyboard.press('Escape');
+    await poke(page, await boothPoint(page), testInfo);
+    const game = page.getByRole('dialog', { name: 'High striker' });
+    await expect(game.locator('.carnival-riddle')).toHaveText(RIDDLE);
+    for (let ring = 0; ring < RINGS; ring += 1) await swing(page, 'hit');
+    await game.getByRole('button', { name: 'Claim invite' }).click();
+    await expect(game.getByRole('link', { name: INVITE.url })).toBeVisible();
+    expect(requests).toEqual([{ key: keyFor([...PICKED, last]) }]);
+    expect(errors).toEqual([]);
+  });
+
+  test('the booth turns away a wrong order, then too many of them', async ({ page }, testInfo) => {
+    await openCarnival(page);
+    const game = page.getByRole('dialog', { name: 'High striker' });
+    const claim = game.getByRole('button', { name: 'Claim invite' });
+
+    await answerGiveaway(page, 403, { error: 'wrong key', code: 'GIVEAWAY_KEY' });
+    await winGame(page, testInfo);
+    await claim.click();
+    await expect(game.getByRole('status')).toHaveText('Those were the wrong monsters, or the wrong order. Scare five in the right order, then ring the bell again.');
+    await expect(claim).toHaveCount(0);
+
+    await page.unroute(GIVEAWAY);
+    await answerGiveaway(page, 429, { error: 'tries', code: 'GIVEAWAY_TRIES' });
+    await winGame(page, testInfo);
+    await claim.click();
+    await expect(game.getByRole('status')).toHaveText('Too many wrong orders today. Come back tomorrow.');
+  });
+
+  test('the scare button says when the chosen monster is hiding', async ({ page }) => {
+    await openCarnival(page);
+    await scareKind(page, 'ghost');
+    await page.getByRole('button', { name: 'Scare a monster', exact: true }).click();
+    const note = page.getByRole('dialog', { name: 'Carnival note' });
+    await expect(note).toHaveText(/The ghost is hiding\. Try again in a moment\./);
+    await expect(note).toBeFocused();
   });
 
   test('a link that is not a web address is never shown', async ({ page }, testInfo) => {

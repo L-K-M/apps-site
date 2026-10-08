@@ -3,13 +3,18 @@ import { parseArgs } from 'node:util';
 import { BuildMode, buildSite } from '../src/build.mjs';
 import { loadConfig } from '../src/catalogue.mjs';
 import { startPreview } from '../src/preview.mjs';
+import { PRIZE_MONSTER_IDS, prizeKey } from '../src/prize.mjs';
 
 const MAX_PORT = 65535;
 const HELP = `Usage: node bin/apps-site.mjs <build|check|preview> [options]
+       node bin/apps-site.mjs carnival-key MONSTER...
 
   build       Generate a static site, replacing only generator-owned output
   check       Validate metadata and media without writing output
   preview     Serve the last build locally
+  carnival-key  Print the prize server's GIVEAWAY_KEY for the carnival puzzle:
+              five monsters, in the order they must be scared, from
+              ${PRIZE_MONSTER_IDS.join(' ')}
 
   --config    Site configuration (default: site.json)
   --output    Override output directory (relative to the configuration)
@@ -34,6 +39,7 @@ async function main() {
 
   if (values.help) return process.stdout.write(HELP);
   const command = positionals[0];
+  if (command === 'carnival-key') return process.stdout.write(`GIVEAWAY_KEY=${prizeKey(positionals.slice(1))}\n`);
   if (positionals.length !== 1 || !['build', 'check', 'preview'].includes(command)) throw new Error(HELP);
   const overrides = { output: values.output, repositoryRoots: values.repos };
 
