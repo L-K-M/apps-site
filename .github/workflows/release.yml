@@ -27,7 +27,7 @@ jobs:
         run: |
           mkdir -p build
           tar -czf "build/apps-site-${GITHUB_REF_NAME#v}.tar.gz" -C dist .
-      - uses: softprops/action-gh-release@v2
+      - uses: softprops/action-gh-release@v3
         with:
           files: build/*.tar.gz
           generate_release_notes: true
