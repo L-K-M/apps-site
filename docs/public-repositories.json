@@ -37,6 +37,7 @@
     { "name": "Lucerne", "apps": ["lucerne"] },
     { "name": "ManorsAndMenaces", "apps": ["manors-and-menaces"] },
     { "name": "Meltorama2000", "apps": ["meltorama"] },
+    { "name": "MonkeysPaw", "apps": ["monkeys-paw"] },
     { "name": "Obtainintosh", "apps": ["obtainintosh"] },
     { "name": "opencode-mystatus", "apps": ["opencode-mystatus"] },
     { "name": "OpenCodeQuotaWidget", "apps": ["opencode-quota-widget"] },

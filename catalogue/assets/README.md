@@ -2,8 +2,9 @@
 
 Snapshots from the corresponding app repositories, collected 2026-10-02.
 Repo-local manifests can replace these entries with current screenshots.
-The public-repository expansion below was captured on 2026-10-03. Icons are
-resized to at most 192 px; screenshots retain the upstream image data.
+The public-repository expansion below was captured on 2026-10-03, and
+monkeys-paw-icon.png on 2026-10-20. Icons are resized to at most 192 px;
+screenshots retain the upstream image data.
 
 | File | Source |
 |---|---|
@@ -29,6 +30,7 @@ resized to at most 192 px; screenshots retain the upstream image data.
 | kararead.jpeg | `Kararead/screenshots/reader.jpeg` |
 | llimit.png | `LLimit/screenshot-widgets.png` |
 | lucerne.png | `Lucerne/screenshot.png` |
+| monkeys-paw-icon.png | `MonkeysPaw/media-sources/icon.png` |
 | opencode-quota-widget.png | `OpenCodeQuotaWidget/screenshot.png` |
 | pict.png | `Pict/screenshot.png` |
 | shortking.png | `Shortking/screenshot.png` |

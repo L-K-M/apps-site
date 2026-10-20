@@ -36,7 +36,7 @@ npm run preview
 
 Open <http://127.0.0.1:4173>. The generated site is in `dist/`.
 
-The starter catalogue contains 64 apps, covering the public L-K-M app repositories
+The starter catalogue contains 65 apps, covering the public L-K-M app repositories
 and the existing web-only entries. [Repository audit](docs/catalogue-inventory.md).
 Maturity includes author-stated ratings and documented best-effort estimates. Edit
 `catalogue/*.json` to assess them or change the selection. Screenshot snapshots are
