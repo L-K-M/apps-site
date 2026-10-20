@@ -29,6 +29,7 @@ resized to at most 192 px; screenshots retain the upstream image data.
 | kararead.jpeg | `Kararead/screenshots/reader.jpeg` |
 | llimit.png | `LLimit/screenshot-widgets.png` |
 | lucerne.png | `Lucerne/screenshot.png` |
+| monkeys-paw-icon.png | `MonkeysPaw/media-sources/icon.png` (2026-10-20) |
 | opencode-quota-widget.png | `OpenCodeQuotaWidget/screenshot.png` |
 | pict.png | `Pict/screenshot.png` |
 | shortking.png | `Shortking/screenshot.png` |

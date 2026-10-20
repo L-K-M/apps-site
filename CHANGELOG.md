@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Monkey's Paw, a Markdown prompt picker for macOS, Linux and Android, to the catalogue.
+
 - Add a puzzle to the carnival prize: scare five monsters in the right order before claiming. The claim carries a key made from the order; `carnival-key` prints the key for the prize server's `GIVEAWAY_KEY`, and an optional `carnivalPrize.riddle` hints at the order.
 
 - Hide a high striker game in the carnival. Three rings in a row win an invite to Manors & Menaces when `carnivalPrize` points at a server's giveaway endpoint.

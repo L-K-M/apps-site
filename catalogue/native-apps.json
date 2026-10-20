@@ -152,6 +152,17 @@
       "links": { "source": "https://github.com/L-K-M/Lucerne", "download": "https://github.com/L-K-M/Lucerne/releases/latest" }
     },
     {
+      "id": "monkeys-paw", "name": "Monkey's Paw",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: the picker, placeholders, delivery and sync are implemented on every platform, but no release is published and owner acceptance on real devices is still open.",
+      "summary": "Pick a Markdown prompt, fill its placeholders and deliver the result into the field you are typing in.",
+      "description": "A hotkey picker pastes into the current field on macOS and Linux; Android offers a picker keyboard and Copy entry points. Prompts are plain Markdown files. An optional Assistant writes and reviews prompts, and a self-hosted server syncs libraries between devices.",
+      "category": "Productivity", "platforms": ["macos", "linux", "android"], "tags": ["prompts", "Markdown", "LLM", "keyboard", "sync"],
+      "icon": { "src": "assets/monkeys-paw-icon.png", "alt": "Monkey's Paw icon" },
+      "links": { "source": "https://github.com/L-K-M/MonkeysPaw" }
+    },
+    {
       "id": "opencode-quota-widget", "name": "OpenCodeQuota Widget",
       "status": "visible",
       "maturity": "usable",
