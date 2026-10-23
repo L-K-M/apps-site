@@ -1,4 +1,4 @@
-FROM node:26.11.1-alpine AS generator
+FROM node:26.12.0-alpine AS generator
 RUN apk add --no-cache git
 WORKDIR /app
 COPY package.json package-lock.json ./
