@@ -17,6 +17,15 @@ const exec = promisify(execFile);
 const CLI = fileURLToPath(new URL('../bin/apps-site.mjs', import.meta.url));
 const APP = { id: 'sample', name: 'Sample', summary: 'An app for testing.', category: 'Utilities', platforms: ['web'] };
 const IMAGE = await sharp({ create: { width: 800, height: 600, channels: 4, background: '#993c2c' } }).png().toBuffer();
+// Third-party fonts and icons copied into every site, each with the notice that must ship beside it.
+const BUNDLED_NOTICES = [
+  { asset: 'assets/fonts/c64-keyboard-regular.woff2', notice: 'assets/fonts/c64-keyboard-NOTICE.txt', sentinel: /szabadkai\/c64-keyboard-font/ },
+  { asset: 'assets/fonts/instrument-sans-variable.woff2', notice: 'assets/fonts/OFL-instrument-sans.txt', sentinel: /Instrument Sans Project Authors/ },
+  { asset: 'assets/fonts/pirata-one-regular.woff2', notice: 'assets/fonts/OFL-pirata-one.txt', sentinel: /Reserved Font Name 'Pirata'/ },
+  { asset: 'assets/icons/platforms.svg', notice: 'assets/icons/LICENSE-bootstrap.txt', sentinel: /The Bootstrap Authors/ },
+];
+// Credits and license texts for the starter catalogue's third-party images.
+const MEDIA_CREDITS = 'assets/media-credits.txt';
 
 function manifest(apps, extra = {}) {
   return JSON.stringify({ schemaVersion: 1, apps, ...extra });
@@ -426,4 +435,30 @@ test('preview serves nested static pages, rejects escapes and implements HEAD an
   assert.equal((await fetch(`${base}/%2e%2e%2fsite.json`)).status, 404);
   assert.equal((await fetch(`${base}/%zz`)).status, 404);
   assert.equal((await fetch(base, { method: 'POST' })).status, 405);
+});
+
+test('ships a license or notice for every bundled font, icon set and catalogue image', async (t) => {
+  const { config, output } = await fixture(t, { 'catalogue/app.json': manifest([APP]) });
+  await buildSite(config);
+
+  // A new font or icon file fails here until its notice is listed above and shipped.
+  const bundled = [];
+  for (const directory of ['assets/fonts', 'assets/icons']) {
+    for (const name of await readdir(join(output, directory))) if (!name.endsWith('.txt')) bundled.push(`${directory}/${name}`);
+  }
+  assert.deepEqual(bundled.sort(), BUNDLED_NOTICES.map(({ asset }) => asset).sort());
+  for (const { notice, sentinel } of BUNDLED_NOTICES) assert.match(await readFile(join(output, notice), 'utf8'), sentinel, notice);
+
+  const credits = await readFile(join(output, MEDIA_CREDITS), 'utf8');
+  for (const expected of ['scratch.png', 'scratch-icon.png', 'shiori-web-ext.png', 'Eric Li', 'Radhi Fadlillah', 'Permission is hereby granted']) {
+    assert.ok(credits.includes(expected), `${MEDIA_CREDITS} lacks ${expected}`);
+  }
+});
+
+test('README License section states the Unlicense and names every shipped notice', async () => {
+  const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
+  const section = readme.split(/^## License$/m)[1]?.split(/^## /m)[0];
+  assert.ok(section, 'README.md has no "## License" section');
+  assert.match(section, /\[Unlicense\]\(LICENSE\)/);
+  for (const notice of [...BUNDLED_NOTICES.map(({ notice }) => notice), MEDIA_CREDITS]) assert.ok(section.includes(`\`${notice}\``), `README License section lacks ${notice}`);
 });
