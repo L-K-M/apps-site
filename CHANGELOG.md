@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Ship credits and MIT license texts for the starter catalogue's three third-party images in the site as `assets/media-credits.txt`.
+
 - Add Monkey's Paw, a Markdown prompt picker for macOS, Linux and Android, to the catalogue.
 
 - Add a puzzle to the carnival prize: scare five monsters in the right order before claiming. The claim carries a key made from the order; `carnival-key` prints the key for the prize server's `GIVEAWAY_KEY`, and an optional `carnivalPrize.riddle` hints at the order.
