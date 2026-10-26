@@ -258,3 +258,22 @@ browsing. CI additionally starts the Compose stack and checks its HTTP response.
 `scripts/build.sh` installs dependencies and runs generator checks. To release, install
 [`lkm-release`](https://github.com/L-K-M/release-tool), then run
 `scripts/release.sh X.Y.Z [--push]`. Tags run checks and publish a static-site archive.
+
+## License
+
+apps-site's own code is released under the [Unlicense](LICENSE). The generated site
+bundles third-party fonts, icons and images, which keep their own terms: Pirata One and
+Instrument Sans (SIL Open Font License 1.1), C64 Keyboard (its pinned upstream revision
+states no license), Bootstrap Icons (MIT), a screenshot and icon from Eric Li's Scratch
+and a screenshot from Radhi Fadlillah's Shiori Web Extension (both MIT). Their notices
+ship in the site:
+
+- `assets/fonts/OFL-pirata-one.txt`
+- `assets/fonts/OFL-instrument-sans.txt`
+- `assets/fonts/c64-keyboard-NOTICE.txt`
+- `assets/icons/LICENSE-bootstrap.txt`
+- `assets/media-credits.txt`
+
+Their sources are in `public/fonts/`, `public/icons/` and `catalogue/assets/`, with
+provenance in each folder's README. Build-time npm dependencies, such as sharp, are not
+included in the site.

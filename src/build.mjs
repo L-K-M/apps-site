@@ -11,6 +11,8 @@ const PUBLIC_ASSETS = [
   'icons/platforms.svg', 'icons/LICENSE-bootstrap.txt',
   'fonts/c64-keyboard-regular.woff2', 'fonts/instrument-sans-variable.woff2', 'fonts/pirata-one-regular.woff2',
   'fonts/c64-keyboard-NOTICE.txt', 'fonts/OFL-instrument-sans.txt', 'fonts/OFL-pirata-one.txt',
+  // Credits and license texts for the starter catalogue's third-party images.
+  'media-credits.txt',
 ];
 
 export async function buildSite(configPath, overrides = {}, mode = BuildMode.WRITE) {

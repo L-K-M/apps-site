@@ -50,3 +50,13 @@ screenshots retain the upstream image data.
 | skip-that-noise.png | `skip-that-noise/img-src/screenshot.png` |
 | whatsapp-backup.png | `whatsapp-backup/screenshot.png` |
 | seance.png | `Hauntware/seance/screenshot.png` |
+
+Three images come from upstream projects that L-K-M forked, not from L-K-M's own work.
+`scratch.png` (unchanged) and `scratch-icon.png` (resized) are by Eric Li, from
+[erictli/scratch](https://github.com/erictli/scratch), MIT License. `shiori-web-ext.png`
+(unchanged) is by Radhi Fadlillah, from
+[go-shiori/shiori-web-ext](https://github.com/go-shiori/shiori-web-ext), MIT License,
+Copyright (c) 2019-present Radhi Fadlillah. Their credits and license texts are in
+[`public/media-credits.txt`](../../public/media-credits.txt), which the generator copies
+into the site as `assets/media-credits.txt`. Keep that file in step when adding images
+from other projects.

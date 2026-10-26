@@ -27,6 +27,19 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: make check
+      # The uploaded site must carry the notices of its third-party fonts, icons and images.
+      - name: Verify bundled notices
+        working-directory: dist/assets
+        run: |
+          for f in fonts/OFL-pirata-one.txt fonts/OFL-instrument-sans.txt fonts/c64-keyboard-NOTICE.txt \
+            icons/LICENSE-bootstrap.txt media-credits.txt; do
+            test -s "$f"
+          done
+          grep -q 'SIL Open Font License' fonts/OFL-pirata-one.txt
+          grep -q 'SIL Open Font License' fonts/OFL-instrument-sans.txt
+          grep -q 'The Bootstrap Authors' icons/LICENSE-bootstrap.txt
+          grep -q 'Eric Li' media-credits.txt
+          grep -q 'Radhi Fadlillah' media-credits.txt
       - uses: actions/upload-artifact@v7
         with:
           name: static-site

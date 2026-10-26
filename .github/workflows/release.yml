@@ -27,6 +27,23 @@ jobs:
         run: |
           mkdir -p build
           tar -czf "build/apps-site-${GITHUB_REF_NAME#v}.tar.gz" -C dist .
+      # Check the notices inside the archive users download, before publishing it.
+      - name: Unpack the archive for checks
+        run: |
+          mkdir "$RUNNER_TEMP/site"
+          tar -xzf "build/apps-site-${GITHUB_REF_NAME#v}.tar.gz" -C "$RUNNER_TEMP/site"
+      - name: Verify bundled notices
+        working-directory: ${{ runner.temp }}/site/assets
+        run: |
+          for f in fonts/OFL-pirata-one.txt fonts/OFL-instrument-sans.txt fonts/c64-keyboard-NOTICE.txt \
+            icons/LICENSE-bootstrap.txt media-credits.txt; do
+            test -s "$f"
+          done
+          grep -q 'SIL Open Font License' fonts/OFL-pirata-one.txt
+          grep -q 'SIL Open Font License' fonts/OFL-instrument-sans.txt
+          grep -q 'The Bootstrap Authors' icons/LICENSE-bootstrap.txt
+          grep -q 'Eric Li' media-credits.txt
+          grep -q 'Radhi Fadlillah' media-credits.txt
       - uses: softprops/action-gh-release@v3
         with:
           files: build/*.tar.gz
