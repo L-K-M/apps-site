@@ -37,6 +37,14 @@ The home page ends in a decorative pixel-art carnival drawn from the same palett
 keep it pausable and still under reduced motion.
 Check desktop and phone screenshots after layout changes.
 
+## Licensing
+
+- Own code is Unlicense (`LICENSE`); keep `package.json` and the README License section in step.
+- Before adding a font, icon set or third-party catalogue image, confirm it may be
+  redistributed and ship its notice. Font and icon notices sit beside the files; list them in
+  `PUBLIC_ASSETS`, the generator test's `BUNDLED_NOTICES`, the CI and release notice checks
+  and the README License section. Image credits go in `public/media-credits.txt`.
+
 <!-- shared-rules:start -->
 
 ## Working practices
