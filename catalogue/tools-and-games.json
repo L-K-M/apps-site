@@ -109,7 +109,7 @@
     },
     {
       "id": "opencode-mystatus", "name": "opencode-mystatus",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: quota checks and the terminal watch dashboard have documented run paths; installation and provider configuration are manual.",
       "summary": "Check AI subscription quotas from the terminal, once or in a live watch mode.",
