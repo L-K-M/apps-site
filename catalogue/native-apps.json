@@ -119,6 +119,7 @@
       "summary": "Forward Android notifications and verification codes to your Mac over local Wi-Fi.",
       "description": "A Mac menu-bar app and paired Android companion forward notifications over an authenticated local connection. Missed notifications are queued on the phone and replayed when the Mac reconnects.",
       "category": "Utilities", "platforms": ["macos", "android"], "tags": ["notifications", "OTP", "LAN"],
+      "screenshots": [{ "src": "assets/eko.png", "alt": "Eko's Android companion with two paired Macs, one connected and one syncing", "caption": "The Android companion app." }],
       "links": { "source": "https://github.com/L-K-M/Eko" }
     },
     {
@@ -173,6 +174,7 @@
       "summary": "Capture glare-reduced digital copies of printed photographs on Android.",
       "description": "Aligns and combines multiple captures on-device, corrects the print's geometry, and exports JPEG or TIFF scans. Restoration options produce separate derivatives rather than replacing the scan.",
       "category": "Creative tools", "platforms": ["android"], "tags": ["photo scanning", "glare reduction"],
+      "screenshots": [{ "src": "assets/kirsch.png", "alt": "Kirsch reviewing a scan of a landscape photo print, with corner handles and a Save to Photos button" }],
       "links": { "source": "https://github.com/L-K-M/Kirsch" }
     },
     {
@@ -311,6 +313,7 @@
       "description": "An on-device overlay whose dots follow vehicle motion, inspired by Vehicle Motion Cues. It uses the phone's motion sensors and has off, on and automatic modes.",
       "category": "Utilities", "maturity": "experimental", "maturityNote": "An experimental passenger comfort aid, not a medical device.",
       "platforms": ["android"], "tags": ["motion cues", "sensors", "accessibility"],
+      "screenshots": [{ "src": "assets/spots.png", "alt": "Spots home screen with motion cues switched on and a live preview of cue dots at the screen edges during a demo drive" }],
       "links": { "source": "https://github.com/L-K-M/Spots" }
     },
     {

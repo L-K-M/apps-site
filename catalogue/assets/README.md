@@ -82,15 +82,18 @@ from other projects.
 
 These apps had no usable screenshot upstream. On 2026-10-27 their own UI
 code was run on Linux at the listed commit and the rendered output captured.
-Data shown is sample data; nothing was drawn or retouched.
+Data shown is sample data; the rendered output was not edited.
 
 | File | Source | Method and sample data |
 |---|---|---|
 | amberfader.png | `Amberfader@069b023` | PySide6 main window grabbed offscreen; sample track |
 | baegun.png | `Baegun@7e4d1bf` | Built frontend in Chromium, mocked Tauri IPC; sample conversion queue |
 | copywraith.png | `Copywraith@39bdc1f` | Frontend in Chromium, mocked Tauri IPC; sample clipboard entries |
+| eko.png | `Eko@8031ee8` | Android companion's Compose UI rendered by Robolectric; two sample paired Macs |
 | gitenough.png, gitenough-changes.png | `GitEnough@c0e079f` | Linux GTK 4 port under Xvfb; demo repository |
+| kirsch.png | `Kirsch@8db0bbe` | Review screen rendered by Robolectric; synthetic landscape print as the scan |
 | pararena2.png | `Pararena2@eb3b932` | SDL3 port under Xvfb; computer against computer |
 | planchette.png | `Hauntware@814e102` | Flutter widget test of the app root; sample Compose file |
 | poltergeist.png | `Hauntware@814e102` | Flutter widget test of the app root; fake remote file system |
 | qrat.png | https://qrat.love | Live site in Chromium after Surprise me, page margins cropped |
+| spots.png | `Spots@1f62b6c` | Home screen rendered by Robolectric; demo drive switched on, cue colour set darker |
