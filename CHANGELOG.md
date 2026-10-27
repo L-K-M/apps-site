@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Hide OpenCodeQuota Widget, Manors & Menaces, Scratch, Expand URL, ia-get, ImageContentDetector, Mirio, opencode-mystatus and the Shiori, Hoarder and Hoarder's Pipette mirrors from the directory. The ia-get Docker Wrapper stays listed.
+
 - Ship credits and MIT license texts for the starter catalogue's three third-party images in the site as `assets/media-credits.txt`.
 
 - Add Monkey's Paw, a Markdown prompt picker for macOS, Linux and Android, to the catalogue.

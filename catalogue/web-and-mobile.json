@@ -34,7 +34,7 @@
     },
     {
       "id": "mirio",
-      "status": "visible",
+      "status": "hidden",
       "name": "Mirio",
       "summary": "A browser platformer with a round world, a trip to the moon, and a kart race.",
       "description": "Explore a small world with its own gravity, take a rocket to the moon, fight Finster-Mirio, and finish with a kart race. The characters and scenery come from Miro's drawings.",

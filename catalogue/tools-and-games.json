@@ -26,7 +26,7 @@
     },
     {
       "id": "hoarder", "name": "Hoarder (mirror)",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: upstream bookmarking and mobile workflows are substantial, but development is active and this mirror has no independent packaging.",
       "summary": "Self-hosted bookmarks, notes, images and full-text search.",
@@ -36,7 +36,7 @@
     },
     {
       "id": "ia-get", "name": "ia-get",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: downloading and authenticated-item access are implemented; the fork's installation path is build-from-source.",
       "summary": "Download Internet Archive items from the command line, including authenticated items.",
@@ -57,7 +57,7 @@
     },
     {
       "id": "image-content-detector", "name": "ImageContentDetector",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: the JPEG-to-EXIF command-line workflow is implemented; legacy Windows tooling and Azure setup limit ease of use.",
       "summary": "Write image descriptions and keywords into JPEG metadata using Azure Computer Vision.",
@@ -78,7 +78,7 @@
     },
     {
       "id": "karakeep-pipette", "name": "Hoarder's Pipette (mirror)",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: upstream search integration and browser installation are established; this mirror has no separately maintained build.",
       "summary": "Include saved Karakeep bookmarks in browser search results.",
@@ -99,7 +99,7 @@
     },
     {
       "id": "manors-and-menaces", "name": "Manors & Menaces",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: local, AI and online play are implemented with a tutorial; mobile packaging and self-hosted setup still need refinement.",
       "summary": "A turn-based fantasy board game for two to four players, with local, AI and online modes.",
@@ -109,7 +109,7 @@
     },
     {
       "id": "opencode-mystatus", "name": "opencode-mystatus",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: quota checks and the terminal watch dashboard have documented run paths; installation and provider configuration are manual.",
       "summary": "Check AI subscription quotas from the terminal, once or in a live watch mode.",
@@ -130,7 +130,7 @@
     },
     {
       "id": "expand-url", "name": "Expand URL",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: redirect inspection and parameter handling are implemented; installation is through Raycast development tooling.",
       "summary": "Inspect shortened URLs one redirect hop at a time from Raycast.",
@@ -161,7 +161,7 @@
     },
     {
       "id": "scratch", "name": "Scratch",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: editing, local storage and note navigation inherit substantial upstream functionality; fork-specific builds require source setup.",
       "summary": "Edit local Markdown notes with a visual editor, source mode and optional Git sync.",
@@ -173,7 +173,7 @@
     },
     {
       "id": "shiori-web-ext", "name": "Shiori Web Extension (mirror)",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: upstream bookmark management is described as usable beta software; browser and server-version compatibility are constrained.",
       "summary": "Save and remove Shiori bookmarks from your browser.",
