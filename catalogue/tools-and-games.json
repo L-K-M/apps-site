@@ -36,7 +36,7 @@
     },
     {
       "id": "ia-get", "name": "ia-get",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: downloading and authenticated-item access are implemented; the fork's installation path is build-from-source.",
       "summary": "Download Internet Archive items from the command line, including authenticated items.",
