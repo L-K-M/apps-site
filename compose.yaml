@@ -19,8 +19,10 @@ services:
       generator:
         condition: service_completed_successfully
     ports:
-      # Set APPS_SITE_PORT to change the published HTTP port.
-      - ${APPS_SITE_PORT:-8080}:80
+      # APPS_SITE_PUBLISH_ADDR: plain HTTP stays on the docker bridge
+      # gateway so only the TLS proxy can reach it. Set APPS_SITE_PORT
+      # to change the published HTTP port.
+      - "${APPS_SITE_PUBLISH_ADDR:-172.17.0.1}:${APPS_SITE_PORT:-8080}:80"
     volumes:
       - generated:/site:ro
       - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
