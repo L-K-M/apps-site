@@ -2,8 +2,9 @@
 
 Snapshots from the corresponding app repositories, collected 2026-10-02.
 Repo-local manifests can replace these entries with current screenshots.
-The public-repository expansion below was captured on 2026-10-03, and
-monkeys-paw-icon.png on 2026-10-20. Icons are resized to at most 192 px;
+The public-repository expansion below was captured on 2026-10-03,
+monkeys-paw-icon.png on 2026-10-20, and coreography-icon.png and
+foldover-icon.png on 2026-10-27. Icons are resized to at most 192 px;
 screenshots retain the upstream image data.
 
 | File | Source |
@@ -23,8 +24,10 @@ screenshots retain the upstream image data.
 | bangnidraw-icon.png | `BangniDraw/media-sources/icon.png` |
 | blipbird.png | `Blipbird/media-sources/screenshots.png` |
 | bootcaptain-icon.png | `BootCaptain/App/Assets.xcassets/AppIcon.appiconset/icon_128x128@2x.png` |
+| coreography-icon.png | `Coreography/media-sources/icon.png` |
 | dockvac.png | `DockVac/docs/screenshots/02-report.png` |
 | dockvac-icon.png | `DockVac/media-sources/icon.png` |
+| foldover-icon.png | `Foldover/media-sources/icon.png` |
 | gans.png | `Gans/screenshot.png` |
 | invoque-icon.png | `Invoque/media-sources/icon2.png` |
 | kararead.jpeg | `Kararead/screenshots/reader.jpeg` |

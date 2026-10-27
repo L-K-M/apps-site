@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Coreography, a graph-first Mac system monitor, and Foldover, a Mac folder sync app, to the catalogue.
+
 - Ship credits and MIT license texts for the starter catalogue's three third-party images in the site as `assets/media-credits.txt`.
 
 - Add Monkey's Paw, a Markdown prompt picker for macOS, Linux and Android, to the catalogue.

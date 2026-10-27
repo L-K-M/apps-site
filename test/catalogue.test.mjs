@@ -7,8 +7,8 @@ import { fileURLToPath } from 'node:url';
 import { collectApps, loadConfig } from '../src/catalogue.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-const AUDITED_REPOSITORY_COUNT = 69;
-const CATALOGUE_APP_COUNT = 65;
+const AUDITED_REPOSITORY_COUNT = 71;
+const CATALOGUE_APP_COUNT = 67;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
 const HAUNTWARE_DOWNLOAD = `${HAUNTWARE_SOURCE}/releases/latest`;
