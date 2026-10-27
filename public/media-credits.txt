@@ -1,9 +1,10 @@
 Third-party images in the starter catalogue
 
 These images come from other projects and keep their own licenses; the
-Unlicense of apps-site does not apply to them. The generated site
-publishes them under assets/media/ with content-hashed names. The
-originals are in catalogue/assets/ of https://github.com/L-K-M/apps-site.
+Unlicense of apps-site does not apply to them. When their apps are
+visible, the generated site publishes them under assets/media/ with
+content-hashed names. The originals are in catalogue/assets/ of
+https://github.com/L-K-M/apps-site.
 
 ------------------------------------------------------------------------
 Scratch

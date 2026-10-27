@@ -264,9 +264,9 @@ browsing. CI additionally starts the Compose stack and checks its HTTP response.
 apps-site's own code is released under the [Unlicense](LICENSE). The generated site
 bundles third-party fonts, icons and images, which keep their own terms: Pirata One and
 Instrument Sans (SIL Open Font License 1.1), C64 Keyboard (its pinned upstream revision
-states no license), Bootstrap Icons (MIT), a screenshot and icon from Eric Li's Scratch
-and a screenshot from Radhi Fadlillah's Shiori Web Extension (both MIT). Their notices
-ship in the site:
+states no license), Bootstrap Icons (MIT) and, when their apps are visible, a screenshot
+and icon from Eric Li's Scratch and a screenshot from Radhi Fadlillah's Shiori Web
+Extension (both MIT). Their notices ship in the site:
 
 - `assets/fonts/OFL-pirata-one.txt`
 - `assets/fonts/OFL-instrument-sans.txt`

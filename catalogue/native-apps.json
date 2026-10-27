@@ -186,7 +186,7 @@
     },
     {
       "id": "opencode-quota-widget", "name": "OpenCodeQuota Widget",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: quota display and account detection are implemented; WidgetKit setup requires a source build.",
       "summary": "Show your OpenCode AI account quotas in a Mac desktop widget.",
