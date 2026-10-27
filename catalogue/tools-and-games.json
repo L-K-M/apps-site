@@ -161,7 +161,7 @@
     },
     {
       "id": "scratch", "name": "Scratch",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: editing, local storage and note navigation inherit substantial upstream functionality; fork-specific builds require source setup.",
       "summary": "Edit local Markdown notes with a visual editor, source mode and optional Git sync.",
@@ -173,7 +173,7 @@
     },
     {
       "id": "shiori-web-ext", "name": "Shiori Web Extension (mirror)",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: upstream bookmark management is described as usable beta software; browser and server-version compatibility are constrained.",
       "summary": "Save and remove Shiori bookmarks from your browser.",
