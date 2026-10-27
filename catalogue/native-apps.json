@@ -71,7 +71,7 @@
       "maturity": "usable",
       "maturityNote": "Assessed by its author; the full product plan is still in progress.",
       "summary": "Watch CPU, memory, GPU, disk, network, thermal and power activity on aligned Mac graphs.",
-      "description": "Hover any lane to read every lane at that moment, or pull apart the CPU graph to see which apps used it. Includes a process table, menu bar extra, desktop widgets, Shortcuts actions and the coreo command-line tool. Optional MCP access and Ask Coreography use your own API key. Requires macOS 26 or later.",
+      "description": "Hover any lane to read every lane at that moment, or pull apart the CPU graph to see which apps used it. Includes a process table, menu bar extra, desktop widgets, Shortcuts actions and the coreo command-line tool. Optional MCP access lets approved clients query its read-only tools; Ask Coreography answers questions with your own Anthropic API key. Requires macOS 26 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["system monitor", "CPU", "memory", "widgets", "MCP", "CLI"],
       "icon": { "src": "assets/coreography-icon.png", "alt": "Coreography icon" },
       "links": { "source": "https://github.com/L-K-M/Coreography", "download": "https://github.com/L-K-M/Coreography/releases/latest" }
