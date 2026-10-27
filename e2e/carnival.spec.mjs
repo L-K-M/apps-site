@@ -17,6 +17,15 @@ const NARROWER_PX = 100;
 const RESIZE_SETTLE_MS = 500; // beyond the band's resize debounce
 const MIN_TARGET_PX = 24; // WCAG 2.5.8 target size
 const PAUSE_AFTER_LOAD_MS = 60000; // later than any page load, so the jump is forward
+const GARGOYLE_EYE = [179, 59, 51]; // --pixel-red
+const EYES_AHEAD = 7.5; // mean column of its eyes on the 16-pixel sprite when looking ahead
+const POINTER_OFFSET_PX = 160; // close enough to make the gargoyle curious
+const POINTER_EDGE_PX = 60;
+const GLANCE_MS = 100;
+const CIRCLE_STEP_MS = 250;
+const CIRCLE_STEPS = 8; // two seconds, shorter than its shortest visit
+const CIRCLE_NEAREST_PX = 30;
+const CIRCLE_FARTHEST_PX = 110;
 
 // Find the middles of green clusters on the band canvas, densest first and
 // at least a monster apart, in band pixels and client coordinates.
@@ -63,6 +72,25 @@ function greenAround(page, point) {
 }
 
 const bandFrame = (page) => page.evaluate(() => document.querySelector('.carnival-scene').toDataURL());
+
+// Mean column of the gargoyle's red eyes on its canvas: less than
+// EYES_AHEAD when it looks left, more when it looks right.
+function eyeColumn(page) {
+  return page.evaluate((eye) => {
+    const canvas = document.querySelector('.carnival-flyer');
+    const { data, width } = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
+    const columns = [];
+    for (let index = 0; index < data.length; index += 4) {
+      if (data[index] === eye[0] && data[index + 1] === eye[1] && data[index + 2] === eye[2]) columns.push((index / 4) % width);
+    }
+    return columns.reduce((sum, column) => sum + column, 0) / columns.length;
+  }, GARGOYLE_EYE);
+}
+
+async function flyerCentre(flyer) {
+  const box = await flyer.boundingBox();
+  return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
+}
 
 async function poke(page, point, testInfo) {
   if (testInfo.project.name === 'mobile') await page.touchscreen.tap(point.clientX, point.clientY);
@@ -192,6 +220,45 @@ test('the gargoyle roams the page, darts away when clicked and respects reduced 
   const still = await bandFrame(page);
   await page.clock.runFor(FRAME_MS);
   expect(await bandFrame(page)).toBe(still);
+  expect(errors).toEqual([]);
+});
+
+test('the gargoyle watches and circles a moving mouse pointer', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name === 'mobile', 'Touch screens have no hovering pointer.');
+  const errors = await openCarnival(page);
+  await page.clock.runFor(GARGOYLE_ARRIVAL_MS);
+  const flyer = page.locator('.carnival-flyer');
+  await expect(flyer).toBeVisible();
+
+  // Point beside it, towards the middle of the window.
+  const start = await flyerCentre(flyer);
+  const viewport = page.viewportSize();
+  const side = start.x < viewport.width / 2 ? 1 : -1;
+  const pointer = { x: start.x + side * POINTER_OFFSET_PX, y: Math.min(Math.max(start.y, POINTER_EDGE_PX), viewport.height - POINTER_EDGE_PX) };
+
+  // A finger dragging across the page is not a pointer to watch.
+  await page.evaluate(({ x, y }) => document.dispatchEvent(new PointerEvent('pointermove', { pointerType: 'touch', clientX: x, clientY: y })), pointer);
+  await page.clock.runFor(GLANCE_MS);
+  expect(await eyeColumn(page)).toBe(EYES_AHEAD);
+
+  await page.mouse.move(pointer.x, pointer.y);
+  await page.clock.runFor(GLANCE_MS);
+  expect(Math.sign((await eyeColumn(page)) - EYES_AHEAD)).toBe(side);
+
+  // While the pointer keeps moving, it flies over and circles at a distance.
+  for (let step = 0; step < CIRCLE_STEPS; step += 1) {
+    await page.mouse.move(pointer.x + (step % 2), pointer.y);
+    await page.clock.runFor(CIRCLE_STEP_MS);
+  }
+  const circling = await flyerCentre(flyer);
+  const distance = Math.hypot(circling.x - pointer.x, circling.y - pointer.y);
+  expect(distance).toBeGreaterThan(CIRCLE_NEAREST_PX);
+  expect(distance).toBeLessThan(CIRCLE_FARTHEST_PX);
+
+  // Once the pointer leaves the window, it looks ahead again.
+  await page.evaluate(() => document.documentElement.dispatchEvent(new PointerEvent('pointerout', { bubbles: true, pointerType: 'mouse' })));
+  await page.clock.runFor(GLANCE_MS);
+  expect(await eyeColumn(page)).toBe(EYES_AHEAD);
   expect(errors).toEqual([]);
 });
 
