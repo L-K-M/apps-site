@@ -26,7 +26,7 @@
     },
     {
       "id": "hoarder", "name": "Hoarder (mirror)",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: upstream bookmarking and mobile workflows are substantial, but development is active and this mirror has no independent packaging.",
       "summary": "Self-hosted bookmarks, notes, images and full-text search.",
@@ -78,7 +78,7 @@
     },
     {
       "id": "karakeep-pipette", "name": "Hoarder's Pipette (mirror)",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: upstream search integration and browser installation are established; this mirror has no separately maintained build.",
       "summary": "Include saved Karakeep bookmarks in browser search results.",
