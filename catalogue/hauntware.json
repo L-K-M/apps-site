@@ -22,6 +22,7 @@
       "summary": "Browse and transfer files with a two-pane SFTP client.",
       "description": "Hauntware's file-transfer client, with local and remote panes, queued transfers, bookmarks, synchronization and the shared Planchette editor. Install details and platform limitations are documented in the monorepo.",
       "category": "Networking", "platforms": ["macos", "windows", "linux", "android"], "tags": ["Hauntware", "SFTP", "files", "sync"],
+      "screenshots": [{ "src": "assets/poltergeist.png", "alt": "Poltergeist with a local folder and an SFTP server side by side and a file inspector" }],
       "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/poltergeist", "download": "https://github.com/L-K-M/Hauntware/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/poltergeist/docs/INSTALL.md" }
     },
     {
@@ -32,6 +33,7 @@
       "summary": "Edit local text, configuration files and scripts with a focused desktop editor.",
       "description": "Hauntware's standalone text editor, with document tabs, find and replace, syntax highlighting, line numbers and guarded saves. Its shared editor foundation is used by Séance and Poltergeist.",
       "category": "Developer tools", "platforms": ["macos", "windows", "linux"], "tags": ["Hauntware", "text editor", "UTF-8"],
+      "screenshots": [{ "src": "assets/planchette.png", "alt": "Planchette editing a Compose YAML file with syntax highlighting" }],
       "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/planchette", "download": "https://github.com/L-K-M/Hauntware/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/planchette/README.md" }
     }
   ]

@@ -21,6 +21,7 @@
       "summary": "Annotate PDFs with a pressure-sensitive stylus on Android.",
       "description": "Write, highlight and erase ink, then export an annotated PDF with vector strokes and selectable original text. Drafts stay on-device. Requires Android 10 or later.",
       "category": "Productivity", "platforms": ["android"], "tags": ["PDF", "annotation", "stylus"],
+      "screenshots": [{ "src": "assets/asterinked.jpeg", "alt": "Asterinked annotating a PDF with handwritten ink and highlights" }],
       "links": { "source": "https://github.com/L-K-M/Asterinked", "download": "https://github.com/L-K-M/Asterinked/releases/latest" }
     },
     {
@@ -31,6 +32,7 @@
       "summary": "Convert PDF and CBZ books to EPUB from a desktop app or command line.",
       "description": "PDF conversion uses Mistral OCR to recover text, tables and images. CBZ conversion runs locally and creates fixed-layout EPUBs. The desktop and command-line tools share the conversion engine.",
       "category": "Reading", "platforms": ["macos", "windows", "linux"], "tags": ["EPUB", "PDF", "CBZ", "OCR", "CLI"],
+      "screenshots": [{ "src": "assets/baegun.png", "alt": "Baegun queue of finished PDF and CBZ conversions to EPUB" }],
       "links": { "source": "https://github.com/L-K-M/Baegun", "download": "https://github.com/L-K-M/Baegun/releases/latest" }
     },
     {
@@ -203,6 +205,7 @@
       "description": "A hotkey picker pastes into the current field on macOS and Linux; Android offers a picker keyboard and Copy entry points. Prompts are plain Markdown files. An optional Assistant writes and reviews prompts, and a self-hosted server syncs libraries between devices.",
       "category": "Productivity", "platforms": ["macos", "linux", "android"], "tags": ["prompts", "Markdown", "LLM", "keyboard", "sync"],
       "icon": { "src": "assets/monkeys-paw-icon.png", "alt": "Monkey's Paw icon" },
+      "screenshots": [{ "src": "assets/monkeys-paw.png", "alt": "Monkey's Paw prompt picker with a prompt list and Wish Card preview" }],
       "links": { "source": "https://github.com/L-K-M/MonkeysPaw" }
     },
     {
