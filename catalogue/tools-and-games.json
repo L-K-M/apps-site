@@ -99,7 +99,7 @@
     },
     {
       "id": "manors-and-menaces", "name": "Manors & Menaces",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: local, AI and online play are implemented with a tutorial; mobile packaging and self-hosted setup still need refinement.",
       "summary": "A turn-based fantasy board game for two to four players, with local, AI and online modes.",
