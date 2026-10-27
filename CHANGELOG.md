@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Hide OpenCodeQuota Widget from the directory.
+
 - Ship credits and MIT license texts for the starter catalogue's three third-party images in the site as `assets/media-credits.txt`.
 
 - Add Monkey's Paw, a Markdown prompt picker for macOS, Linux and Android, to the catalogue.
