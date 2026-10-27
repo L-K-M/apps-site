@@ -66,6 +66,17 @@
       "links": { "source": "https://github.com/L-K-M/BootCaptain" }
     },
     {
+      "id": "coreography", "name": "Coreography",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Assessed by its author; the full product plan is still in progress.",
+      "summary": "Watch CPU, memory, GPU, disk, network, thermal and power activity on aligned Mac graphs.",
+      "description": "Hover any lane to read every lane at that moment, or pull apart the CPU graph to see which apps used it. Includes a process table, menu bar extra, desktop widgets, Shortcuts actions and the coreo command-line tool. Optional MCP access lets approved clients query its read-only tools; Ask Coreography answers questions with your own Anthropic API key. Requires macOS 26 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["system monitor", "CPU", "memory", "widgets", "MCP", "CLI"],
+      "icon": { "src": "assets/coreography-icon.png", "alt": "Coreography icon" },
+      "links": { "source": "https://github.com/L-K-M/Coreography", "download": "https://github.com/L-K-M/Coreography/releases/latest" }
+    },
+    {
       "id": "dockvac", "name": "DockVac",
       "status": "visible",
       "maturity": "usable",
@@ -86,6 +97,17 @@
       "description": "A Mac menu-bar app and paired Android companion forward notifications over an authenticated local connection. Missed notifications are queued on the phone and replayed when the Mac reconnects.",
       "category": "Utilities", "platforms": ["macos", "android"], "tags": ["notifications", "OTP", "LAN"],
       "links": { "source": "https://github.com/L-K-M/Eko" }
+    },
+    {
+      "id": "foldover", "name": "Foldover",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Assessed by its author; a beta is in preparation. Back up data before syncing it.",
+      "summary": "Sync folders between Mac disks, NAS shares, SFTP servers and other Macs, previewing every change first.",
+      "description": "Replaced and deleted files go to an archive, conflicts wait for you, and syncs can be undone. Other Macs pair with a code and sync encrypted over the LAN. A background agent keeps syncing with the window closed, and a command-line tool is included. No cloud or account. Requires macOS 27 on Apple silicon.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["sync", "backup", "NAS", "SFTP", "CLI"],
+      "icon": { "src": "assets/foldover-icon.png", "alt": "Foldover icon" },
+      "links": { "source": "https://github.com/L-K-M/Foldover" }
     },
     {
       "id": "gans", "name": "Gans",

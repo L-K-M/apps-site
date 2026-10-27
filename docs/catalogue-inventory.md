@@ -1,9 +1,9 @@
 # Catalogue inventory
 
 Audited all 68 public repositories at [github.com/L-K-M](https://github.com/L-K-M)
-on 2026-10-03, then added MonkeysPaw on 2026-10-20. The catalogue has 65
-distinct apps: 62 from those 69 repositories and the existing Dwindle, Mirio
-and QRat web entries.
+on 2026-10-03, then added MonkeysPaw on 2026-10-20 and Coreography and
+Foldover on 2026-10-27. The catalogue has 67 distinct apps: 64 from those 71
+repositories and the existing Dwindle, Mirio and QRat web entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's
 app ids or exclusion reason. CI checks that all mapped metadata entries exist, no duplicates
