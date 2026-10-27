@@ -3,8 +3,9 @@
 Snapshots from the corresponding app repositories, collected 2026-10-02.
 Repo-local manifests can replace these entries with current screenshots.
 The public-repository expansion below was captured on 2026-10-03,
-monkeys-paw-icon.png on 2026-10-20, and coreography-icon.png and
-foldover-icon.png on 2026-10-27. Icons are resized to at most 192 px;
+monkeys-paw-icon.png on 2026-10-20, and the Chess & Cocoa, Combray,
+Coreography, Foldover, Neutrodyne, RunningMan and Sweetbriar images on
+2026-10-27. Icons are resized to at most 192 px;
 screenshots retain the upstream image data.
 
 | File | Source |
@@ -24,6 +25,8 @@ screenshots retain the upstream image data.
 | bangnidraw-icon.png | `BangniDraw/media-sources/icon.png` |
 | blipbird.png | `Blipbird/media-sources/screenshots.png` |
 | bootcaptain-icon.png | `BootCaptain/App/Assets.xcassets/AppIcon.appiconset/icon_128x128@2x.png` |
+| chess-and-cocoa-icon.png | `ChessAndCocoa/media-sources/icon.png` |
+| combray-icon.png | `Combray/media-sources/icon.png` |
 | coreography-icon.png | `Coreography/media-sources/icon.png` |
 | dockvac.png | `DockVac/docs/screenshots/02-report.png` |
 | dockvac-icon.png | `DockVac/media-sources/icon.png` |
@@ -34,10 +37,13 @@ screenshots retain the upstream image data.
 | llimit.png | `LLimit/screenshot-widgets.png` |
 | lucerne.png | `Lucerne/screenshot.png` |
 | monkeys-paw-icon.png | `MonkeysPaw/media-sources/icon.png` |
+| neutrodyne-icon.png | `Neutrodyne/desktopApp/icons/png/neutrodyne-512.png` |
 | opencode-quota-widget.png | `OpenCodeQuotaWidget/screenshot.png` |
 | pict.png | `Pict/screenshot.png` |
+| runningman.png | `RunningMan/docs/images/overview.png` |
 | shortking.png | `Shortking/screenshot.png` |
 | shrinkpub.png | `ShrinkPub/media-sources/screenshot.png` |
+| sweetbriar-icon.png | `Sweetbriar/media-sources/icon.png` |
 | vaultsquire-icon.png | `VaultSquire/media-sources/icon.png` |
 | zen-backup-manager.png | `ZenBackupManager/media-sources/screenshot.png` |
 | danvers.png | `Danvers/screenshot.png` |

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Chess & Cocoa, Claude Replicant, Combray, Neutrodyne, RunningMan and Sweetbriar to the catalogue, completing a new audit of all 78 public L-K-M repositories.
+
 - Add Coreography, a graph-first Mac system monitor, and Foldover, a Mac folder sync app, to the catalogue.
 
 - Hide OpenCodeQuota Widget, Manors & Menaces, Scratch, Expand URL, ia-get, ImageContentDetector, Mirio, opencode-mystatus and the Shiori, Hoarder and Hoarder's Pipette mirrors from the directory. The ia-get Docker Wrapper stays listed.
