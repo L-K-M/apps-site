@@ -56,7 +56,7 @@ h1, h2, p, figure { margin: 0; }
 h1, h2 { font-family: var(--heading-font); font-weight: 400; }
 img { display: block; max-width: 100%; }
 
-.page { width: min(1200px, calc(100% - 64px)); margin-inline: auto; padding-block: 1.5rem; }
+.page { width: min(1280px, calc(100% - 64px)); margin-inline: auto; padding-block: 1.5rem; }
 .site-header { margin-bottom: 1.75rem; text-align: center; }
 .wordmark { font-family: var(--wordmark-font); font-weight: 400; font-size: clamp(1.75rem, 3.5vw, 2.75rem); line-height: 1.1; letter-spacing: 0.02em; }
 
@@ -72,12 +72,11 @@ img { display: block; max-width: 100%; }
 .filters input::placeholder { color: var(--muted); }
 .filters select { max-width: 100%; }
 .result-count { color: var(--muted); font-size: 0.75rem; margin-block: 0.75rem; }
-.app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 2.5rem 2rem; padding: 0; margin: 0; list-style: none; }
+.app-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr)); gap: 2.5rem 3rem; padding: 0; margin: 0; list-style: none; }
 .app-card { display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; padding-block: 1rem; border-top: 1px solid var(--rule); }
-/* Wrap maturity before squeezing title words; keep each icon with its name. */
+/* Wrap maturity before squeezing title words. */
 .card-heading { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-.card-name { display: flex; flex: 1 1 min-content; min-width: 0; gap: 0.75rem; align-items: center; }
-.card-heading h2 { flex: 1; min-width: 0; font-size: 1.4rem; line-height: 1.25; overflow-wrap: break-word; }
+.card-heading h2 { flex: 1 1 min-content; min-width: 0; font-size: 1.4rem; line-height: 1.25; overflow-wrap: break-word; }
 .card-heading a { text-decoration: none; }
 /* Traffic-light dots supplement readable maturity labels. */
 .app-status { display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0; margin-left: auto; color: var(--muted); font-size: 0.75rem; white-space: nowrap; }

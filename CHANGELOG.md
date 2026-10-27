@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Drop app icons from directory cards, so names such as BootCaptain no longer split mid-word; detail pages keep them. Widen the page and the gutters between cards.
+
 - Add Coreography, a graph-first Mac system monitor, and Foldover, a Mac folder sync app, to the catalogue.
 
 - Hide OpenCodeQuota Widget, Manors & Menaces, Scratch, Expand URL, ia-get, ImageContentDetector, Mirio, opencode-mystatus and the Shiori, Hoarder and Hoarder's Pipette mirrors from the directory. The ia-get Docker Wrapper stays listed.
