@@ -57,7 +57,7 @@
     },
     {
       "id": "image-content-detector", "name": "ImageContentDetector",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: the JPEG-to-EXIF command-line workflow is implemented; legacy Windows tooling and Azure setup limit ease of use.",
       "summary": "Write image descriptions and keywords into JPEG metadata using Azure Computer Vision.",
