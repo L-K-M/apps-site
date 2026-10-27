@@ -7,8 +7,10 @@ const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
 const STARTER_APP_COUNT = 67;
-const TIGHT_HEADER_VIEWPORTS = [{ width: 1200, height: 1000 }, { width: 320, height: 800 }];
-const ICON_HEADER_APP_NAME = 'BootCaptain';
+// 1248 px gives the narrowest four-column cards (260 px); 320 px the narrowest phone.
+const TIGHT_HEADER_VIEWPORTS = [{ width: 1248, height: 1000 }, { width: 320, height: 800 }];
+// Has an icon, which only its detail page shows.
+const ICON_APP_NAME = 'BootCaptain';
 const LONG_APP_NAME = 'VeryLongApplicationNameWithoutWordBreaks'.repeat(4);
 
 async function expectBundledFonts(page, families = [FONTS.HEADINGS, FONTS.TEXT]) {
@@ -99,7 +101,7 @@ test('keeps card title words intact at tight grid widths', async ({ page }, test
 
   for (const viewport of TIGHT_HEADER_VIEWPORTS) {
     await page.setViewportSize(viewport);
-    for (const name of [ICON_HEADER_APP_NAME, 'ImageContentDetector']) {
+    for (const name of [ICON_APP_NAME, 'ImageContentDetector']) {
       const title = page.getByRole('heading', { name, exact: true }).getByRole('link');
       const lines = await title.evaluate((link) => {
         const range = document.createRange();
@@ -109,21 +111,29 @@ test('keeps card title words intact at tight grid widths', async ({ page }, test
       expect(lines, `${name} at ${viewport.width}px`).toBe(1);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
-    const card = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: ICON_HEADER_APP_NAME, exact: true }) });
+    const card = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: ICON_APP_NAME, exact: true }) });
     await card.screenshot({ path: `test-results/tight-header-${testInfo.project.name}-${viewport.width}.png` });
   }
 
-  // Exceptionally long names must still wrap within the card, alongside their icon.
-  const card = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: ICON_HEADER_APP_NAME, exact: true }) });
+  // Exceptionally long names must still wrap within the card.
+  const card = page.locator('[data-app]').filter({ has: page.getByRole('heading', { name: ICON_APP_NAME, exact: true }) });
   const title = card.getByRole('heading').getByRole('link');
   await title.evaluate((link, name) => { link.textContent = name; }, LONG_APP_NAME);
   const longHeading = page.getByRole('heading', { name: LONG_APP_NAME, exact: true });
   const longCard = page.locator('[data-app]').filter({ has: longHeading });
-  const iconBox = await longCard.locator('.app-icon').boundingBox();
+  const cardBox = await longCard.boundingBox();
   const headingBox = await longHeading.boundingBox();
-  expect(headingBox.y).toBeLessThan(iconBox.y + iconBox.height);
-  expect(iconBox.y).toBeLessThan(headingBox.y + headingBox.height);
+  expect(headingBox.x + headingBox.width).toBeLessThanOrEqual(cardBox.x + cardBox.width);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+// Icons took room from card names, splitting words such as BootCaptain.
+test('shows app icons on detail pages only', async ({ page }) => {
+  await page.goto('./');
+  await expect(page.locator('[data-app] .app-icon')).toHaveCount(0);
+
+  await page.getByRole('heading', { name: ICON_APP_NAME, exact: true }).getByRole('link').click();
+  await expect(page.locator('.detail-title .app-icon')).toBeVisible();
 });
 
 test('combines search, category, platform and maturity; clears zero results', async ({ page }) => {
