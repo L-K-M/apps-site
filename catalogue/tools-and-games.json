@@ -130,7 +130,7 @@
     },
     {
       "id": "expand-url", "name": "Expand URL",
-      "status": "visible",
+      "status": "hidden",
       "maturity": "usable",
       "maturityNote": "Estimated: redirect inspection and parameter handling are implemented; installation is through Raycast development tooling.",
       "summary": "Inspect shortened URLs one redirect hop at a time from Raycast.",

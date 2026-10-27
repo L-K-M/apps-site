@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Hide OpenCodeQuota Widget, Manors & Menaces, Scratch and the Shiori Web Extension mirror from the directory.
+- Hide OpenCodeQuota Widget, Manors & Menaces, Scratch, Expand URL and the Shiori Web Extension mirror from the directory.
 
 - Ship credits and MIT license texts for the starter catalogue's three third-party images in the site as `assets/media-credits.txt`.
 
