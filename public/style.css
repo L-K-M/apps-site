@@ -84,7 +84,7 @@ img { display: block; max-width: 100%; }
 .app-status[data-maturity="experimental"] { --maturity-light: #b33b33; }
 .app-status[data-maturity="usable"] { --maturity-light: #a87300; }
 .app-status[data-maturity="polished"] { --maturity-light: #287848; }
-.app-icon { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+.app-icon { object-fit: contain; flex-shrink: 0; }
 .app-summary { font-size: 0.875rem; line-height: 1.5; }
 .app-meta { font-size: 0.75rem; color: var(--muted); }
 .platforms { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; vertical-align: middle; color: var(--muted); }

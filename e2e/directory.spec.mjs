@@ -7,7 +7,8 @@ const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
 const STARTER_APP_COUNT = 67;
-const TIGHT_HEADER_VIEWPORTS = [{ width: 1200, height: 1000 }, { width: 320, height: 800 }];
+// 1248 px gives the narrowest four-column cards (260 px); 320 px the narrowest phone.
+const TIGHT_HEADER_VIEWPORTS = [{ width: 1248, height: 1000 }, { width: 320, height: 800 }];
 // Has an icon, which only its detail page shows.
 const ICON_APP_NAME = 'BootCaptain';
 const LONG_APP_NAME = 'VeryLongApplicationNameWithoutWordBreaks'.repeat(4);
