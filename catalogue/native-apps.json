@@ -66,6 +66,27 @@
       "links": { "source": "https://github.com/L-K-M/BootCaptain" }
     },
     {
+      "id": "claude-replicant", "name": "Claude Replicant",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: profiles and isolated logins are implemented with a live smoke test; it relies on an undocumented Claude Desktop switch, and no release is published.",
+      "summary": "Run several Claude Desktop or ChatGPT instances side by side on one Mac, each logged into a different account.",
+      "description": "A fork of swissgrammie/claude-many. Each profile gets a private data directory with its own login, cookies and Claude Code or Codex settings; add, start, stop and rename profiles from one list. Your normal Claude and ChatGPT logins stay as they are. Requires macOS 14 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["Claude", "ChatGPT", "profiles", "accounts", "fork"],
+      "links": { "source": "https://github.com/L-K-M/Claude-Replicant" }
+    },
+    {
+      "id": "combray", "name": "Combray",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: device checks pass on an emulator, but no physical device, real service or live site has been tried, and no release is published.",
+      "summary": "A personal Android web browser built on Servo, with bottom controls and one list for open tabs and recent pages.",
+      "description": "Searches with Kagi, saves pages to Karakeep in one tap, and can optionally send page text to a Hister server for long-term history search. Built for its owner's own use on a downstream Servo engine. Requires Android 11 or later.",
+      "category": "Reading", "platforms": ["android"], "tags": ["browser", "Servo", "Karakeep", "Kagi", "Hister"],
+      "icon": { "src": "assets/combray-icon.png", "alt": "Combray icon" },
+      "links": { "source": "https://github.com/L-K-M/Combray" }
+    },
+    {
       "id": "coreography", "name": "Coreography",
       "status": "visible",
       "maturity": "usable",
@@ -185,6 +206,17 @@
       "links": { "source": "https://github.com/L-K-M/MonkeysPaw" }
     },
     {
+      "id": "neutrodyne", "name": "Neutrodyne",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: implementation is in progress, nothing is released yet, and device and desktop checks are still open.",
+      "summary": "A podcast player in development for Android and the desktop that sorts podcasts and YouTube channels into groups, each with its own feed.",
+      "description": "Each group, such as news or fiction, is its own newest-first episode feed. Planned features include streaming and downloads, OPML import and export, and an optional self-hosted server that keeps subscriptions and listening state in step across devices. The apps poll feeds themselves, with no account or tracking. Nothing is released yet.",
+      "category": "Music", "platforms": ["android", "windows", "macos", "linux"], "tags": ["podcasts", "YouTube", "OPML", "sync", "self-hosted"],
+      "icon": { "src": "assets/neutrodyne-icon.png", "alt": "Neutrodyne icon" },
+      "links": { "source": "https://github.com/L-K-M/Neutrodyne" }
+    },
+    {
       "id": "opencode-quota-widget", "name": "OpenCodeQuota Widget",
       "status": "hidden",
       "maturity": "usable",
@@ -215,6 +247,17 @@
       "description": "Records window positions, desktops, fullscreen states and Split View pairs, then restores a layout on demand or at login. The menu-bar app also offers a command-line interface. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["windows", "Spaces", "CLI"],
       "links": { "source": "https://github.com/L-K-M/Rememoru" }
+    },
+    {
+      "id": "runningman", "name": "RunningMan",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: discovery, controls, job history, notifications and widgets are released and documented; builds are ad-hoc signed, and GitHub Enterprise Server is not supported.",
+      "summary": "Manage self-hosted GitHub Actions and Forgejo runners on your Mac: status, queues, job history and controls in one window.",
+      "description": "Discovers existing runner installations in place, starts and stops them, and sets whether they start at login. Register new GitHub runners from a repository or organization URL, follow a running job's log, and browse job history and queues. Includes a menu bar extra, desktop widgets and optional notifications. Requires macOS 14 or later.",
+      "category": "Developer tools", "platforms": ["macos"], "tags": ["GitHub Actions", "Forgejo", "CI", "runners", "widgets"],
+      "screenshots": [{ "src": "assets/runningman.png", "alt": "RunningMan overview of example runners and their status" }],
+      "links": { "source": "https://github.com/L-K-M/RunningMan", "download": "https://github.com/L-K-M/RunningMan/releases/latest" }
     },
     {
       "id": "shortking", "name": "Shortking",
@@ -266,6 +309,17 @@
       "category": "Utilities", "maturity": "experimental", "maturityNote": "An experimental passenger comfort aid, not a medical device.",
       "platforms": ["android"], "tags": ["motion cues", "sensors", "accessibility"],
       "links": { "source": "https://github.com/L-K-M/Spots" }
+    },
+    {
+      "id": "sweetbriar", "name": "Sweetbriar",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: the local archive is in development, Proton Mail sync and sending are later milestones, and the v0.0.1 release is an app-shell preview.",
+      "summary": "A native Mac email client for Proton Mail, built on a shared Rust core.",
+      "description": "Built first as its owner's daily mail client. Development has reached a local archive: import Apple Mail exports, then browse, read and search them. Proton Mail through Proton Bridge, sending and filing follow; a Linux version is planned. Requires macOS 26 on Apple silicon.",
+      "category": "Productivity", "platforms": ["macos"], "tags": ["email", "Proton Mail", "Rust", "search"],
+      "icon": { "src": "assets/sweetbriar-icon.png", "alt": "Sweetbriar icon" },
+      "links": { "source": "https://github.com/L-K-M/Sweetbriar", "download": "https://github.com/L-K-M/Sweetbriar/releases/latest" }
     },
     {
       "id": "vaultsquire", "name": "VaultSquire",

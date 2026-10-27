@@ -3,6 +3,17 @@
   "schemaVersion": 1,
   "apps": [
     {
+      "id": "chess-and-cocoa", "name": "Chess & Cocoa",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: games, move feedback, hints and reviews are implemented and an APK is published; the interface and opponent strength are still changing.",
+      "summary": "Learn chess on Android against opponents that explain their plans after each of your moves.",
+      "description": "Play untimed games against three opponents. Each records its plan before you reply, then tells you whether your move stopped, delayed or allowed it, with Show me why to replay the evidence. Hints come in three steps, and a short review follows each game. Stockfish runs offline inside the app. Requires Android 10 or later.",
+      "category": "Games", "platforms": ["android"], "tags": ["chess", "teaching", "Stockfish", "offline"],
+      "icon": { "src": "assets/chess-and-cocoa-icon.png", "alt": "Chess & Cocoa icon" },
+      "links": { "source": "https://github.com/L-K-M/ChessAndCocoa", "download": "https://github.com/L-K-M/ChessAndCocoa/releases/latest" }
+    },
+    {
       "id": "danvers", "name": "Danvers",
       "status": "visible",
       "maturity": "polished",
