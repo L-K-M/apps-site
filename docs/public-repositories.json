@@ -82,6 +82,6 @@
     { "name": "Zap", "apps": ["zap"] },
     { "name": "ZenBackupManager", "apps": ["zen-backup-manager"] }
   ],
-  "standaloneApps": ["dwindle", "mirio", "qrat"],
-  "excludedPrivateApps": ["leaflit"]
+  "standaloneApps": ["dwindle", "leaflit", "mirio", "qrat"],
+  "excludedPrivateApps": []
 }
