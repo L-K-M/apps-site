@@ -1044,7 +1044,8 @@
     flap: 11,
     // Curiosity, in CSS px and seconds: a pointer moving within `notice`
     // draws it over to circle `orbit` px out for a few seconds; then it stays
-    // calm a while. A pointer still for `idle` seconds is forgotten.
+    // calm a while. A pointer still for `idle` seconds no longer interests
+    // it, though its eyes stay on it.
     notice: 220,
     orbit: 80,
     spin: 1.2, // radians per second around the pointer
