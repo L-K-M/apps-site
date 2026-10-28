@@ -57,7 +57,7 @@
       "tags": ["Git"],
       "screenshots": [
         { "src": "assets/gitenough.png", "alt": "GitEnough's Linux port with a branch graph and the selected commit's diff", "caption": "The Linux GTK port, still in progress." },
-        { "src": "assets/gitenough-changes.png", "alt": "GitEnough's Linux port with a staged file, its diff and the commit form" }
+        { "src": "assets/gitenough-changes.png", "alt": "GitEnough's Linux port with a staged file, its diff and the commit form", "caption": "Staging a change in the same Linux port." }
       ],
       "links": { "source": "https://github.com/L-K-M/GitEnough" }
     },

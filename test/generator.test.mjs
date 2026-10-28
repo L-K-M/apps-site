@@ -450,7 +450,7 @@ test('ships a license or notice for every bundled font, icon set and catalogue i
   for (const { notice, sentinel } of BUNDLED_NOTICES) assert.match(await readFile(join(output, notice), 'utf8'), sentinel, notice);
 
   const credits = await readFile(join(output, MEDIA_CREDITS), 'utf8');
-  for (const expected of ['scratch.png', 'scratch-icon.png', 'shiori-web-ext.png', 'pararena2.png', 'Eric Li', 'Radhi Fadlillah', 'softdorothy', 'Permission is hereby granted']) {
+  for (const expected of ['scratch.png', 'scratch-icon.png', 'shiori-web-ext.png', 'pararena2.png', 'relaybar-scion.png', 'Eric Li', 'Radhi Fadlillah', 'softdorothy', 'Lingxi Shang', 'Permission is hereby granted']) {
     assert.ok(credits.includes(expected), `${MEDIA_CREDITS} lacks ${expected}`);
   }
 });

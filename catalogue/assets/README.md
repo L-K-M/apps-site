@@ -66,14 +66,16 @@ screenshots retain the upstream image data.
 | whatsapp-backup.png | `whatsapp-backup/screenshot.png` |
 | seance.png | `Hauntware/seance/screenshot.png` |
 
-Four images show work from upstream projects that L-K-M forked, not L-K-M's own.
+Five images show work from upstream projects that L-K-M forked, not L-K-M's own.
 `scratch.png` (unchanged) and `scratch-icon.png` (resized) are by Eric Li, from
 [erictli/scratch](https://github.com/erictli/scratch), MIT License. `shiori-web-ext.png`
 (unchanged) is by Radhi Fadlillah, from
 [go-shiori/shiori-web-ext](https://github.com/go-shiori/shiori-web-ext), MIT License,
 Copyright (c) 2019-present Radhi Fadlillah. `pararena2.png` shows John Calhoun's game
 graphics from [softdorothy/pararena_2](https://github.com/softdorothy/pararena_2), MIT
-License, Copyright (c) 2016 softdorothy. Their credits and license texts are in
+License, Copyright (c) 2016 softdorothy. `relaybar-scion.png` (unchanged) is by Lingxi
+Shang, from [lx2026/RelayBar](https://github.com/lx2026/RelayBar), MIT License,
+Copyright (c) 2026 RelayBar contributors. Their credits and license texts are in
 [`public/media-credits.txt`](../../public/media-credits.txt), which the generator copies
 into the site as `assets/media-credits.txt`. Keep that file in step when adding images
 from other projects.

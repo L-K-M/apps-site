@@ -176,7 +176,7 @@
       "summary": "Capture glare-reduced digital copies of printed photographs on Android.",
       "description": "Aligns and combines multiple captures on-device, corrects the print's geometry, and exports JPEG or TIFF scans. Restoration options produce separate derivatives rather than replacing the scan.",
       "category": "Creative tools", "platforms": ["android"], "tags": ["photo scanning", "glare reduction"],
-      "screenshots": [{ "src": "assets/kirsch.png", "alt": "Kirsch reviewing a scan of a landscape photo print, with corner handles and a Save to Photos button" }],
+      "screenshots": [{ "src": "assets/kirsch.png", "alt": "Kirsch reviewing a scan of a sample landscape print, with corner handles and a Save to Photos button" }],
       "links": { "source": "https://github.com/L-K-M/Kirsch" }
     },
     {
