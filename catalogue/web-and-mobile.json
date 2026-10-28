@@ -30,6 +30,11 @@
       "category": "Reading",
       "platforms": ["android"],
       "tags": ["OPDS", "EPUB", "ebooks"],
+      "screenshots": [
+        { "src": "assets/leaflit-library.jpg", "alt": "Leaflit library showing a grid of book covers" },
+        { "src": "assets/leaflit-reader.png", "alt": "Leaflit displaying an EPUB chapter" },
+        { "src": "assets/leaflit-login.png", "alt": "Leaflit connection form for an OPDS server" }
+      ],
       "links": { "website": "https://leafl.it/" }
     },
     {
