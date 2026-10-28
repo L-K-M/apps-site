@@ -44,6 +44,7 @@
       "description": "Sketch with pencils and brushes, mix colours, smudge, fill, and work with layers. Built for Android and the S Pen, with desktop shells for macOS and Linux.",
       "category": "Creative tools", "platforms": ["android", "macos", "linux"], "tags": ["BangniDraw", "drawing", "painting", "S Pen"],
       "icon": { "src": "assets/bangnidraw-icon.png", "alt": "帮你Draw icon" },
+      "screenshots": [{ "src": "assets/bangnidraw.png", "alt": "BangniDraw on Linux with a painted landscape of sky, sun, cloud, birds, green hills and a tree beside its tool rail" }],
       "links": { "source": "https://github.com/L-K-M/BangniDraw", "download": "https://github.com/L-K-M/BangniDraw/releases/latest" }
     },
     {
@@ -86,6 +87,7 @@
       "description": "Searches with Kagi, saves pages to Karakeep in one tap, and can optionally send page text to a Hister server for long-term history search. Built for its owner's own use on a downstream Servo engine. Requires Android 11 or later.",
       "category": "Reading", "platforms": ["android"], "tags": ["browser", "Servo", "Karakeep", "Kagi", "Hister"],
       "icon": { "src": "assets/combray-icon.png", "alt": "Combray icon" },
+      "screenshots": [{ "src": "assets/combray.png", "alt": "Combray's Recent sheet with a filter field and open tabs and recently visited pages grouped by day" }],
       "links": { "source": "https://github.com/L-K-M/Combray" }
     },
     {
@@ -219,6 +221,7 @@
       "description": "Each group, such as news or fiction, is its own newest-first episode feed. Planned features include streaming and downloads, OPML import and export, and an optional self-hosted server that keeps subscriptions and listening state in step across devices. The apps poll feeds themselves, with no account or tracking. Nothing is released yet.",
       "category": "Music", "platforms": ["android", "windows", "macos", "linux"], "tags": ["podcasts", "YouTube", "OPML", "sync", "self-hosted"],
       "icon": { "src": "assets/neutrodyne-icon.png", "alt": "Neutrodyne icon" },
+      "screenshots": [{ "src": "assets/neutrodyne.png", "alt": "Neutrodyne on Linux with Tech, News and Fiction group tabs above a day-grouped list of podcast episodes" }],
       "links": { "source": "https://github.com/L-K-M/Neutrodyne" }
     },
     {

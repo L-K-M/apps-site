@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Add screenshots for Amberfader, Asterinked, Baegun, Chess & Cocoa, Copywraith, Eko, GitEnough, Kirsch, Meltorama 2000, Monkey's Paw, Pararena 2, Planchette, Poltergeist, QRat, RelayBar Scion and Spots. Apps without one upstream were captured from their own UI with sample data.
+- Add screenshots for Amberfader, Asterinked, Baegun, BangniDraw, Chess & Cocoa, Combray, Copywraith, Eko, GitEnough, Kirsch, Meltorama 2000, Monkey's Paw, Neutrodyne, Pararena 2, Planchette, Poltergeist, QRat, RelayBar Scion and Spots. Apps without one upstream were captured from their own UI with sample data.
 
 - Add Chess & Cocoa, Claude Replicant, Combray, Neutrodyne, RunningMan and Sweetbriar to the catalogue, completing a new audit of all 78 public L-K-M repositories.
 

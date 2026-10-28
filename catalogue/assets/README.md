@@ -80,7 +80,7 @@ from other projects.
 
 ## Captured screenshots
 
-These apps had no usable screenshot upstream. On 2026-10-27 their own UI
+These apps had no usable screenshot upstream. On 2026-10-27 and 28 their own UI
 code was run on Linux at the listed commit and the rendered output captured.
 Data shown is sample data; the rendered output was not edited.
 
@@ -88,10 +88,13 @@ Data shown is sample data; the rendered output was not edited.
 |---|---|---|
 | amberfader.png | `Amberfader@069b023` | PySide6 main window grabbed offscreen; sample track |
 | baegun.png | `Baegun@7e4d1bf` | Built frontend in Chromium, mocked Tauri IPC; sample conversion queue |
+| bangnidraw.png | `BangniDraw@46b40ce` | Desktop app under Xvfb; landscape painted with the app's brush and fill tools via scripted input |
+| combray.png | `Combray@380f2f0` | Recent sheet rendered by Robolectric from a seeded database; sample pages on example domains |
 | copywraith.png | `Copywraith@39bdc1f` | Frontend in Chromium, mocked Tauri IPC; sample clipboard entries |
 | eko.png | `Eko@8031ee8` | Android companion's Compose UI rendered by Robolectric; two sample paired Macs |
 | gitenough.png, gitenough-changes.png | `GitEnough@c0e079f` | Linux GTK 4 port under Xvfb; demo repository |
 | kirsch.png | `Kirsch@8db0bbe` | Review screen rendered by Robolectric; synthetic landscape print as the scan |
+| neutrodyne.png | `Neutrodyne@babd24b` | Desktop app under Xvfb; six invented podcasts served locally, subscribed by OPML import |
 | pararena2.png | `Pararena2@eb3b932` | SDL3 port under Xvfb; computer against computer |
 | planchette.png | `Hauntware@814e102` | Flutter widget test of the app root; sample Compose file |
 | poltergeist.png | `Hauntware@814e102` | Flutter widget test of the app root; fake remote file system |
