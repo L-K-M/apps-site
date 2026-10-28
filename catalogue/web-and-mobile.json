@@ -20,6 +20,19 @@
       "links": { "website": "https://dwindle.ch" }
     },
     {
+      "id": "leaflit",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "In development, according to its website.",
+      "name": "Leaflit",
+      "summary": "Read EPUB books from an OPDS library on Android.",
+      "description": "Connect to a self-hosted OPDS catalogue to read your EPUB collection.",
+      "category": "Reading",
+      "platforms": ["android"],
+      "tags": ["OPDS", "EPUB", "ebooks"],
+      "links": { "website": "https://leafl.it/" }
+    },
+    {
       "id": "meltorama",
       "status": "visible",
       "maturity": "polished",
