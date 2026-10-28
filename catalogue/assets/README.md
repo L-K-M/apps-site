@@ -97,6 +97,8 @@ contains only retained upstream bytes; replaced screenshots appear above.
 Icons are resized to at most 192 px. Repo-local manifests may override catalogue
 entries and need their own image review.
 
+Leaflit's website screenshots were collected unchanged on 2026-10-28.
+
 | File | Source |
 |---|---|
 | dwindle-light.png | `Dwindle/docs/screenshot-light.png` |
@@ -118,6 +120,9 @@ entries and need their own image review.
 | foldover-icon.png | `Foldover/media-sources/icon.png` |
 | invoque-icon.png | `Invoque/media-sources/icon2.png` |
 | kararead.jpeg | `Kararead/screenshots/reader.jpeg` |
+| leaflit-library.jpg | https://leafl.it/assets/library.jpg |
+| leaflit-reader.png | https://leafl.it/assets/reader.png |
+| leaflit-login.png | https://leafl.it/assets/login.png |
 | lucerne.png | `Lucerne/screenshot.png` |
 | meltorama.jpeg | `Meltorama2000/media-sources/screenshot1.jpeg` |
 | monkeys-paw-icon.png | `MonkeysPaw/media-sources/icon.png` |
