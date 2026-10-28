@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Let the carnival's gargoyle react to a mouse pointer: it follows the pointer with its eyes, circles it for a few seconds when it moves nearby, and wakes from its roost when it creeps close. Touch screens are unaffected.
+
 - Hide Starling from the directory.
 
 - Add screenshots for Amberfader, Asterinked, Baegun, BangniDraw, Chess & Cocoa, Combray, Copywraith, Eko, GitEnough, Kirsch, Meltorama 2000, Monkey's Paw, Neutrodyne, Pararena 2, Planchette, Poltergeist, QRat, RelayBar Scion and Spots. Apps without one upstream were captured from their own UI with sample data.

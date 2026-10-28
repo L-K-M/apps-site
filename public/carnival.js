@@ -2,8 +2,9 @@
 // whose monsters flee when clicked, and a gargoyle that roams the viewport.
 //
 //   ┌─────────────────────────────── viewport ───────────────────────────────┐
-//   │  gargoyle: own fixed canvas, cruises anywhere, roosts upside down at   │
-//   │  the top edge, darts away when clicked                                 │
+//   │  gargoyle: own fixed canvas, cruises anywhere, circles a moving        │
+//   │  pointer and watches it, roosts upside down at the top edge, darts     │
+//   │  away when clicked                                                     │
 //   │                             ...app grid...                             │
 //   ├───────────────────── .carnival band: one canvas ───────────────────────┤
 //   │ carousel  tent  booth  HAUNTED HOUSE  lamp  wheel  graves  striker     │
@@ -1024,7 +1025,7 @@
 
   // ── Gargoyle ──────────────────────────────────────────────────────────────
 
-  const Flight = Object.freeze({ CRUISE: 'cruise', LANDING: 'landing', ROOST: 'roost', DART: 'dart', AWAY: 'away' });
+  const Flight = Object.freeze({ CRUISE: 'cruise', CIRCLE: 'circle', LANDING: 'landing', ROOST: 'roost', DART: 'dart', AWAY: 'away' });
   const GARGOYLE = {
     pixel: 3, // CSS px per sprite pixel
     cruise: 150, // CSS px per second
@@ -1041,8 +1042,31 @@
     awaySpread: 7,
     firstVisit: 2.5,
     flap: 11,
+    // Curiosity, in CSS px and seconds: a pointer moving within `notice`
+    // draws it over to circle `orbit` px out for a few seconds; then it stays
+    // calm a while. A pointer still for `idle` seconds no longer interests
+    // it, though its eyes stay on it.
+    notice: 220,
+    orbit: 80,
+    spin: 1.2, // radians per second around the pointer
+    circleMin: 3,
+    circleSpread: 3,
+    calmMin: 10,
+    calmSpread: 10,
+    idle: 2,
+    wake: 80, // a pointer this near stirs it from its roost
+    glance: 16, // it looks straight ahead at a pointer this near its middle
   };
   const FLAP_CYCLE = [0, 1, 2, 1];
+  const Gaze = Object.freeze({ LEFT: -1, AHEAD: 0, RIGHT: 1 });
+
+  // The same sprite with its red eyes moved a pixel sideways, so the
+  // gargoyle can watch the pointer: '.kmRmmRmk.' looking right is '.kmmRmmRk.'.
+  function glance(art, gaze) {
+    return sprite(art.rows.map((row) => [...row].map((letter, column) => (row[column - gaze] === 'R' ? 'R' : letter === 'R' ? 'm' : letter)).join('')));
+  }
+
+  const looks = (art) => ({ [Gaze.LEFT]: glance(art, Gaze.LEFT), [Gaze.AHEAD]: art, [Gaze.RIGHT]: glance(art, Gaze.RIGHT) });
 
   function createGargoyle(palette) {
     const [first] = ART.gargoyle;
@@ -1056,12 +1080,19 @@
     canvas.hidden = true;
     const surface = createSurface(canvas.getContext('2d'), first.width, first.height, palette);
     const size = { width: first.width * GARGOYLE.pixel, height: first.height * GARGOYLE.pixel };
+    const flaps = ART.gargoyle.map(looks);
+    const hanging = looks(ART.roost[0]);
 
-    const state = { flight: Flight.AWAY, timer: GARGOYLE.firstVisit, x: 0, y: 0, vx: 0, vy: 0, target: null, legs: 0, legTime: 0, facing: 1 };
+    const state = { flight: Flight.AWAY, timer: GARGOYLE.firstVisit, x: 0, y: 0, vx: 0, vy: 0, target: null, legs: 0, legTime: 0, facing: 1, calm: 0, angle: 0, spin: 1 };
     let drawn = { art: null, flip: Flip.NONE };
     let awake = false;
+    // The hovering pointer in viewport px, and seconds since it last moved;
+    // null while it is outside the window or there is none, as on touch screens.
+    let pointer = null;
 
     const viewport = () => ({ width: document.documentElement.clientWidth, height: window.innerHeight });
+    const watching = () => pointer !== null && pointer.idle < GARGOYLE.idle;
+    const pointerDistance = () => Math.hypot(pointer.x - state.x, pointer.y - state.y);
 
     function randomSpot() {
       const { width, height } = viewport();
@@ -1076,6 +1107,32 @@
 
     function cruise() {
       Object.assign(state, { flight: Flight.CRUISE, target: randomSpot(), legs: GARGOYLE.legMin + Math.floor(Math.random() * GARGOYLE.legSpread), legTime: 0 });
+    }
+
+    // Circle the pointer for a while, starting from the side it is on.
+    function circle() {
+      Object.assign(state, {
+        flight: Flight.CIRCLE,
+        timer: GARGOYLE.circleMin + Math.random() * GARGOYLE.circleSpread,
+        angle: Math.atan2(state.y - pointer.y, state.x - pointer.x),
+        spin: Math.random() < 0.5 ? -1 : 1,
+      });
+    }
+
+    // Lose interest in the pointer for a while and fly on.
+    function moveOn() {
+      state.calm = GARGOYLE.calmMin + Math.random() * GARGOYLE.calmSpread;
+      cruise();
+    }
+
+    // The next spot on its circle round the pointer, kept inside the window.
+    function orbitSpot() {
+      const { width, height } = viewport();
+      const inside = (value, extent) => Math.max(GARGOYLE.margin, Math.min(value, extent - GARGOYLE.margin));
+      return {
+        x: inside(pointer.x + Math.cos(state.angle) * GARGOYLE.orbit, width),
+        y: inside(pointer.y + Math.sin(state.angle) * GARGOYLE.orbit, height),
+      };
     }
 
     // Fly in from a random edge.
@@ -1107,9 +1164,16 @@
     function update(step, time) {
       state.timer -= step;
       state.legTime += step;
+      state.calm -= step;
+      if (pointer) pointer.idle += step;
 
       switch (state.flight) {
         case Flight.CRUISE: {
+          if (state.calm <= 0 && watching() && pointerDistance() < GARGOYLE.notice) {
+            circle();
+            break;
+          }
+
           const distance = steer(step, time);
           if (distance > GARGOYLE.arrival && state.legTime < GARGOYLE.legTimeout) break;
           state.legs -= 1;
@@ -1123,11 +1187,29 @@
           state.target = { x: GARGOYLE.margin + Math.random() * Math.max(1, viewport().width - GARGOYLE.margin * 2), y: size.height / 2 };
           break;
         }
+        case Flight.CIRCLE:
+          if (state.timer <= 0 || !watching()) {
+            moveOn();
+            break;
+          }
+
+          state.angle += state.spin * GARGOYLE.spin * step;
+          state.target = orbitSpot();
+          steer(step, time);
+          break;
         case Flight.LANDING:
           if (steer(step, time) > 4 && state.legTime < GARGOYLE.legTimeout) break;
           Object.assign(state, { flight: Flight.ROOST, timer: GARGOYLE.roostMin + Math.random() * GARGOYLE.roostSpread, x: state.target.x, y: size.height / 2, vx: 0, vy: 0 });
           break;
         case Flight.ROOST:
+          // A pointer creeping close stirs it: it circles the pointer, or
+          // just flies off if it circled one only recently.
+          if (watching() && pointerDistance() < GARGOYLE.wake) {
+            if (state.calm > 0) cruise();
+            else circle();
+            break;
+          }
+
           if (state.timer <= 0) cruise();
           break;
         case Flight.DART: {
@@ -1148,11 +1230,21 @@
       if (Math.abs(state.vx) > 5) state.facing = Math.sign(state.vx);
     }
 
+    // Where to look for the pointer, in the sprite's own frame: it is drawn
+    // flipped while facing left.
+    function gaze() {
+      if (!pointer) return Gaze.AHEAD;
+      const dx = (pointer.x - state.x) * state.facing;
+      if (Math.abs(dx) < GARGOYLE.glance) return Gaze.AHEAD;
+      return dx < 0 ? Gaze.LEFT : Gaze.RIGHT;
+    }
+
     function render(time) {
       if (canvas.hidden) return;
       const roosting = state.flight === Flight.ROOST;
       const pace = state.flight === Flight.DART ? GARGOYLE.flap * 2 : GARGOYLE.flap;
-      const art = roosting ? ART.roost[0] : ART.gargoyle[FLAP_CYCLE[Math.floor(time * pace) % FLAP_CYCLE.length]];
+      const looking = roosting ? hanging : flaps[FLAP_CYCLE[Math.floor(time * pace) % FLAP_CYCLE.length]];
+      const art = looking[gaze()];
       const flip = (state.facing < 0 ? Flip.HORIZONTAL : Flip.NONE) | (roosting ? Flip.VERTICAL : Flip.NONE);
       if (art !== drawn.art || flip !== drawn.flip) {
         surface.erase();
@@ -1188,6 +1280,10 @@
       shoo() {
         if (flying()) dart(state.x - state.facing);
       },
+      // Follow a hovering pointer, in viewport px.
+      watch(x, y) { pointer = { x, y, idle: 0 }; },
+      // The pointer left the window.
+      forget() { pointer = null; },
       wake() { awake = true; },
       // Leave the page; it flies back in a while after waking.
       dismiss() {
@@ -1709,6 +1805,15 @@
   document.addEventListener('pointerdown', (event) => {
     if (panel && !panel.contains(event.target)) closePanel();
     gargoyle.startle(event.clientX, event.clientY);
+  });
+  // The gargoyle watches a hovering mouse or pen. A touch only presses, and
+  // chasing a finger would chase every scroll.
+  document.addEventListener('pointermove', (event) => {
+    if (event.pointerType !== 'touch') gargoyle.watch(event.clientX, event.clientY);
+  });
+  // A pointer leaving the window moves onto no element.
+  document.addEventListener('pointerout', (event) => {
+    if (event.pointerType !== 'touch' && !event.relatedTarget) gargoyle.forget();
   });
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;

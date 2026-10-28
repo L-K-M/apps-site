@@ -19,9 +19,10 @@ Platforms use monochrome SVG icons with hover titles and screen-reader labels.
 
 A pixel-art haunted carnival runs along the foot of the directory. Click a monster,
 or use the Scare a monster button, and it flees, dropping a ticket to a random app.
-A gargoyle roams the page; click it or press Escape to shoo it. The scene stands
-still when reduced motion is requested, and a button pauses it. The carnival also
-hides a game; every third ticket drops a hint.
+A gargoyle roams the page. It watches your mouse pointer, circles it when it moves
+nearby and wakes from its roost when it creeps close; click it or press Escape to
+shoo it. The scene stands still when reduced motion is requested, and a button
+pauses it. The carnival also hides a game; every third ticket drops a hint.
 
 ## Run
 
