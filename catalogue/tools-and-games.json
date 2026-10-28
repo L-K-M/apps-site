@@ -11,6 +11,7 @@
       "description": "Play untimed games against three opponents. Each records its plan before you reply, then tells you whether your move stopped, delayed or allowed it, with Show me why to replay the evidence. Hints come in three steps, and a short review follows each game. Stockfish runs offline inside the app. Requires Android 10 or later.",
       "category": "Games", "platforms": ["android"], "tags": ["chess", "teaching", "Stockfish", "offline"],
       "icon": { "src": "assets/chess-and-cocoa-icon.png", "alt": "Chess & Cocoa icon" },
+      "screenshots": [{ "src": "assets/chess-and-cocoa.png", "alt": "Chess & Cocoa game in which the opponent warns that the move Qxf6 leaves White's queen undefended, with a Show me why button" }],
       "links": { "source": "https://github.com/L-K-M/ChessAndCocoa", "download": "https://github.com/L-K-M/ChessAndCocoa/releases/latest" }
     },
     {
@@ -137,6 +138,7 @@
       "summary": "Play John Calhoun's classic Macintosh game on modern desktops and Android.",
       "description": "L-K-M's SDL3 port of the original Pararena 2 sources, forked from softdorothy/Pararena2. Preserves the original game code and supports gamepads, fullscreen, multiplayer modes and AI opponents.",
       "category": "Games", "platforms": ["macos", "windows", "linux", "android"], "tags": ["retro", "arcade", "gamepads", "fork"],
+      "screenshots": [{ "src": "assets/pararena2.png", "alt": "Pararena 2 match on the arena bowl with two players contesting the ball and both scoreboards" }],
       "links": { "source": "https://github.com/L-K-M/Pararena2", "download": "https://github.com/L-K-M/Pararena2/releases/latest" }
     },
     {
@@ -157,6 +159,7 @@
       "summary": "Manage SSH port forwards and remote file access from a Mac menu bar.",
       "description": "A fork of lx2026/RelayBar with an app-owned status item that restores its visibility on launch. Manages structured forwarding profiles and can browse remote files over SSH and SFTP. Requires macOS 13 or later.",
       "category": "Networking", "platforms": ["macos"], "tags": ["SSH", "SFTP", "port forwarding", "fork"],
+      "screenshots": [{ "src": "assets/relaybar-scion.png", "alt": "RelayBar menu listing three SSH tunnels in two groups" }],
       "links": { "source": "https://github.com/L-K-M/RelayBar", "download": "https://github.com/L-K-M/RelayBar/releases/latest" }
     },
     {

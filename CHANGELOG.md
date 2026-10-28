@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add screenshots for Amberfader, Asterinked, Baegun, BangniDraw, Chess & Cocoa, Combray, Copywraith, Eko, GitEnough, Kirsch, Meltorama 2000, Monkey's Paw, Neutrodyne, Pararena 2, Planchette, Poltergeist, QRat, RelayBar Scion and Spots. Apps without one upstream were captured from their own UI with sample data.
+
 - Add Chess & Cocoa, Claude Replicant, Combray, Neutrodyne, RunningMan and Sweetbriar to the catalogue, completing a new audit of all 78 public L-K-M repositories.
 
 - Drop app icons from directory cards, so names such as BootCaptain no longer split mid-word; detail pages keep them. Widen the page and the gutters between cards.

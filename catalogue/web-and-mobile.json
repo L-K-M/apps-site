@@ -30,6 +30,7 @@
       "category": "Creative tools",
       "platforms": ["macos", "android"],
       "tags": ["photos", "image editing"],
+      "screenshots": [{ "src": "assets/meltorama.jpeg", "alt": "Meltorama warping a portrait photo with the brush tool" }],
       "links": { "source": "https://github.com/L-K-M/Meltorama2000", "download": "https://github.com/L-K-M/Meltorama2000/releases/latest" }
     },
     {
@@ -56,6 +57,7 @@
       "category": "Creative tools",
       "platforms": ["web"],
       "tags": ["QR codes"],
+      "screenshots": [{ "src": "assets/qrat.png", "alt": "QRat designing a styled QR code with a scannability rating and export buttons" }],
       "links": { "website": "https://qrat.love" }
     },
     {

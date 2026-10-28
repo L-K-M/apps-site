@@ -40,6 +40,8 @@ jobs:
           grep -q 'The Bootstrap Authors' icons/LICENSE-bootstrap.txt
           grep -q 'Eric Li' media-credits.txt
           grep -q 'Radhi Fadlillah' media-credits.txt
+          grep -q 'softdorothy' media-credits.txt
+          grep -q 'Lingxi Shang' media-credits.txt
       - uses: actions/upload-artifact@v7
         with:
           name: static-site
