@@ -10,7 +10,7 @@
       "summary": "Highlight the active Mac window with a border, or dim everything around it.",
       "description": "A fork of tylerhall/Alan with border styles, per-app colours, a window-finding hotkey and spotlight dimming. Requires macOS 15.7 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["window focus", "fork"],
-      "screenshots": [{ "src": "assets/alan.png", "alt": "Alan highlighting the active Mac window" }],
+      "screenshots": [{ "src": "assets/alan.png", "alt": "Alan's built-in mock window preview with a synthetic purple focus border" }],
       "links": { "source": "https://github.com/L-K-M/Alan", "download": "https://github.com/L-K-M/Alan/releases/latest" }
     },
     {
@@ -66,6 +66,7 @@
       "category": "Utilities", "maturity": "experimental", "maturityNote": "A research prototype, not a supported release.",
       "platforms": ["macos"], "tags": ["startup", "launchd", "diagnostics", "CLI"],
       "icon": { "src": "assets/bootcaptain-icon.png", "alt": "BootCaptain icon" },
+      "screenshots": [{ "src": "assets/bootcaptain.png", "alt": "BootCaptain inventory and summary tiles with six synthetic startup items", "caption": "Sample startup inventory." }],
       "links": { "source": "https://github.com/L-K-M/BootCaptain" }
     },
     {
@@ -76,6 +77,7 @@
       "summary": "Run several Claude Desktop or ChatGPT instances side by side on one Mac, each logged into a different account.",
       "description": "A fork of swissgrammie/claude-many. Each profile gets a private data directory with its own login, cookies and Claude Code or Codex settings; add, start, stop and rename profiles from one list. Your normal Claude and ChatGPT logins stay as they are. Requires macOS 14 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["Claude", "ChatGPT", "profiles", "accounts", "fork"],
+      "screenshots": [{ "src": "assets/claude-replicant.png", "alt": "Claude Replicant listing synthetic Claude and ChatGPT profiles with independent running states", "caption": "Sample profiles." }],
       "links": { "source": "https://github.com/L-K-M/Claude-Replicant" }
     },
     {
@@ -99,6 +101,7 @@
       "description": "Hover any lane to read every lane at that moment, or pull apart the CPU graph to see which apps used it. Includes a process table, menu bar extra, desktop widgets, Shortcuts actions and the coreo command-line tool. Optional MCP access lets approved clients query its read-only tools; Ask Coreography answers questions with your own Anthropic API key. Requires macOS 26 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["system monitor", "CPU", "memory", "widgets", "MCP", "CLI"],
       "icon": { "src": "assets/coreography-icon.png", "alt": "Coreography icon" },
+      "screenshots": [{ "src": "assets/coreography.png", "alt": "Coreography CPU and memory graphs driven by synthetic telemetry", "caption": "Sample CPU and memory readings." }],
       "links": { "source": "https://github.com/L-K-M/Coreography", "download": "https://github.com/L-K-M/Coreography/releases/latest" }
     },
     {
@@ -133,6 +136,7 @@
       "description": "Replaced and deleted files go to an archive, conflicts wait for you, and syncs can be undone. Other Macs pair with a code and sync encrypted over the LAN. A background agent keeps syncing with the window closed, and a command-line tool is included. No cloud or account. Requires macOS 27 on Apple silicon.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["sync", "backup", "NAS", "SFTP", "CLI"],
       "icon": { "src": "assets/foldover-icon.png", "alt": "Foldover icon" },
+      "screenshots": [{ "src": "assets/foldover.png", "alt": "Foldover previewing synthetic folder changes and conflicts beside its pair list and inspector", "caption": "Sample folders and sync changes." }],
       "links": { "source": "https://github.com/L-K-M/Foldover" }
     },
     {
@@ -155,6 +159,7 @@
       "description": "A launcher with calculation, file search and plain-file custom commands. Its built-in make command can generate and refine new commands with a configured language model. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["launcher", "keyboard", "commands"],
       "icon": { "src": "assets/invoque-icon.png", "alt": "Invoque icon" },
+      "screenshots": [{ "src": "assets/invoque.png", "alt": "Invoque launcher panel with sample application and command results", "caption": "Example applications and commands." }],
       "links": { "source": "https://github.com/L-K-M/Invoque", "download": "https://github.com/L-K-M/Invoque/releases/latest" }
     },
     {
@@ -187,7 +192,7 @@
       "summary": "Monitor AI subscription quotas in a Mac menu bar, desktop widgets, or Linux status bars.",
       "description": "Tracks rolling, weekly and monthly limits across multiple providers and accounts. The Linux daemon and CLI provide modules for waybar, polybar and eww.",
       "category": "Developer tools", "platforms": ["macos", "linux"], "tags": ["AI", "quotas", "widgets", "CLI"],
-      "screenshots": [{ "src": "assets/llimit.png", "alt": "LLimit desktop quota widgets" }],
+      "screenshots": [{ "src": "assets/llimit.png", "alt": "LLimit quota dashboard with built-in sample accounts and usage" }],
       "links": { "source": "https://github.com/L-K-M/LLimit", "download": "https://github.com/L-K-M/LLimit/releases/latest" }
     },
     {
@@ -243,7 +248,7 @@
       "summary": "Choose custom app icons shared by Pict, Jetty, Zap and Top Drawer.",
       "description": "Pick icons from files, SVGs, themes or an embedded web browser. A shared local icon store lets the companion Mac utilities use the same artwork. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["icons", "customization"],
-      "screenshots": [{ "src": "assets/pict.png", "alt": "Pict choosing an icon from a web page" }],
+      "screenshots": [{ "src": "assets/pict.png", "alt": "Pict icon browser with five invented sample applications" }],
       "links": { "source": "https://github.com/L-K-M/Pict", "download": "https://github.com/L-K-M/Pict/releases/latest" }
     },
     {
@@ -254,7 +259,20 @@
       "summary": "Save and restore Mac window layouts across displays and Spaces.",
       "description": "Records window positions, desktops, fullscreen states and Split View pairs, then restores a layout on demand or at login. The menu-bar app also offers a command-line interface. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["windows", "Spaces", "CLI"],
+      "screenshots": [{ "src": "assets/rememoru.png", "alt": "Rememoru menu with layout save and restore commands and a sample saved-layout status", "caption": "A sample saved layout." }],
       "links": { "source": "https://github.com/L-K-M/Rememoru" }
+    },
+    {
+      "id": "repomen", "name": "RepoMen",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: scanning, review, Trash-based cleanup and optional watch rules are documented and covered by tests; no public release is published.",
+      "summary": "Find and reclaim regenerable build artifacts and developer caches on your Mac.",
+      "description": "Scan development folders for build artifacts, review their sizes and ages, and move selected items to the Trash. Includes optional watch rules, managed-storage guidance and Time Machine local snapshot tools. Requires macOS 13 or later.",
+      "category": "Developer tools", "platforms": ["macos"], "tags": ["disk space", "build artifacts", "cache cleanup"],
+      "icon": { "src": "assets/repomen-icon.png", "alt": "RepoMen icon" },
+      "screenshots": [{ "src": "assets/repomen.png", "alt": "RepoMen category list and artifact table rendered from its source views with synthetic projects, sizes and ages", "caption": "Sample projects, sizes and ages." }],
+      "links": { "source": "https://github.com/L-K-M/RepoMen", "docs": "https://github.com/L-K-M/RepoMen/blob/main/README.md" }
     },
     {
       "id": "runningman", "name": "RunningMan",
@@ -275,7 +293,7 @@
       "summary": "Find which Mac apps claim a keyboard shortcut and diagnose who intercepted it.",
       "description": "Inventories system and app shortcuts, then uses live capture and diagnostic tests to investigate unexpected hotkey behaviour. It diagnoses shortcuts rather than remapping them. Requires macOS 14 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["keyboard shortcuts", "diagnostics"],
-      "screenshots": [{ "src": "assets/shortking.png", "alt": "Shortking shortcut inventory" }],
+      "screenshots": [{ "src": "assets/shortking.png", "alt": "Shortking shortcut inventory with invented sample apps and key combinations" }],
       "links": { "source": "https://github.com/L-K-M/Shortking", "download": "https://github.com/L-K-M/Shortking/releases/latest" }
     },
     {
@@ -297,6 +315,7 @@
       "summary": "Draw diagrams and illustrations with editable shapes and routed connectors on macOS.",
       "description": "Shapes have editable connection points; connectors preview their routed paths. Documents bundle the editable scene, original assets, SVG and Mermaid exports, and retained history. Requires macOS 13 or later.",
       "category": "Creative tools", "platforms": ["macos"], "tags": ["diagrams", "illustration", "vector"],
+      "screenshots": [{ "src": "assets/sion.png", "alt": "Sion editing a sample creative-workflow diagram with shapes and routed connectors", "caption": "A sample creative workflow." }],
       "links": { "source": "https://github.com/L-K-M/Sion", "download": "https://github.com/L-K-M/Sion/releases/latest" }
     },
     {
@@ -307,6 +326,7 @@
       "summary": "Organize incoming Mac files with folder rules and optional language-model classification.",
       "description": "Match files by names, dates, tags and contents, then move them into templated destinations. Optional language-model steps choose from an allowed folder set. Moves are journaled and undoable. Requires macOS 13 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["files", "automation", "OCR"],
+      "screenshots": [{ "src": "assets/sortomat.png", "alt": "Sortomat inbox with three invented files and suggested destination folders", "caption": "Sample rules and file suggestions." }],
       "links": { "source": "https://github.com/L-K-M/Sortomat" }
     },
     {
@@ -328,6 +348,7 @@
       "description": "Built first as its owner's daily mail client. Development has reached a local archive: import Apple Mail exports, then browse, read and search them. Proton Mail through Proton Bridge, sending and filing follow; a Linux version is planned. Requires macOS 26 on Apple silicon.",
       "category": "Productivity", "platforms": ["macos"], "tags": ["email", "Proton Mail", "Rust", "search"],
       "icon": { "src": "assets/sweetbriar-icon.png", "alt": "Sweetbriar icon" },
+      "screenshots": [{ "src": "assets/sweetbriar.png", "alt": "Sweetbriar native archive message list with eight invented messages", "caption": "An invented local mail archive." }],
       "links": { "source": "https://github.com/L-K-M/Sweetbriar", "download": "https://github.com/L-K-M/Sweetbriar/releases/latest" }
     },
     {
@@ -338,6 +359,7 @@
       "category": "Utilities", "maturity": "experimental", "maturityNote": "A source tree without a supported or distributable release.",
       "platforms": ["macos"], "tags": ["passwords", "Vaultwarden", "Proton Pass", "1Password"],
       "icon": { "src": "assets/vaultsquire-icon.png", "alt": "VaultSquire icon" },
+      "screenshots": [{ "src": "assets/vaultsquire.png", "alt": "VaultSquire Quick Search with four invented example logins in a sample vault", "caption": "Example accounts in a sample vault." }],
       "links": { "source": "https://github.com/L-K-M/VaultSquire" }
     },
     {
@@ -348,7 +370,7 @@
       "summary": "Browse and restore saved Zen Browser sessions on macOS.",
       "description": "Inspect tabs and Spaces on a timeline of browser-session backups. Restoration saves a verified safety copy and supports undo. Everything stays local. Requires macOS 14 or later.",
       "category": "Utilities", "platforms": ["macos"], "tags": ["Zen Browser", "backup", "sessions"],
-      "screenshots": [{ "src": "assets/zen-backup-manager.png", "alt": "Zen Backup Manager session-backup timeline" }],
+      "screenshots": [{ "src": "assets/zen-backup-manager.png", "alt": "Zen Backup Manager displaying five invented example-domain tabs in a sample backup" }],
       "links": { "source": "https://github.com/L-K-M/ZenBackupManager" }
     }
   ]

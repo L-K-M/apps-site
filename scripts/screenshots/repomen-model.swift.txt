@@ -1,0 +1,19 @@
+extension AppModel {
+    func loadCaptureItems() {
+        let examples: [(String, ArtifactKind, String, Int64, Int)] = [
+            ("Atlas/target", .rustTarget, "~/Projects/Atlas/target", 4_800_000_000, 56),
+            ("Meadow/node_modules", .nodeModules, "~/Projects/Meadow/node_modules", 1_650_000_000, 45),
+            ("Orbit/.build", .swiftPMBuild, "~/Projects/Orbit/.build", 920_000_000, 18),
+            ("Sketchbook/.venv", .pythonVenv, "~/Projects/Sketchbook/.venv", 480_000_000, 32),
+            ("Website/dist", .jsBuildOutput, "~/Projects/Website/dist", 185_000_000, 3),
+            ("Garden/__pycache__", .pythonCache, "~/Projects/Garden/__pycache__", 24_000_000, 9)
+        ]
+        items = examples.map { label, kind, path, bytes, days in
+            CleanableItem(label: label, kind: kind, path: path,
+                          anchorPaths: [], isKnownCache: false,
+                          sizeBytes: bytes, isMeasured: true,
+                          lastModified: Date().addingTimeInterval(-Double(days) * 86400))
+        }
+        phase = .ready
+    }
+}

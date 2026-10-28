@@ -11,7 +11,7 @@
       "summary": "Connect to remote machines over SSH, with a file browser and optional encrypted sync.",
       "description": "Hauntware's SSH client, with terminal sessions, stored server profiles, ProxyJump chains, a remote file browser and an optional session-aware assistant. Downloads ship from the Hauntware suite releases.",
       "category": "Networking", "platforms": ["macos", "windows", "linux", "android", "ios"], "tags": ["Hauntware", "SSH", "terminal", "sync"],
-      "screenshots": [{ "src": "assets/seance.png", "alt": "Séance SSH terminal and server browser" }],
+      "screenshots": [{ "src": "assets/seance.png", "alt": "Séance server browser with invented example-domain hosts" }],
       "links": { "source": "https://github.com/L-K-M/Hauntware/tree/main/seance", "download": "https://github.com/L-K-M/Hauntware/releases/latest", "docs": "https://github.com/L-K-M/Hauntware/blob/main/seance/README.md" }
     },
     {

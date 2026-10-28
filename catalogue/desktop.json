@@ -72,7 +72,7 @@
       "category": "Utilities",
       "platforms": ["macos"],
       "tags": ["Dock", "launcher"],
-      "screenshots": [{ "src": "assets/jetty.png", "alt": "Jetty Dock with app launchers, weather, system information and a clock" }],
+      "screenshots": [{ "src": "assets/jetty.png", "alt": "Jetty appearance settings with factory-default material, sizing and indicator controls", "caption": "Sample appearance settings." }],
       "links": { "source": "https://github.com/L-K-M/Jetty", "download": "https://github.com/L-K-M/Jetty/releases/latest" }
     },
     {
@@ -114,7 +114,7 @@
       "category": "Utilities",
       "platforms": ["macos"],
       "tags": ["launcher", "notes"],
-      "screenshots": [{ "src": "assets/topdrawer.png", "alt": "TopDrawer showing its edge-tab app launcher" }],
+      "screenshots": [{ "src": "assets/topdrawer.png", "alt": "TopDrawer appearance settings showing its built-in synthetic Apps drawer preview", "caption": "Sample apps and appearance settings." }],
       "links": { "source": "https://github.com/L-K-M/TopDrawer", "download": "https://github.com/L-K-M/TopDrawer/releases/latest" }
     },
     {

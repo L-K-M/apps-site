@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
@@ -7,8 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { collectApps, loadConfig } from '../src/catalogue.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-const AUDITED_REPOSITORY_COUNT = 78;
-const CATALOGUE_APP_COUNT = 73;
+const AUDITED_REPOSITORY_COUNT = 79;
+const CATALOGUE_APP_COUNT = 74;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
 const HAUNTWARE_DOWNLOAD = `${HAUNTWARE_SOURCE}/releases/latest`;
@@ -102,5 +103,26 @@ test('the Hauntware repo-ready manifest resolves each app root and overrides cen
     assert.equal(app.platformsInferred, true);
     assert.deepEqual(app.platforms, [app.id === 'planchette' ? 'linux' : 'android']);
     assert.equal(app.name.startsWith('Fallback '), false);
+  }
+});
+
+test('published Mac apps have local screenshots covered by the privacy audit', async () => {
+  const config = await loadConfig(join(ROOT, 'site.json'));
+  const apps = await collectApps({ ...config, repositoryRoots: [] });
+  const macApps = apps.filter((app) => app.status === 'visible' && app.platforms.includes('macos'));
+  for (const app of macApps) assert.ok(app.screenshots.length, `${app.id}: missing Mac screenshot`);
+
+  const audit = JSON.parse(await readFile(join(ROOT, 'docs/macos-screenshots.json'), 'utf8'));
+  for (const app of macApps) {
+    for (const screenshot of app.screenshots) {
+      assert.ok(screenshot.src.startsWith('assets/'), `${app.id}: screenshot must be local`);
+      const record = audit.screenshots[screenshot.src];
+      assert.ok(record, `${app.id}: missing screenshot privacy review`);
+      assert.ok(record.syntheticData?.trim(), `${app.id}: explain the synthetic data`);
+      assert.ok(record.source?.trim(), `${app.id}: document the capture source`);
+      const bytes = await readFile(join(app.source.root, screenshot.src));
+      assert.equal(createHash('sha256').update(bytes).digest('hex'), record.sha256,
+        `${app.id}: screenshot changed; review its pixels and update the audit`);
+    }
   }
 });

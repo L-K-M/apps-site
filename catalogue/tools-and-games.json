@@ -223,6 +223,7 @@
       "description": "An in-progress pinball project with text-authored tables and planned local multiplayer. The current source tree is an early scaffold rather than a playable game.",
       "category": "Games", "maturity": "experimental", "maturityNote": "Early scaffold; nothing playable yet.",
       "platforms": ["macos", "windows", "linux"], "tags": ["pinball", "prototype"],
+      "screenshots": [{ "src": "assets/tiltburst.png", "alt": "Tiltburst's Neon Drift source renderer preview with neon arcs, wireforms and a horizon grid", "caption": "Source renderer preview; game in development." }],
       "links": { "source": "https://github.com/L-K-M/Tiltburst" }
     },
     {
