@@ -209,7 +209,7 @@
     },
     {
       "id": "starling", "name": "Starling",
-      "status": "visible",
+      "status": "hidden",
       "summary": "A FunKey OS fork for the Anbernic RG Nano with a cross-system favourites launcher.",
       "description": "Adds a favourites list to the handheld's game launcher while retaining the stock FunKey OS emulator setup. Firmware and complete SD-card images target the RG Nano specifically.",
       "category": "System tools", "maturity": "experimental", "maturityNote": "Latest builds compile in CI but have not been tested on hardware.",
