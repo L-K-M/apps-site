@@ -6,7 +6,7 @@ const PLATFORM_ICON_CONTENT_TYPE = 'image/svg+xml';
 const HTTP_OK = 200;
 const HTTP_NOT_FOUND = 404;
 const WHITE_BACKGROUND = 'rgb(255, 255, 255)';
-const STARTER_APP_COUNT = 73;
+const STARTER_APP_COUNT = 74;
 // 1248 px gives the narrowest four-column cards (260 px); 320 px the narrowest phone.
 const TIGHT_HEADER_VIEWPORTS = [{ width: 1248, height: 1000 }, { width: 320, height: 800 }];
 // Has an icon, which only its detail page shows.

@@ -37,7 +37,7 @@ npm run preview
 
 Open <http://127.0.0.1:4173>. The generated site is in `dist/`.
 
-The starter catalogue contains 73 apps, covering the public L-K-M app repositories
+The starter catalogue contains 74 apps, covering the public L-K-M app repositories
 and the existing web-only entries. [Repository audit](docs/catalogue-inventory.md).
 Maturity includes author-stated ratings and documented best-effort estimates. Edit
 `catalogue/*.json` to assess them or change the selection. Screenshot snapshots are
@@ -268,7 +268,8 @@ Instrument Sans (SIL Open Font License 1.1), C64 Keyboard (its pinned upstream r
 states no license), Bootstrap Icons (MIT) and, when their apps are visible, a screenshot
 and icon from Eric Li's Scratch, a screenshot from Radhi Fadlillah's Shiori Web Extension,
 a screenshot from Lingxi Shang's RelayBar and a Pararena 2 screenshot showing John
-Calhoun's game graphics (all MIT). Their notices ship in the site:
+Calhoun's game graphics, plus synthetic source-view captures of Alan and Claude
+Replicant (all MIT). Their notices ship in the site:
 
 - `assets/fonts/OFL-pirata-one.txt`
 - `assets/fonts/OFL-instrument-sans.txt`

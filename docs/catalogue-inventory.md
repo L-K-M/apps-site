@@ -3,8 +3,9 @@
 Audited all 68 public repositories at [github.com/L-K-M](https://github.com/L-K-M)
 on 2026-10-03 and added MonkeysPaw on 2026-10-20. A second audit on 2026-10-27
 covered all 78 public repositories and added Chess & Cocoa, Claude Replicant,
-Combray, Coreography, Foldover, Neutrodyne, RunningMan and Sweetbriar. The
-catalogue has 73 distinct apps: 70 from those 78 repositories and the existing
+Combray, Coreography, Foldover, Neutrodyne, RunningMan and Sweetbriar. RepoMen
+became public and was added on 2026-10-28, bringing the inventory to 79 repositories.
+The catalogue has 74 distinct apps: 71 from those repositories and the existing
 Dwindle, Mirio and QRat web entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's

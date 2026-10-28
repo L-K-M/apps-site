@@ -1,6 +1,6 @@
 {
   "account": "L-K-M",
-  "audited": "2026-10-27",
+  "audited": "2026-10-28",
   "repositories": [
     { "name": "Alan", "apps": ["alan"] },
     { "name": "Amberfader", "apps": ["amberfader"] },
@@ -55,6 +55,7 @@
     { "name": "Raycast-ExpandUrl", "apps": ["expand-url"] },
     { "name": "RelayBar", "apps": ["relaybar-scion"] },
     { "name": "Rememoru", "apps": ["rememoru"] },
+    { "name": "RepoMen", "apps": ["repomen"] },
     { "name": "rssspy", "apps": ["rssspy"] },
     { "name": "RunningMan", "apps": ["runningman"] },
     { "name": "scratch", "apps": ["scratch"] },
