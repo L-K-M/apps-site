@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Bookfeed.io, an RSS feed of new books from your favorite authors.
+
 - Add Leaflit's library, reader and login screenshots from its website.
 
 - Let the carnival's gargoyle react to a mouse pointer: it follows the pointer with its eyes, circles it for a few seconds when it moves nearby, and wakes from its roost when it creeps close. Touch screens are unaffected.

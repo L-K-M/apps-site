@@ -5,8 +5,8 @@ on 2026-10-03 and added MonkeysPaw on 2026-10-20. A second audit on 2026-10-27
 covered all 78 public repositories and added Chess & Cocoa, Claude Replicant,
 Combray, Coreography, Foldover, Neutrodyne, RunningMan and Sweetbriar. RepoMen
 became public and was added on 2026-10-28, bringing the inventory to 79 repositories.
-The catalogue has 75 distinct apps: 71 from those repositories and the
-Dwindle, Leaflit, Mirio and QRat standalone entries.
+The catalogue has 76 distinct apps: 71 from those repositories and the
+Bookfeed.io, Dwindle, Leaflit, Mirio and QRat standalone entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's
 app ids or exclusion reason. CI checks that all mapped metadata entries exist, no duplicates
@@ -26,7 +26,7 @@ of those publication choices.
 - Exclude component libraries, configuration bundles, CI integrations, the
   directory generator itself, and license-only placeholders.
 - Include apps with public websites even without a public source repo.
-  Dwindle, Leaflit and QRat omit non-public GitHub source links.
+  Bookfeed.io, Dwindle, Leaflit and QRat omit non-public GitHub source links.
 - Retain author-stated maturity; otherwise provide a best-effort estimate marked
   `Estimated:` in `maturityNote`, using documented workflows and known limitations.
   A version number or published release alone does not establish maturity.
