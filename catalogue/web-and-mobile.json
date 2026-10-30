@@ -3,6 +3,19 @@
   "schemaVersion": 1,
   "apps": [
     {
+      "id": "bookfeed",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: author lists and RSS feeds are documented; book coverage depends on Google Books.",
+      "name": "Bookfeed.io",
+      "summary": "An RSS feed of new books from your favorite authors.",
+      "description": "Add your favorite authors and subscribe in your RSS reader to follow their latest book releases.",
+      "category": "Reading",
+      "platforms": ["web"],
+      "tags": ["RSS", "books", "authors"],
+      "links": { "website": "https://bookfeed.io/" }
+    },
+    {
       "id": "dwindle",
       "status": "visible",
       "maturity": "usable",

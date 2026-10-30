@@ -9,7 +9,7 @@ import { collectApps, loadConfig } from '../src/catalogue.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
 const AUDITED_REPOSITORY_COUNT = 79;
-const CATALOGUE_APP_COUNT = 75;
+const CATALOGUE_APP_COUNT = 76;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
 const HAUNTWARE_DOWNLOAD = `${HAUNTWARE_SOURCE}/releases/latest`;
@@ -50,7 +50,8 @@ test('the public repository audit accounts for every catalogue entry and exclude
 
   assert.deepEqual([...accounted].sort(), [...byId.keys()].sort());
   for (const id of inventory.excludedPrivateApps) assert.equal(byId.has(id), false);
-  for (const id of ['dwindle', 'leaflit', 'qrat']) assert.equal(byId.get(id).links.source, undefined);
+  for (const id of ['bookfeed', 'dwindle', 'leaflit', 'qrat']) assert.equal(byId.get(id).links.source, undefined);
+  assert.equal(byId.get('bookfeed').links.website, 'https://bookfeed.io/');
   assert.equal(byId.get('leaflit').links.website, 'https://leafl.it/');
 });
 
