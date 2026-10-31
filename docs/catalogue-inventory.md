@@ -5,7 +5,8 @@ on 2026-10-03 and added MonkeysPaw on 2026-10-20. A second audit on 2026-10-27
 covered all 78 public repositories and added Chess & Cocoa, Claude Replicant,
 Combray, Coreography, Foldover, Neutrodyne, RunningMan and Sweetbriar. RepoMen
 became public and was added on 2026-10-28, bringing the inventory to 79 repositories.
-The catalogue has 76 distinct apps: 71 from those repositories and the
+HallPass was added on 2026-10-31, bringing the inventory to 80 repositories.
+The catalogue has 77 distinct apps: 72 from those repositories and the
 Bookfeed.io, Dwindle, Leaflit, Mirio and QRat standalone entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's
