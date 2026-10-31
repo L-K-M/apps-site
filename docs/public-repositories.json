@@ -1,6 +1,6 @@
 {
   "account": "L-K-M",
-  "audited": "2026-10-28",
+  "audited": "2026-10-31",
   "repositories": [
     { "name": "Alan", "apps": ["alan"] },
     { "name": "Amberfader", "apps": ["amberfader"] },
@@ -24,6 +24,7 @@
     { "name": "Game-and-Pebble", "apps": ["game-and-pebble"] },
     { "name": "Gans", "apps": ["gans"] },
     { "name": "GitEnough", "apps": ["gitenough"] },
+    { "name": "HallPass", "apps": ["hallpass"] },
     { "name": "Hauntware", "apps": ["seance", "poltergeist", "planchette"] },
     { "name": "hoarder", "apps": ["hoarder"] },
     { "name": "ia-get", "apps": ["ia-get"] },

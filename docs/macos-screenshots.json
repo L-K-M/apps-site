@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-28",
+  "reviewed": "2026-10-31",
   "scope": "Every screenshot referenced by a published central-catalogue app with the macos platform. Hidden entries are excluded. Some cross-platform apps show their existing Linux or Android interface, as documented in captions or provenance.",
   "reviewMethod": "Review visible pixels and source fixture/capture evidence. New captures use invented data or empty isolated defaults; retained game, generated-artwork and public-demo images are identified separately. Public-demo provenance is described without claiming a reproduced synthetic fixture. SHA-256 binds the review to these exact image bytes; it is not an automated personal-data detector.",
   "screenshots": {
@@ -86,6 +86,12 @@
       "sha256": "d71de507698af153f4e3f28861913ae589b7f1483d365740023a15cc9a4d7335",
       "source": "GitEnough@c0e079f; Linux GTK port captured under Xvfb, 2026-10-27",
       "syntheticData": "A generated gitenough-demo-repo with invented gardening code, branch history and notes; author Sample Author <sample@example.com>. No private repository, real author identity or work history. The Linux port is identified in captions.",
+      "kind": "documented-fixture"
+    },
+    "assets/hallpass.png": {
+      "sha256": "e09ac5f41e0126e6eb2f385b51e87c9f8a74badbd532e63065b0cf42c0933afd",
+      "source": "HallPass@5becdcc; scripts/screenshot.py PIL re-render of Sources/HallPass/ContentView.swift (SwiftUI cannot run on the Linux host), 2026-10-31",
+      "syntheticData": "Preview mode with invented CIDR entries matching the app's own presets; no system settings, backups or administrator state are read or depicted.",
       "kind": "documented-fixture"
     },
     "assets/invoque.png": {

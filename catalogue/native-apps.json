@@ -151,6 +151,17 @@
       "links": { "source": "https://github.com/L-K-M/Gans", "download": "https://github.com/L-K-M/Gans/releases/latest" }
     },
     {
+      "id": "hallpass", "name": "HallPass",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: preview, conflict checks and CIDR handling are implemented and unit-tested; the privileged write path and post-reboot effect are unverified on real hardware.",
+      "summary": "Manage system-wide CIDR exemptions from the macOS local-network privacy restriction.",
+      "description": "Add IPv4 or IPv6 ranges to the Wi-Fi or Ethernet exemption lists that apply to every app, with backups, import and export, and a preview mode that needs no administrator access. German interface. Requires macOS 15.5 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["local network", "privacy", "CIDR", "administrator"],
+      "screenshots": [{ "src": "assets/hallpass.png", "alt": "HallPass main window listing the Wi-Fi local-network CIDR exemptions in preview mode" }],
+      "links": { "source": "https://github.com/L-K-M/HallPass", "download": "https://github.com/L-K-M/HallPass/releases/latest" }
+    },
+    {
       "id": "invoque", "name": "Invoque",
       "status": "visible",
       "maturity": "usable",
