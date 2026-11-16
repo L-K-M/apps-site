@@ -1,9 +1,45 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-10-31",
+  "reviewed": "2026-11-16",
   "scope": "Every screenshot referenced by a published central-catalogue app with the macos platform. Hidden entries are excluded. Some cross-platform apps show their existing Linux or Android interface, as documented in captions or provenance.",
   "reviewMethod": "Review visible pixels and source fixture/capture evidence. New captures use invented data or empty isolated defaults; retained game, generated-artwork and public-demo images are identified separately. Public-demo provenance is described without claiming a reproduced synthetic fixture. SHA-256 binds the review to these exact image bytes; it is not an automated personal-data detector.",
   "screenshots": {
+    "assets/charms.png": {
+      "sha256": "d811997988f8515cef2baf4c3d86cdfd14497b7e1beeb8783564b673d1f04bf8",
+      "source": "Charms@5f0cefd5e507f885411bd97ecbf73f18e7e6c270 docs/screenshots/picker-arrows.png; provenance in docs/screenshots/README.md identifies the v0.1.0 build at bdb0a4e8cae8051e23219dc15397a53628e0ff7f.",
+      "syntheticData": "Reviewed unchanged upstream crop: the arrow query, Unicode results and generic staged TextEdit text. Upstream documents CHARMS_HOME isolation for settings, favourites and recents. No accounts, real documents or desktop details are visible; capture not rerun here.",
+      "kind": "verified-upstream-fixture"
+    },
+    "assets/device-control-doctor.png": {
+      "sha256": "b4e6368fe8ac961ffb34669b640a8a373c833ca27c1e3a962fb3a5381bef3d2d",
+      "source": "DeviceControlDoctor@a188f1ecbbd05e713ab1019b04d2c31546e49603 Sources/DeviceControlDoctor/AppViews.swift and DoctorStore.swift; scripts/screenshots/capture-new-mac-utilities.py devicecontroldoctor and device-control-doctor.swift",
+      "syntheticData": "Actual MainView rendered offscreen with invented Example Notes, Sample Typewriter and Fixture Player watch-list models, fake bundle paths, permission readings, signing identity and manual-test evidence. Copied DoctorStore initialization, persistence and process-inventory helpers are neutralized; no refresh, discovery, permission query, reset or live store runs. Only view content is captured, not the toolbar or desktop.",
+      "kind": "synthetic-capture"
+    },
+    "assets/murten-utilities.png": {
+      "sha256": "8c3c6388e51eff3653ff8ef2a840d5ca5bf8283d4275a5d049a80fb9fa2926a1",
+      "source": "MurtenUtilities@43877fb43b2f876e710f5d1b17e62897fea130ba Sources/MurtenShell/Views/HomeView.swift, Sources/MurtenCore/SuiteModule.swift and inert ShellServices; Rigi@dcfc91e3b72aee612b2b48aed4a744397b78dc77; scripts/screenshots/capture-new-mac-utilities.py murtenutilities and murten-utilities.swift",
+      "syntheticData": "Actual toolbox home view at 1280x500 with the public registry's ten module descriptors, inert module providers, no-op persistence/notifier/login/wake/update services and fixed clock. AppModel.start is never called; no module pane, scanner, watcher, permission query, cleanup or live store runs. All tools are shown as available fixture tiles, not acceptance-tested functionality.",
+      "kind": "synthetic-capture"
+    },
+    "assets/earnest.png": {
+      "sha256": "0e24f5224a6f5fc32d3dc79090a6073e1f6e9c5242ed058b4871895f842c8a24",
+      "source": "Earnest@d0ccb25d482777db395dc903306deb19180fee45 web/src/App.tsx, FrontPage.tsx and Sidebar.tsx, built unchanged with pinned pnpm dependencies; scripts/screenshots/capture-earnest.py and capture-earnest.mjs",
+      "syntheticData": "Actual web client in a fresh headless Chromium context with three example.test feeds, five invented articles, a sample label and fixed UTC clock. Every API request is intercepted and fulfilled with in-memory fixtures; writes and external origins fail the capture. Static assets come only from the pinned client's dist directory. Service workers are blocked; no backend, database, server, real credential, user store or live feed is used.",
+      "kind": "synthetic-capture"
+    },
+    "assets/glims.png": {
+      "sha256": "e27a5a482c725448800108dddd35ee9d38701e668b54de7b7f7c865e91277bff",
+      "source": "Glims@ab117c7039608647b7952ebf0a9c46e1edf58583 Sources/GlimsKit/Preferences/{EditorPreferences,PreferencesWindowController}.swift; Rigi@aec92e16ec818759a220f33096ebbc43ce41179a; scripts/screenshots/capture-glims.py",
+      "syntheticData": "Actual Preferences panel rendered offscreen with factory defaults in a fresh UUID-named UserDefaults suite, removed after capture. Only appearance, surround, zoom and recovery settings are shown. No engine, app delegate, recovery service, documents, desktop or live user stores are loaded. Caption identifies Preferences rather than an editing session.",
+      "kind": "synthetic-capture"
+    },
+    "assets/toolchord.png": {
+      "sha256": "fe713b166fd302ad3b0bcd69bcc6da2d49235d2e81f8985f7a24dbdf4f03e514",
+      "source": "Toolchord@c5c10e62d94a4fa03178dc91d681361bbb82bdfd docs/images/search-json.png; source evidence in Sources/ToolchordMac/Snapshots/SnapshotRenderer.swift search-json scenario.",
+      "syntheticData": "Reviewed unchanged upstream snapshot: invented JSON requestId req_81f2, status 200, cache HIT and numeric items. Exact payload matches the source scenario, which uses MemoryClipboard, MemoryPreferences and a fixed clock. The snapshot renderer documents its opaque stand-in background for offscreen window materials. Capture not rerun here.",
+      "kind": "verified-upstream-fixture"
+    },
     "assets/alan.png": {
       "sha256": "99f24680b6861b18d060c0227d2aea0c95e7098ef738559c3789e55c5dd86e6f",
       "source": "Alan@177004f00253af96618f30e4355172036c41cd4e; scripts/screenshots/alan.py and alan.swift",

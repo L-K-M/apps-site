@@ -8,8 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { collectApps, loadConfig } from '../src/catalogue.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-const AUDITED_REPOSITORY_COUNT = 80;
-const CATALOGUE_APP_COUNT = 77;
+const AUDITED_REPOSITORY_COUNT = 87;
+const CATALOGUE_APP_COUNT = 83;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
 const HAUNTWARE_DOWNLOAD = `${HAUNTWARE_SOURCE}/releases/latest`;
@@ -53,6 +53,32 @@ test('the public repository audit accounts for every catalogue entry and exclude
   for (const id of ['bookfeed', 'dwindle', 'leaflit', 'qrat']) assert.equal(byId.get(id).links.source, undefined);
   assert.equal(byId.get('bookfeed').links.website, 'https://bookfeed.io/');
   assert.equal(byId.get('leaflit').links.website, 'https://leafl.it/');
+});
+
+test('the November additions publish evidenced platforms and verified download links', async () => {
+  const config = await loadConfig(join(ROOT, 'site.json'));
+  const apps = await collectApps({ ...config, repositoryRoots: [] });
+  const byId = new Map(apps.map((app) => [app.id, app]));
+  const additions = [
+    ['charms', 'Charms'],
+    ['device-control-doctor', 'DeviceControlDoctor'],
+    ['earnest', 'Earnest'],
+    ['glims', 'Glims'],
+    ['murten-utilities', 'MurtenUtilities'],
+    ['toolchord', 'Toolchord'],
+  ];
+  const downloadable = new Set(['charms', 'device-control-doctor', 'murten-utilities']);
+  for (const [id, repository] of additions) {
+    const app = byId.get(id);
+    assert.ok(app, `${id}: missing addition`);
+    assert.equal(app.status, 'visible');
+    assert.deepEqual(app.platforms, id === 'earnest' ? ['android', 'macos', 'web'] : ['macos']);
+    assert.equal(app.links.source, `https://github.com/L-K-M/${repository}`);
+    assert.equal(app.links.download, downloadable.has(id)
+      ? `https://github.com/L-K-M/${repository}/releases/latest` : undefined);
+    assert.ok(app.screenshots.length, `${id}: missing screenshot`);
+  }
+  assert.equal(byId.has('rigi'), false);
 });
 
 test('Hauntware is one manifest with three distinct searchable apps', async () => {

@@ -200,3 +200,62 @@ Source: https://leafl.it/assets/library.jpg
         https://leafl.it/assets/reader.png
         https://leafl.it/assets/login.png
 Permission: Reused in this catalogue at the project owner's request.
+
+------------------------------------------------------------------------
+November 2026 app screenshots
+
+Files: catalogue/assets/charms.png (unchanged upstream screenshot)
+       catalogue/assets/toolchord.png (unchanged upstream fixture snapshot)
+Sources: https://github.com/L-K-M/Charms/tree/5f0cefd5e507f885411bd97ecbf73f18e7e6c270/docs/screenshots
+         https://github.com/L-K-M/Toolchord/blob/c5c10e62d94a4fa03178dc91d681361bbb82bdfd/docs/images/search-json.png
+License: The Unlicense (both projects).
+
+Files: catalogue/assets/device-control-doctor.png (offscreen fixture capture)
+       catalogue/assets/murten-utilities.png (offscreen fixture capture)
+Sources: https://github.com/L-K-M/DeviceControlDoctor/tree/a188f1ecbbd05e713ab1019b04d2c31546e49603
+         https://github.com/L-K-M/MurtenUtilities/tree/43877fb43b2f876e710f5d1b17e62897fea130ba
+License: The Unlicense (both projects, including Murten's drawn tool artwork).
+Murten's Rigi chrome: https://github.com/L-K-M/Rigi/tree/dcfc91e3b72aee612b2b48aed4a744397b78dc77
+Capture harness: scripts/screenshots/capture-new-mac-utilities.py in apps-site.
+
+File: catalogue/assets/earnest.png (headless web client, synthetic API fixtures)
+Source: https://github.com/L-K-M/Earnest/tree/d0ccb25d482777db395dc903306deb19180fee45/web
+License: The Unlicense (first-party client and brand artwork).
+Capture harnesses: scripts/screenshots/capture-earnest.py and capture-earnest.mjs
+in the apps-site source. No live backend, feed, account or credential is used.
+
+File: catalogue/assets/glims.png (offscreen Preferences capture)
+Source: https://github.com/L-K-M/Glims/tree/ab117c7039608647b7952ebf0a9c46e1edf58583/Sources/GlimsKit/Preferences
+UI source license: GPL-3.0-or-later; see https://github.com/L-K-M/Glims/blob/ab117c7039608647b7952ebf0a9c46e1edf58583/LICENSE
+The image shows native controls and text only, not GIMP artwork or an engine
+session. No Glims or GIMP source code or binaries are distributed by this site.
+Rigi draws the panel chrome and is released under the Unlicense:
+https://github.com/L-K-M/Rigi/tree/aec92e16ec818759a220f33096ebbc43ce41179a
+Capture harness: scripts/screenshots/capture-glims.py in the apps-site source.
+
+The Unlicense
+
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <https://unlicense.org>

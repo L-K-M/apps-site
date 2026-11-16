@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Charms, DeviceControlDoctor, Earnest, Glims, Murten Utilities and Toolchord with reviewed screenshots. Audit all 87 public repositories; exclude Rigi as a UI framework.
+
 - Add Bookfeed.io, an RSS feed of new books from your favorite authors.
 
 - Add Leaflit's library, reader and login screenshots from its website.
