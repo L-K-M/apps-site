@@ -1,0 +1,72 @@
+{
+  "$schema": "../schema/app-directory.schema.json",
+  "schemaVersion": 1,
+  "apps": [
+    {
+      "id": "charms", "name": "Charms",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: character search, insertion, favourites and recents are released; Intel and older macOS runtime coverage remains limited, and installation requires a Gatekeeper override.",
+      "summary": "Find and type symbols, punctuation and emoji from a Mac picker beside your text cursor.",
+      "description": "Open the picker with a configurable shortcut, search by name or Unicode value, then insert or copy a character. Favourites and recent characters stay on your Mac. Insertion needs Accessibility permission; without it, you can still search and copy. Requires macOS 14 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["Unicode", "symbols", "emoji", "keyboard"],
+      "screenshots": [{ "src": "assets/charms.png", "alt": "Charms searching for arrows beside demonstration text in TextEdit", "caption": "The released v0.1.0 picker." }],
+      "links": { "source": "https://github.com/L-K-M/Charms", "download": "https://github.com/L-K-M/Charms/releases/latest" }
+    },
+    {
+      "id": "device-control-doctor", "name": "DeviceControlDoctor",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: identity inspection, manual behavior tests and targeted permission resets are documented and released; permission-record queries depend on tccutil list, verified locally on macOS 27.2 rather than every supported system.",
+      "summary": "Investigate Mac apps whose Accessibility or Device Control permission looks enabled but does not work.",
+      "description": "Keep permission records, app signing identity and your own functional observations separate. Inspect selected apps, test them against a Test Pad, and explicitly confirm any restart or service-specific permission reset. Monitoring never repairs automatically. Requires macOS 14 or later; permission-record queries need a system that exposes tccutil list.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["Accessibility", "permissions", "diagnostics", "TCC"],
+      "screenshots": [{ "src": "assets/device-control-doctor.png", "alt": "DeviceControlDoctor diagnostic interface with isolated demonstration data", "caption": "A fixture-only view; no real permissions are queried or changed." }],
+      "links": { "source": "https://github.com/L-K-M/DeviceControlDoctor", "download": "https://github.com/L-K-M/DeviceControlDoctor/releases/latest" }
+    },
+    {
+      "id": "earnest", "name": "Earnest",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: self-hosted setup, web reading and native clients are documented, but this is an early project without verified production or device acceptance in this catalogue audit.",
+      "summary": "Read RSS feeds on your own server, with web, Mac and Android clients and separately governed agent access.",
+      "description": "A self-hosted RSS reader with OPML import, Google Reader compatibility, MCP, a command-line interface and an optional language-model pipeline. Agents have their own identities, reading positions, annotations, notification budgets and revert logs. Run the server with Docker Compose and configure HTTPS for access from other devices.",
+      "category": "Reading", "platforms": ["web", "macos", "android"], "tags": ["RSS", "self-hosted", "OPML", "MCP", "CLI"],
+      "screenshots": [{ "src": "assets/earnest.png", "alt": "Earnest reader showing an invented feed and sample articles", "caption": "Sample feeds and articles." }],
+      "links": { "source": "https://github.com/L-K-M/Earnest", "docs": "https://github.com/L-K-M/Earnest/blob/main/docs/README.md" }
+    },
+    {
+      "id": "glims", "name": "Glims",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: native image editing, saving and export are implemented, but source provenance and bundle qualification still block public distribution; nothing is released.",
+      "summary": "Edit images in a native Mac interface built on GIMP's image engine.",
+      "description": "Layers, masks, painting, selections, non-destructive filters and XCF documents meet compact tools and detachable palettes built with Rigi. Glims replaces GIMP's GTK interface and is not affiliated with the GIMP project. Building requires the separately bootstrapped engine and Xcode 26 or later. Requires macOS 13 or later.",
+      "category": "Creative tools", "platforms": ["macos"], "tags": ["image editor", "GIMP", "layers", "painting", "XCF"],
+      "screenshots": [{ "src": "assets/glims.png", "alt": "Glims Preferences panel with appearance, canvas surround, zoom and recovery-copy settings", "caption": "Preferences with factory defaults; not an image-editing session." }],
+      "links": { "source": "https://github.com/L-K-M/Glims", "docs": "https://github.com/L-K-M/Glims/blob/main/docs/plan.md" }
+    },
+    {
+      "id": "murten-utilities", "name": "Murten Utilities",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: all ten tools open from the released toolbox; ad-hoc builds omit privileged helpers, leaving helper-backed Startup Manager and System Monitor actions disabled.",
+      "summary": "Open ten focused Mac maintenance tools from one classic-looking toolbox.",
+      "description": "A Mac toolbox inspired by Norton Utilities for System 7 and Mac OS 8. An optional menu-bar companion suggests relevant tools and opens their panes. Detection stays separate from repair: nothing is cleaned, reset or removed without an explicit click. Requires macOS 26 or later.",
+      "category": "Utilities", "platforms": ["macos"], "tags": ["maintenance", "diagnostics", "cleanup", "toolbox"],
+      "screenshots": [{ "src": "assets/murten-utilities.png", "alt": "Murten Utilities home screen with its focused maintenance tools", "caption": "The toolbox home screen with inert services." }],
+      "links": { "source": "https://github.com/L-K-M/MurtenUtilities", "download": "https://github.com/L-K-M/MurtenUtilities/releases/latest" }
+    },
+    {
+      "id": "toolchord", "name": "Toolchord",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: the first implementation includes offline tool commands, previews and extensive fixtures; despite the README's download link, no public GitHub release exists at this audit.",
+      "summary": "Format JSON, decode tokens, convert timestamps and run small developer tools from a Mac shortcut palette.",
+      "description": "Paste input to get matching tools and a live preview, then copy the result back to your work. Includes JSON and XML formatting, encodings, JWT inspection, text transforms, hashes and ID generation. Runs offline in the App Sandbox without network access and reads the clipboard only when you paste. Requires macOS 14 or later.",
+      "category": "Developer tools", "platforms": ["macos"], "tags": ["JSON", "XML", "JWT", "encoding", "offline", "keyboard"],
+      "screenshots": [{ "src": "assets/toolchord.png", "alt": "Toolchord suggesting JSON tools and formatting a sample response with requestId, status, cache and items" }],
+      "links": { "source": "https://github.com/L-K-M/Toolchord", "docs": "https://github.com/L-K-M/Toolchord/blob/main/README.md" }
+    }
+  ]
+}

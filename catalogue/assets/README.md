@@ -3,8 +3,8 @@
 ## Mac screenshot privacy review
 
 Every screenshot used by a published Mac-app entry is recorded in
-[`docs/macos-screenshots.json`](../../docs/macos-screenshots.json), reviewed on
-2026-10-28. Each record describes the exact source, sample content and SHA-256 of
+[`docs/macos-screenshots.json`](../../docs/macos-screenshots.json), initially reviewed
+on 2026-10-28 and extended for the November additions on 2026-11-16. Each record describes the exact source, sample content and SHA-256 of
 its image. The catalogue test rejects a missing local image or a changed image
 whose pixels have not been reviewed and its hash updated. Hidden entries are
 outside the published-site review. Some cross-platform apps show their existing
@@ -27,6 +27,43 @@ ShrinkPub and Vervellum show generic public demonstration content; their origina
 fixture definitions or responses were not independently reproduced. Their exact
 visible content and those limits are recorded in the review. A hash ties that
 review to the pixels; it cannot detect personal data automatically.
+
+## November additions, 2026-11-16
+
+These six images have been visually reviewed and recorded with their exact hashes
+in `docs/macos-screenshots.json`. The two upstream snapshots are unchanged. Their
+source repositories release the images under the Unlicense. The new native and web
+captures use production views with inert fixtures or isolated factory defaults,
+not live accounts or user documents. Credits and source-license notices ship in
+`public/media-credits.txt`.
+
+| File | Source | Content / method |
+|---|---|---|
+| charms.png | `Charms@5f0cefd5e507f885411bd97ecbf73f18e7e6c270`, `docs/screenshots/picker-arrows.png` | Released v0.1.0 picker and staged TextEdit text; upstream provenance documents isolated `CHARMS_HOME` |
+| toolchord.png | `Toolchord@c5c10e62d94a4fa03178dc91d681361bbb82bdfd`, `docs/images/search-json.png` | JSON fixture matches `SnapshotRenderer.swift`'s `search-json` scenario; memory clipboard/preferences and fixed clock; opaque snapshot material |
+| earnest.png | `Earnest@d0ccb25d482777db395dc903306deb19180fee45` | Unchanged web client in headless Chromium; every API request is an in-memory fixture, all external origins and writes blocked; three example feeds, five invented articles, fixed UTC clock |
+| glims.png | `Glims@ab117c7039608647b7952ebf0a9c46e1edf58583` | Unchanged Preferences panel rendered offscreen with a fresh defaults suite; no image engine or documents; source GPL-3.0-or-later, Rigi chrome Unlicense |
+| device-control-doctor.png | `DeviceControlDoctor@a188f1ecbbd05e713ab1019b04d2c31546e49603` | Actual MainView, three invented watch-list apps and permission/test states; copied store init, persistence and process helpers neutralized; no system queries or repairs |
+| murten-utilities.png | `MurtenUtilities@43877fb43b2f876e710f5d1b17e62897fea130ba` | Actual HomeView at 1280x500, real registry descriptors, inert module providers and services; no AppModel.start or watchers; available tiles do not certify module functionality |
+
+Reproduce the Glims Preferences image on macOS with
+`python3 scripts/screenshots/capture-glims.py`. It downloads the two pinned public
+Preferences files and builds against pinned Rigi. It never runs the editor or its
+engine. The image and caption show Preferences, not proof of image-editing acceptance.
+
+Reproduce the two utility views with
+`python3 scripts/screenshots/capture-new-mac-utilities.py` on macOS with the
+26.5 SDK. The script downloads pinned public sources; its Swift fixtures render
+only the view contents, without the window toolbar or desktop. Both utilities
+release their source and artwork under the Unlicense. Murten's Rigi dependency
+is pinned at `dcfc91e3b72aee612b2b48aed4a744397b78dc77`.
+
+Reproduce Earnest with `python3 scripts/screenshots/capture-earnest.py`, requiring
+Node, pnpm, git and this catalogue's Playwright Chromium. The wrapper downloads
+pinned public source and builds its real client; `capture-earnest.mjs` fulfills
+all requests without starting even a local HTTP server. No backend, database,
+real session or feed is involved. The source and first-party brand artwork are
+released under the Unlicense.
 
 ## Native and refreshed captures, 2026-10-28
 

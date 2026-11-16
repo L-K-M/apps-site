@@ -6,7 +6,10 @@ covered all 78 public repositories and added Chess & Cocoa, Claude Replicant,
 Combray, Coreography, Foldover, Neutrodyne, RunningMan and Sweetbriar. RepoMen
 became public and was added on 2026-10-28, bringing the inventory to 79 repositories.
 HallPass was added on 2026-10-31, bringing the inventory to 80 repositories.
-The catalogue has 77 distinct apps: 72 from those repositories and the
+A full audit on 2026-11-16 covered all 87 public repositories and added Charms,
+DeviceControlDoctor, Earnest, Glims, Murten Utilities and Toolchord. Rigi is
+excluded as a reusable UI framework.
+The catalogue has 83 distinct apps: 78 from those repositories and the
 Bookfeed.io, Dwindle, Leaflit, Mirio and QRat standalone entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's
@@ -35,7 +38,11 @@ of those publication choices.
 Descriptions, platforms and media come from public READMEs and build metadata.
 Download links are supplied only for repositories with a verified public release.
 Several READMEs advertise a latest-release link even though no release exists;
-those entries have source links instead.
+those entries, including Toolchord, have source links instead. Earnest's v0.1.0
+release has no downloadable assets, so its entry links to source and setup docs.
+Charms, DeviceControlDoctor and Murten Utilities have verified public Mac downloads.
+Glims is explicitly unreleased; its screenshot shows only Preferences with factory
+defaults, not a verified image-editing session.
 
 The account audit also verified [Starling 3.1.3](https://github.com/L-K-M/FunKey-OS-Starling/releases/tag/Starling-3.1.3)
 through the GitHub Releases API. The standalone Séance 0.9.2 and
