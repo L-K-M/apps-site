@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "reviewed": "2026-11-16",
-  "scope": "Every screenshot referenced by a published central-catalogue app with the macos platform. Hidden entries are excluded. Some cross-platform apps show their existing Linux or Android interface, as documented in captions or provenance.",
+  "reviewed": "2026-11-21",
+  "scope": "Every screenshot referenced by a published central-catalogue app with the macos platform, plus provenance-only records for captures outside that scope (for example the Android-only Pageworn). Hidden entries are excluded. Some cross-platform apps show their existing Linux or Android interface, as documented in captions or provenance.",
   "reviewMethod": "Review visible pixels and source fixture/capture evidence. New captures use invented data or empty isolated defaults; retained game, generated-artwork and public-demo images are identified separately. Public-demo provenance is described without claiming a reproduced synthetic fixture. SHA-256 binds the review to these exact image bytes; it is not an automated personal-data detector.",
   "screenshots": {
     "assets/charms.png": {
@@ -315,6 +315,18 @@
       "source": "ZenBackupManager@14efe4434430e453b5a53e79434d2ea828ad70ba; scripts/screenshots/privacy/capture.py zen-backup-manager",
       "syntheticData": "Actual BackupDetail with in-memory BackupRecord/SessionPreview: five invented example-domain pages in Projects/Reading with fixed date, size and file label. No profile finder, personal browser history or session file is read.",
       "kind": "synthetic-capture"
+    },
+    "assets/pageworn.png": {
+      "sha256": "2ab27c761febe1d5ffff30de6a15f405ebe91b7e149f03278f1bdd3239fcfce5",
+      "source": "Pageworn@4027f0e1acb9fbc720a3f37fad64004a7bf80d9c docs/evidence/m1-v04-player-night-api37.png, unchanged; documented in docs/milestones/M1.md (V04 check).",
+      "syntheticData": "Reviewed unchanged upstream emulator capture: the debug build's DemoActivity seeds a demo profile, so the player shows the invented Boundary Book by Fixture Author in Chapter Three at 1.5x. No server, account, credential, real library or device data is involved; the release build contains no demo data. Pageworn is Android-only, so this record documents provenance rather than a Mac capture.",
+      "kind": "verified-upstream-fixture"
+    },
+    "assets/scadretto.png": {
+      "sha256": "8d6594a417f732962dbfc61d1fdf08810efd03cfa12bf5502cbced65a94140e3",
+      "source": "Scadretto@a08bb274759a1cc10b67545b339fae231b5134ea Tests/Fixtures/mounting-plate.scad, rendered unchanged with upstream OpenSCAD 2026.11-RC0 (official macOS universal binary) headless: --imgsize=1400,560 --camera=0,0,0,58,0,32,300 --autocenter --viewall --colorscheme=Tomorrow.",
+      "syntheticData": "Generated artwork, not an app capture: the plan's canonical acceptance fixture (a 120x40x6 plate with four through-holes) evaluated by the upstream engine, matching the plan's documented preflight geometry (bore centers 15, 35, 55, 75). No Scadretto application exists yet, so no app UI is shown; the caption says so. OpenSCAD itself is not distributed; its rendered output is not GPL-covered.",
+      "kind": "generated-artwork"
     }
   }
 }

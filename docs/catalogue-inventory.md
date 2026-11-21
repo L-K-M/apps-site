@@ -8,8 +8,10 @@ became public and was added on 2026-10-28, bringing the inventory to 79 reposito
 HallPass was added on 2026-10-31, bringing the inventory to 80 repositories.
 A full audit on 2026-11-16 covered all 87 public repositories and added Charms,
 DeviceControlDoctor, Earnest, Glims, Murten Utilities and Toolchord. Rigi is
-excluded as a reusable UI framework.
-The catalogue has 83 distinct apps: 78 from those repositories and the
+excluded as a reusable UI framework. A full audit on 2026-11-21 covered all 92
+public repositories and added Pageworn and Scadretto; Keycap, Livery and Updraft
+are excluded as shared libraries used by the L-K-M apps.
+The catalogue has 85 distinct apps: 80 from those repositories and the
 Bookfeed.io, Dwindle, Leaflit, Mirio and QRat standalone entries.
 
 [`public-repositories.json`](public-repositories.json) records every repository's
@@ -42,7 +44,11 @@ those entries, including Toolchord, have source links instead. Earnest's v0.1.0
 release has no downloadable assets, so its entry links to source and setup docs.
 Charms, DeviceControlDoctor and Murten Utilities have verified public Mac downloads.
 Glims is explicitly unreleased; its screenshot shows only Preferences with factory
-defaults, not a verified image-editing session.
+defaults, not a verified image-editing session. Pageworn and Scadretto have no
+public GitHub release, so their entries link to source and documentation; Pageworn's
+screenshot is its own M1 milestone evidence from an emulator with debug demo data,
+and Scadretto's shows the plan's mounting-plate fixture rendered with upstream
+OpenSCAD, not the planned editor.
 
 The account audit also verified [Starling 3.1.3](https://github.com/L-K-M/FunKey-OS-Starling/releases/tag/Starling-3.1.3)
 through the GitHub Releases API. The standalone Séance 0.9.2 and

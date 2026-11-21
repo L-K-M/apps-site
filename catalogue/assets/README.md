@@ -65,6 +65,18 @@ all requests without starting even a local HTTP server. No backend, database,
 real session or feed is involved. The source and first-party brand artwork are
 released under the Unlicense.
 
+## November additions, 2026-11-21
+
+These two images have been visually reviewed and recorded with their exact hashes
+in `docs/macos-screenshots.json`. Both source repositories release the content
+under the Unlicense. Credits and source-license notices ship in
+`public/media-credits.txt`.
+
+| File | Source | Content / method |
+|---|---|---|
+| pageworn.png | `Pageworn@4027f0e1acb9fbc720a3f37fad64004a7bf80d9c`, `docs/evidence/m1-v04-player-night-api37.png` | Unchanged M1 milestone evidence: the debug build's demo library on an API 37 emulator, night player at 1.5x; no server, account or real library |
+| scadretto.png | `Scadretto@a08bb274759a1cc10b67545b339fae231b5134ea`, `Tests/Fixtures/mounting-plate.scad` | Generated artwork: the plan's canonical fixture rendered unchanged with upstream OpenSCAD 2026.11-RC0 headless; no Scadretto app UI exists yet, and the caption says so |
+
 ## Native and refreshed captures, 2026-10-28
 
 | File | Source | Sample content / method |

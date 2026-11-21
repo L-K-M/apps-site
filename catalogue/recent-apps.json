@@ -67,6 +67,28 @@
       "category": "Developer tools", "platforms": ["macos"], "tags": ["JSON", "XML", "JWT", "encoding", "offline", "keyboard"],
       "screenshots": [{ "src": "assets/toolchord.png", "alt": "Toolchord suggesting JSON tools and formatting a sample response with requestId, status, cache and items" }],
       "links": { "source": "https://github.com/L-K-M/Toolchord", "docs": "https://github.com/L-K-M/Toolchord/blob/main/README.md" }
+    },
+    {
+      "id": "pageworn", "name": "Pageworn",
+      "status": "visible",
+      "maturity": "usable",
+      "maturityNote": "Estimated: no public GitHub release exists yet, so installing today means building from source; milestone reports through M6 document 196 JVM tests, instrumented runs on API 34 and 37 and a signed release build checked against Audiobookshelf v2.38.0 on an emulator. Physical-device acceptance remains an owner check.",
+      "summary": "Listen to audiobooks from your own Audiobookshelf server on Android.",
+      "description": "Browse the server's Library, download books to the Downloaded tab and listen with chapter navigation, a sleep timer, playback speed and per-book progress that survives restarts and removed downloads. Resumable downloads work over LAN or Tailscale addresses, and downloaded books play with the server disconnected. Debug builds seed a demo library; the release build contains no demo data. Requires Android 14 (API 34) or later.",
+      "category": "Reading", "platforms": ["android"], "tags": ["audiobooks", "Audiobookshelf", "self-hosted", "offline", "player"],
+      "screenshots": [{ "src": "assets/pageworn.png", "alt": "Pageworn player in night theme playing the demo Boundary Book by Fixture Author, Chapter Three at 1.5x speed, with the Pause action shown", "caption": "M1 milestone evidence: the player on an API 37 emulator with debug demo data and no server." }],
+      "links": { "source": "https://github.com/L-K-M/Pageworn", "docs": "https://github.com/L-K-M/Pageworn/blob/main/docs/README.md" }
+    },
+    {
+      "id": "scadretto", "name": "Scadretto",
+      "status": "visible",
+      "maturity": "experimental",
+      "maturityNote": "Estimated: the repository currently contains the implementation plan and test fixtures only; no application source or release exists yet, and the plan targets macOS 14 or later on Apple silicon.",
+      "summary": "A native Mac editor that links a visual CAD model to its handwritten OpenSCAD source.",
+      "description": "Click a feature in the 3D model to see the expression that controls it, edit the value and review the minimal diff in the original .scad file; editing the same expression with the keyboard updates the inspector and the model. Planned as a Swift and AppKit editor with a Metal viewport and an out-of-process pinned OpenSCAD engine, working offline. Requires macOS 14 or later on Apple silicon.",
+      "category": "Creative tools", "platforms": ["macos"], "tags": ["CAD", "OpenSCAD", "3D", "editor"],
+      "screenshots": [{ "src": "assets/scadretto.png", "alt": "The canonical mounting-plate fixture: a 120 by 40 unit plate with four through-holes", "caption": "The plan's mounting-plate fixture rendered with upstream OpenSCAD; the editor itself is still in planning." }],
+      "links": { "source": "https://github.com/L-K-M/Scadretto", "docs": "https://github.com/L-K-M/Scadretto/blob/main/plan/00-Start-Here.md" }
     }
   ]
 }
