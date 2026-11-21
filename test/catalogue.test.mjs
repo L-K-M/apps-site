@@ -8,8 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { collectApps, loadConfig } from '../src/catalogue.mjs';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
-const AUDITED_REPOSITORY_COUNT = 87;
-const CATALOGUE_APP_COUNT = 83;
+const AUDITED_REPOSITORY_COUNT = 92;
+const CATALOGUE_APP_COUNT = 85;
 const HAUNTWARE_APP_IDS = ['planchette', 'poltergeist', 'seance'];
 const HAUNTWARE_SOURCE = 'https://github.com/L-K-M/Hauntware';
 const HAUNTWARE_DOWNLOAD = `${HAUNTWARE_SOURCE}/releases/latest`;
@@ -79,6 +79,29 @@ test('the November additions publish evidenced platforms and verified download l
     assert.ok(app.screenshots.length, `${id}: missing screenshot`);
   }
   assert.equal(byId.has('rigi'), false);
+});
+
+test('the 2026-11-21 additions publish evidenced platforms and source links', async () => {
+  const config = await loadConfig(join(ROOT, 'site.json'));
+  const apps = await collectApps({ ...config, repositoryRoots: [] });
+  const byId = new Map(apps.map((app) => [app.id, app]));
+  const additions = [
+    ['pageworn', 'Pageworn', ['android']],
+    ['scadretto', 'Scadretto', ['macos']],
+  ];
+  for (const [id, repository, platforms] of additions) {
+    const app = byId.get(id);
+    assert.ok(app, `${id}: missing addition`);
+    assert.equal(app.status, 'visible');
+    assert.deepEqual(app.platforms, platforms);
+    assert.equal(app.links.source, `https://github.com/L-K-M/${repository}`);
+    // No public GitHub release exists for either repository at this audit.
+    assert.equal(app.links.download, undefined);
+    assert.ok(app.screenshots.length, `${id}: missing screenshot`);
+  }
+  for (const library of ['keycap', 'livery', 'updraft']) {
+    assert.equal(byId.has(library), false);
+  }
 });
 
 test('Hauntware is one manifest with three distinct searchable apps', async () => {

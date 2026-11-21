@@ -202,6 +202,25 @@ Source: https://leafl.it/assets/library.jpg
 Permission: Reused in this catalogue at the project owner's request.
 
 ------------------------------------------------------------------------
+November 2026 app screenshots (2026-11-21 additions)
+
+File: catalogue/assets/pageworn.png (unchanged upstream emulator evidence)
+Source: https://github.com/L-K-M/Pageworn/tree/4027f0e1acb9fbc720a3f37fad64004a7bf80d9c/docs/evidence/m1-v04-player-night-api37.png
+License: The Unlicense (the project, including its demo artwork and the
+Spectral typeface it bundles under the SIL OFL 1.1, which the app shows in
+its generated notices).
+The image shows the debug build's seeded demo library on an API 37 emulator;
+no server, account, credential or real library is involved.
+
+File: catalogue/assets/scadretto.png (fixture render by upstream OpenSCAD)
+Source: https://github.com/L-K-M/Scadretto/tree/a08bb274759a1cc10b67545b339fae231b5134ea/Tests/Fixtures/mounting-plate.scad
+License: The Unlicense (the fixture). Rendered with upstream OpenSCAD
+2026.11-RC0; OpenSCAD binaries are not distributed by this site and its
+rendered output is not covered by the GPL.
+The image is generated artwork of the plan's canonical fixture, not a capture
+of the planned editor, which does not exist yet.
+
+------------------------------------------------------------------------
 November 2026 app screenshots
 
 Files: catalogue/assets/charms.png (unchanged upstream screenshot)

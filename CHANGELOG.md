@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add Pageworn, an Android Audiobookshelf player, and Scadretto, a planned OpenSCAD CAD editor for Mac, with reviewed media. Audit all 92 public repositories; exclude Keycap, Livery and Updraft as shared libraries.
+
 - Add Charms, DeviceControlDoctor, Earnest, Glims, Murten Utilities and Toolchord with reviewed screenshots. Audit all 87 public repositories; exclude Rigi as a UI framework.
 
 - Add Bookfeed.io, an RSS feed of new books from your favorite authors.
